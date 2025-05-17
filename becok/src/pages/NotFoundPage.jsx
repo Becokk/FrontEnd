@@ -1,5 +1,3 @@
-import "./css/NotFoundPage.css"; // 별도 스타일 파일 import
-
 export default function NotFoundPage() {
   return (
     <div className="not-found-wrapper">
