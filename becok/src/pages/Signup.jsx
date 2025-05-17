@@ -2,17 +2,29 @@ import React from "react";
 import styled from "styled-components";
 import SignupLeftSection from "../components/SignupPage/SignupLeftSection";
 import SignupRightSection from "../components/SignupPage/SignupRightSection";
+import LogoImage from "../assets/becok.png";
 
 const Signup = () => {
   return (
-    <SignupContainer>
-      <SignupLeftSection />
-      <SignupRightSection />
-    </SignupContainer>
+    <>
+      <Logo src={LogoImage} alt="becok 로고" />
+      <SignupContainer>
+        <SignupLeftSection />
+        <SignupRightSection />
+      </SignupContainer>
+    </>
   );
 };
 
 export default Signup;
+
+const Logo = styled.img`
+  position: absolute;
+  top: 3vh;
+  left: 3vw;
+  width: 8vw;
+  min-width: 120px;
+`;
 
 const SignupContainer = styled.div`
   display: flex;
