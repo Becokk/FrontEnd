@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import Homepage from "./pages/Homepage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Signup from "./pages/Signup";
+import SignupSuccess from "./pages/SignupSuccess";
 import HomeLayout from "./layout/HomeLayout";
 import GlobalStyle from "./styles/GlobalStyle";
 
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/signup-success",
+    element: <SignupSuccess />,
   },
   {
     path: "/main",

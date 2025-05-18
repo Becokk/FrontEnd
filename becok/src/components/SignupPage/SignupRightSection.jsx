@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import EyeIcon from "../../assets/i.png";
 
 const SignupRightSection = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = React.useState("");
   const [isEmailValid, setIsEmailValid] = React.useState(true);
   const [password, setPassword] = React.useState("");
@@ -21,7 +23,13 @@ const SignupRightSection = () => {
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
-    setIsPasswordValid(value.trim().length > 0);
+    const hasLower = /[a-z]/.test(value);
+    const hasUpper = /[A-Z]/.test(value);
+    const hasNumber = /[0-9]/.test(value);
+    const isValidLength = value.length >= 8 && value.length <= 16;
+    const validTypeCount =
+      [hasLower, hasUpper, hasNumber].filter(Boolean).length >= 2;
+    setIsPasswordValid(isValidLength && validTypeCount);
   };
 
   return (
@@ -100,6 +108,7 @@ const SignupRightSection = () => {
             !isEmailValid ||
             !password ||
             !isPasswordValid ||
+            !passwordConfirm ||
             !isPasswordMatch
           }
           $enabled={
@@ -107,8 +116,10 @@ const SignupRightSection = () => {
             isEmailValid &&
             password &&
             isPasswordValid &&
+            passwordConfirm &&
             isPasswordMatch
           }
+          onClick={() => navigate("/signup-success")}
         >
           가입
         </SignupButton>
