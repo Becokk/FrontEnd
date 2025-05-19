@@ -10,6 +10,8 @@ import Signup from "./pages/Signup";
 import SignupSuccess from "./pages/SignupSuccess";
 import HomeLayout from "./layout/HomeLayout";
 import GlobalStyle from "./styles/GlobalStyle";
+import PlanPage from "./pages/PlanPage";
+import RememberPage from "./pages/RememberPage";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Homepage />,
+      },
+      {
+        path: "plan",
+        element: <PlanPage />,
+      },
+      {
+        path: "remember",
+        element: <RememberPage />,
       },
     ],
   },

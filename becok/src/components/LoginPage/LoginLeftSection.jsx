@@ -77,4 +77,19 @@ const Subtitle = styled.p`
   text-align: center;
   margin-top: 0.5rem;
   max-width: 90%;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s ease-out forwards;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+
+  @keyframes fadeSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 `;

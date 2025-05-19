@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import EyeIcon from "../../assets/i.png";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,17 @@ const LoginRightSection = () => {
     setEmail(value);
     const emailRegex = /^[a-zA-Z0-9._%+-]+$/;
     setIsEmailValid(emailRegex.test(value));
+    if (isChecked) {
+      localStorage.setItem("savedEmail", value);
+    }
   };
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("savedEmail");
+    if (savedEmail) {
+      setEmail(savedEmail);
+      setIsChecked(true);
+    }
+  }, []);
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
@@ -80,7 +90,15 @@ const LoginRightSection = () => {
             <CheckBox
               type="checkbox"
               checked={isChecked}
-              onChange={() => setIsChecked(!isChecked)}
+              onChange={() => {
+                const newChecked = !isChecked;
+                setIsChecked(newChecked);
+                if (newChecked) {
+                  localStorage.setItem("savedEmail", email);
+                } else {
+                  localStorage.removeItem("savedEmail");
+                }
+              }}
             />
             <SaveLoginText>아이디 저장</SaveLoginText>
           </SaveLoginLabel>
