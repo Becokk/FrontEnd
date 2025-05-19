@@ -160,7 +160,7 @@ const LogoutButton = styled.div`
 
 const Hr = styled.hr`
   width: 100%;
-  height: 1px;섭
+  height: 1px;
   background-color: #d6d6d6;
   border: none;
   margin-top: 0.25rem;
