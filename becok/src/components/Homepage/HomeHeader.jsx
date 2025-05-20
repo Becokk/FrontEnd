@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import SearchIconImage from "../../assets/magnifier.png";
-import DefaultMovieImage from "../../assets/moving.png";
-import MovingDetailImage from "../../assets/movingDetail.png";
 
 const HomeHeader = () => {
   const [inputText, setInputText] = useState("");
@@ -40,21 +38,29 @@ const HomeHeader = () => {
             maxLength={50}
           />
           <CharacterCount>{inputText.length}/50자</CharacterCount>
-          <img
-            src={inputText.length > 0 ? MovingDetailImage : DefaultMovieImage}
-            alt="go"
-            style={{
-              width: "2.5vw",
-              marginLeft: "1vw",
-              cursor: inputText.length > 0 ? "pointer" : "default",
-              opacity: inputText.length > 0 ? 1 : 0.5,
-            }}
+          <ArrowButton
+            disabled={inputText.length === 0}
             onClick={() => {
               if (inputText.length > 0) {
                 window.location.href = "main/detailed";
               }
             }}
-          />
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1.2vw"
+              height="1.2vw"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="1" y1="12" x2="21" y2="12" />
+              <polyline points="12 5 21 12 12 19" />
+            </svg>
+          </ArrowButton>
         </SearchInputWrapper>
         {inputText.length >= 50 && (
           <ErrorMessage>글자 수는 공백제외 최대 50자 입니다.</ErrorMessage>
@@ -139,4 +145,24 @@ const ErrorMessage = styled.div`
   font-size: 0.83vw;
   font-family: "Pretendard";
   font-weight: 400;
+`;
+
+const ArrowButton = styled.button`
+  width: 2.5vw;
+  height: 2.5vw;
+  margin-left: 1vw;
+  border-radius: 50%;
+  border: none;
+  background-color: ${({ disabled }) => (disabled ? "#e0e0e0" : "#2e65f3")};
+  color: ${({ disabled }) => (disabled ? "#a0a0a0" : "#ffffff")};
+  font-size: 1.5vw;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 `;

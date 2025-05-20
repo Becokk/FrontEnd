@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const DetailedInput = () => {
-  return (
-    <div>
-      세부입력
-    </div>
-  )
-}
+  return <div>세부입력</div>;
+};
 
-export default DetailedInput
+export default DetailedInput;
