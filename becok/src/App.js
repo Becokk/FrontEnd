@@ -12,6 +12,7 @@ import HomeLayout from "./layout/HomeLayout";
 import GlobalStyle from "./styles/GlobalStyle";
 import PlanPage from "./pages/PlanPage";
 import RememberPage from "./pages/RememberPage";
+import DetailedInput from "./pages/DetailedInput";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "remember",
         element: <RememberPage />,
+      },
+      {
+        path: "detailed",
+        element: <DetailedInput />,
       },
     ],
   },

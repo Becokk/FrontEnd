@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useState } from "react";
+import HomeHeader from "../components/Homepage/HomeHeader";
+import Dropdown from "../components/Homepage/Dropdown";
+import Card from "../components/Homepage/Card";
 
 const Homepage = () => {
+  const [selectedCategory, setSelectedCategory] = useState("비교과 프로그램");
+
   return (
     <div>
-      홈화면
+      <HomeHeader />
+      <Dropdown setCategory={setSelectedCategory} />
+      <Card category={selectedCategory} />
     </div>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;
