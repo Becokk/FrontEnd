@@ -18,8 +18,8 @@ const StyledIntroText = styled.p`
   line-height: 150%;
   letter-spacing: -2.5%;
   color: #626474;
-  margin-left: 11.73vw;
-  margin-top: 9.26vh;
+  padding-left: 11.73vw;
+  padding-top: 9.26vh;
 `;
 
 const StyledMainText = styled.p`
@@ -28,8 +28,8 @@ const StyledMainText = styled.p`
   line-height: 150%;
   letter-spacing: -2.5%;
   color: #363636;
-  margin-left: 11.73vw;
-  margin-bottom: 9vh;
+  padding-left: 11.73vw;
+  padding-bottom: 9vh;
 `;
 
 export default Step1;
@@ -37,7 +37,7 @@ export default Step1;
 const StyledImage = styled.img`
   width: 50vw;
   height: auto;
-  margin-left: 10vw;
+  margin-left: 11.73vw;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeSoftRise 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
