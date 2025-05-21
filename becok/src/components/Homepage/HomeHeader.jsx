@@ -83,7 +83,7 @@ const HeaderContainer = styled.div`
 
 const Title = styled(motion.h1)`
   font-weight: 500;
-  font-size: 2.92vw; /* 56px / 1920 */
+  font-size: 3.5rem; /* 56px / 1920 */
   line-height: 150%;
   letter-spacing: -2.5%;
   color: #060606;
@@ -111,14 +111,14 @@ const SearchInputWrapper = styled.div`
 
 const SearchInput = styled.input`
   flex: 1;
-  font-size: 0.9375vw; /* 18px / 1920 */
+  font-size: 1.2em; /* 18px / 1920 */
   border: none;
   background: none;
   color: #4f4f4f;
 
   &::placeholder {
     font-weight: 400;
-    font-size: 1vw; /* 24px / 1920 */
+    font-size: 1.2rem; /* 24px / 1920 */
     color: #b4b4b4;
     line-height: 150%;
     letter-spacing: 0;

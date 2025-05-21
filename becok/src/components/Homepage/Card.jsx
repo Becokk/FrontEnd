@@ -27,7 +27,7 @@ const CardContainer = styled.div`
 
 const SectionTitle = styled.h2`
   margin-left: 1.4vw;
-  font-size: 1.67vw; // 32px / 1920
+  font-size: 2rem; // 32px / 1920
   font-weight: 500;
   line-height: 130%;
   letter-spacing: -2.5%;
@@ -36,7 +36,7 @@ const SectionTitle = styled.h2`
 
 // 카드
 const CardImageContainer = styled.div`
-  margin-top: 1.85vh;
+  margin-top: 1vh;
   position: relative;
   width: 23.75vw; /* 456px / 1920 */
   height: 21.94vh; /* 237px / 1080 */

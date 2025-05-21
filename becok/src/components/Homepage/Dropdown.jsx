@@ -79,7 +79,7 @@ const ArrowImage = styled.img`
 
 const DropdownLabel = styled.span`
   font-weight: 500;
-  font-size: 1vw; /* 22px / 1920 */
+  font-size: 1.375rem; /* 22px / 1920 */
   line-height: 130%;
   letter-spacing: -2.5%;
   color: #5d626f;
