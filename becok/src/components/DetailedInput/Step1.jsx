@@ -2,7 +2,13 @@ import React from "react";
 import detailBecokImage from "../../assets/detailbecok.png";
 import styled from "styled-components";
 
-const Step1 = () => {
+const Step1 = ({ onValidityChange }) => {
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      onValidityChange(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [onValidityChange]);
   return (
     <div>
       <StyledIntroText>정밀한 분석으로 최선의 추천을 위해,</StyledIntroText>

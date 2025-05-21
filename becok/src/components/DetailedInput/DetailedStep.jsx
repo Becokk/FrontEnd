@@ -7,21 +7,28 @@ import Step4 from "./Step4";
 import Step5 from "./Step5";
 import Step6 from "./Step6";
 
-const DetailedStep = ({ step, totalSteps, onNext }) => {
+const DetailedStep = ({
+  step,
+  totalSteps,
+  onNext,
+  isNextEnabled,
+  onValidityChange,
+}) => {
   const renderStep = () => {
+    const props = { onNext, onValidityChange };
     switch (step) {
       case 1:
-        return <Step1 onNext={onNext} />;
+        return <Step1 {...props} />;
       case 2:
-        return <Step2 onNext={onNext} />;
+        return <Step2 {...props} />;
       case 3:
-        return <Step3 onNext={onNext} />;
+        return <Step3 {...props} />;
       case 4:
-        return <Step4 onNext={onNext} />;
+        return <Step4 {...props} />;
       case 5:
-        return <Step5 onNext={onNext} />;
+        return <Step5 {...props} />;
       case 6:
-        return <Step6 onNext={onNext} />;
+        return <Step6 {...props} />;
       default:
         return null;
     }
@@ -39,7 +46,7 @@ const DetailedStep = ({ step, totalSteps, onNext }) => {
       </PaginationWrapper>
 
       {/* Next Button */}
-      <NextButton onClick={onNext}>
+      <NextButton onClick={onNext} disabled={!isNextEnabled}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="30"
@@ -106,6 +113,7 @@ const NextButton = styled.button`
   height: 4vw;
   border-radius: 50%;
   background-color: #dfdfdf;
+  stroke: #666;
   border: none;
   cursor: pointer;
   display: flex;
@@ -113,13 +121,18 @@ const NextButton = styled.button`
   justify-content: center;
   font-size: 1.5vw;
   color: #666;
-  animation: ${fadeInBlue} 1s 1s forwards;
+  transition: all 0.3s ease;
 
-  svg path {
-    animation: ${fadeInIcon} 1s 1s forwards;
+  &:not(:disabled) {
+    animation: ${fadeInBlue} 1s forwards;
   }
 
-  & .arrow {
-    font-weight: bold;
+  &:not(:disabled) svg path {
+    animation: ${fadeInIcon} 1s forwards;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #dfdfdf;
   }
 `;
