@@ -98,7 +98,7 @@ const Menu = styled.div`
 
 const MenuItem = styled.div`
   font-family: "Pretendard";
-  font-size: 1.04vw; /* 20px / 1920 */
+  font-size: 1.25rem; /* 20px / 1920 */
   font-weight: 500;
   line-height: 120%;
   color: #90939f;
@@ -148,7 +148,7 @@ const LogoutButton = styled.div`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-size: 1.15vw; /* 22px / 1920 */
+  font-size: 1.25rem; /* 22px / 1920 */
   font-weight: 600;
   line-height: 140%;
   letter-spacing: -2.5%;
