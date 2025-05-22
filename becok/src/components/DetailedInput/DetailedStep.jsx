@@ -131,8 +131,8 @@ const NextButton = styled.button`
   right: 5%;
   bottom: 15%;
   width: ${(props) => (props.step === 6 ? "15.3vw" : "5.2vw")};
-  height: ${(props) => (props.step === 6 ? "5.2vw" : "5.2vw")};
-  border-radius: ${(props) => (props.step === 6 ? "5.2vw" : "50%")};
+  height: 5.2vw;
+  border-radius: 5.2vw;
   background-color: #dfdfdf;
   stroke: #666;
   border: none;
