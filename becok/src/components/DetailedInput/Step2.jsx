@@ -7,10 +7,12 @@ const Step2 = ({ onValidityChange }) => {
 
   React.useEffect(() => {
     const isValid = /^[1-4]$/.test(grade) && /^[1-2]$/.test(semester);
-    if (typeof onValidityChange === "function") {
-      onValidityChange(isValid);
-    }
-  }, [grade, semester, onValidityChange]);
+    setTimeout(() => {
+      if (typeof onValidityChange === "function") {
+        onValidityChange(isValid);
+      }
+    }, 0);
+  }, [grade, semester]);
 
   return (
     <>

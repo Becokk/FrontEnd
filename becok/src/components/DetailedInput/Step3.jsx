@@ -10,8 +10,10 @@ const Step3 = ({ onValidityChange }) => {
   };
 
   useEffect(() => {
-    onValidityChange && onValidityChange(point !== "");
-  }, [point, onValidityChange]);
+    if (typeof onValidityChange === "function") {
+      onValidityChange(point !== "");
+    }
+  }, [point]);
 
   return (
     <Container>
