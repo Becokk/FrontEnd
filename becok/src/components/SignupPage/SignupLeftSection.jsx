@@ -7,11 +7,13 @@ const SignupLeftSection = () => {
   return (
     <LeftSection>
       <GlobalStyle />
-      <Title>똑똑한 비교과 포인트 관리는, 비콕</Title>
-      <Subtitle>
-        비교과 프로그램 알림 뿐만 아니라, <br />
-        교내/외 프로그램까지 책임지는 든든한 친구가 되어 드릴게요.
-      </Subtitle>
+      <Grop1>
+        <Title>똑똑한 비교과 포인트 관리는, 비콕</Title>
+        <Subtitle>
+          비교과 프로그램 알림 뿐만 아니라, <br />
+          교내/외 프로그램까지 책임지는 든든한 친구가 되어 드릴게요.
+        </Subtitle>
+      </Grop1>
       <Character src={CharacterImage} alt="비콕 캐릭터" />
       <BottomLine src={BottomLineImage} alt="하단 구분선" />
     </LeftSection>
@@ -25,7 +27,6 @@ const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-left: 9.9vw;
 `;
 
 const Title = styled.h2`
@@ -38,9 +39,9 @@ const Title = styled.h2`
   white-space: nowrap;
   margin-top: 60px;
   width: 100%;
+
   opacity: 0;
   animation: fadeSlideUp 0.6s ease-out forwards;
-
   @media (max-width: 768px) {
     font-size: 6vw;
     white-space: normal;
@@ -56,20 +57,19 @@ const Subtitle = styled.p`
   color: #626474;
   vertical-align: middle;
   text-align: left;
-  margin-bottom: 10.28vh;
+  padding-bottom: 111px;
+
   opacity: 0;
   animation: fadeSlideUp 0.8s ease-out forwards;
   animation-delay: 0.2s;
-
   @media (max-width: 768px) {
     font-size: 4.5vw;
   }
 `;
 
 const Character = styled.img`
-  width: 22vw;
+  width: 23.18vw;
   align-self: center;
-  margin-top: auto;
   animation: float 3s ease-in-out infinite;
 
   @keyframes float {
@@ -102,4 +102,8 @@ const GlobalStyle = createGlobalStyle`
       transform: translateY(0);
     }
   }
+`;
+
+const Grop1 = styled.div`
+  padding-right: 146px;
 `;
