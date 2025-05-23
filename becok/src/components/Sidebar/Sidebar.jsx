@@ -87,8 +87,8 @@ const TopSection = styled.div`
 `;
 
 const Logo = styled.img`
-  width: clamp(120px, 6.46vw, 200px);
-  margin-bottom: 2.5rem;
+  width: 6.46vw;
+  padding-bottom: 2.78vh;
 `;
 
 const Menu = styled.div`
