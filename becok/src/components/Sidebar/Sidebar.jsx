@@ -4,7 +4,7 @@ import styled from "styled-components";
 import becokLogo from "../../assets/becok.png";
 import homeIcon from "../../assets/home.png";
 import planIcon from "../../assets/plan.png";
-import remindIcon from "../../assets/remember.png";
+import homestorageIcon from "../../assets/homestorage.png";
 import LogoutModal from "./LogoutModal";
 
 const Sidebar = () => {
@@ -17,7 +17,7 @@ const Sidebar = () => {
     const pathMap = {
       홈: "/main",
       플랜: "/main/plan",
-      리멤버: "/main/remember",
+      보관함: "/main/remember",
     };
     navigate(pathMap[menu]);
   };
@@ -45,12 +45,12 @@ const Sidebar = () => {
             </IconWrapper>
           </MenuItem>
           <MenuItem
-            className={activeMenu === "리멤버" ? "active" : ""}
-            onClick={() => handleMenuClick("리멤버")}
+            className={activeMenu === "보관함" ? "active" : ""}
+            onClick={() => handleMenuClick("보관함")}
           >
             <IconWrapper>
-              <MenuIcon src={remindIcon} alt="리멤버" />
-              리멤버
+              <MenuIcon src={homestorageIcon} alt="보관함" />
+              보관함
             </IconWrapper>
           </MenuItem>
         </Menu>
@@ -78,6 +78,7 @@ const SidebarContainer = styled.div`
   justify-content: space-between;
   background-color: #f1f1f4;
   padding: 2rem 1.5rem;
+  min-width: 240px;
 `;
 
 const TopSection = styled.div`
@@ -86,7 +87,7 @@ const TopSection = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 6.46vw;
+  width: clamp(120px, 6.46vw, 200px);
   margin-bottom: 2.5rem;
 `;
 
@@ -98,11 +99,11 @@ const Menu = styled.div`
 
 const MenuItem = styled.div`
   font-family: "Pretendard";
-  font-size: 1.25rem; /* 20px / 1920 */
+  font-size: clamp(1rem, 1.375rem, 1.6rem);
   font-weight: 500;
   line-height: 120%;
   color: #90939f;
-  padding: 0.75rem 1rem;
+  padding: clamp(0.5rem, 0.75rem, 1rem) clamp(0.75rem, 1rem, 1.25rem);
   border-radius: 0.75rem;
   cursor: pointer;
   display: flex;
@@ -114,6 +115,19 @@ const MenuItem = styled.div`
     background-color: #e5ebff;
     color: #2e65f3;
     font-weight: 600;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -1.5vw;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 2.76vw;
+      background-color: #2e65f3;
+      border-radius: 4px;
+    }
   }
 
   &:active {
@@ -122,9 +136,9 @@ const MenuItem = styled.div`
 `;
 
 const MenuIcon = styled.img`
-  width: 1.8vw; /* equivalent to 20px / 1920 */
-  margin-right: 0.52vw; /* equivalent to 10px / 1920 */
-  padding: 0.26vw 0.31vw; /* top/bottom: 5px, left/right: 6px / 1920 */
+  width: 2.2vw;
+  margin-right: clamp(8px, 0.52vw, 12px);
+  padding: clamp(4px, 0.26vw, 6px) clamp(5px, 0.31vw, 7px);
 `;
 
 const IconWrapper = styled.span`
@@ -147,20 +161,18 @@ const LogoutButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  font-size: 1.25rem; /* 22px / 1920 */
+  font-size: 1.375rem; /* 22px / 1920 */
   font-weight: 600;
   line-height: 140%;
   letter-spacing: -2.5%;
   color: #898eae;
   cursor: pointer;
-  padding: 0.25rem 0;
   text-align: center;
 `;
 
 const Hr = styled.hr`
   width: 100%;
-  height: 1px;
+  height: 2px;
   background-color: #d6d6d6;
   border: none;
   margin-top: 0.25rem;
