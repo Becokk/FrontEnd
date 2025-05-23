@@ -48,9 +48,9 @@ const SignupRightSection = () => {
             />
             <EmailSuffix>@hansung.ac.kr</EmailSuffix>
           </InputRow>
-          {!isEmailValid && (
-            <ErrorMessage>유효한 이메일 주소를 입력해주세요.</ErrorMessage>
-          )}
+          <ErrorMessage>
+            {!isEmailValid ? "유효한 이메일 주소를 입력해주세요." : ""}
+          </ErrorMessage>
         </FieldGroupWrapper>
       </IdInputBlock>
 
@@ -71,9 +71,9 @@ const SignupRightSection = () => {
               onClick={() => setShowPassword(!showPassword)}
             />
           </PasswordInputRow>
-          {!isPasswordValid && (
+          {/* {!isPasswordValid && (
             <ErrorMessage>비밀번호를 입력해주세요.</ErrorMessage>
-          )}
+          )} */}
         </FieldGroupWrapper>
         <FieldGroupWrapper style={{ marginTop: "1.8vh" }}>
           <PasswordInputRow>
@@ -145,7 +145,7 @@ const RightSectionContainer = styled.div`
 `;
 
 const SignupTitle = styled.h2`
-  font-size: 2.92vw; /* 56px / 1920 */
+  font-size: 3.5rem;
   font-weight: 500;
   line-height: 100%;
   letter-spacing: -0.025em;
@@ -157,7 +157,7 @@ const SignupTitle = styled.h2`
 
 const IdInputBlock = styled.div`
   width: 100%;
-  margin-bottom: 3.5vh;
+  margin-bottom: 1vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -165,7 +165,7 @@ const IdInputBlock = styled.div`
 
 const InputLabel = styled.label`
   font-family: "Pretendard", sans-serif;
-  font-size: 1rem;
+  font-size: 1.5rem;
   letter-spacing: 0%;
   display: block;
   color: #3f4149;
@@ -191,15 +191,14 @@ const InputField = styled.input`
   border: 0.078vw solid ${({ $isvalid }) => ($isvalid ? "#b4b4b4" : "red")};
   border-radius: 100px;
   padding-left: 1.25vw;
-  font-size: 0.83vw;
+  font-size: 1rem;
   color: #3f4149;
   background-color: ${({ $isvalid }) => ($isvalid ? "#f7f9ff" : "#fbeaec")};
   transition: all 0.2s ease;
 
   &::placeholder {
-    font-family: "Pretendard";
     font-weight: 400;
-    font-size: 0.83vw;
+    font-size: 1rem;
     color: #b4b4b4;
     line-height: 7.78vh; /* matches height of input for vertical centering */
   }
@@ -213,16 +212,16 @@ const InputField = styled.input`
 `;
 
 const ErrorMessage = styled.div`
-  margin-top: 0.5vh;
-  margin-left: 0.8vw;
+  padding-top: 1.48vh;
+  padding-left: 2vw;
   color: red;
-  font-size: 0.83vw;
-  font-family: "Pretendard";
+  font-size: 1.125rem;
+  min-height: 2em;
 `;
 
 const EmailSuffix = styled.span`
   font-weight: 400;
-  font-size: 1.46vw; /* 28px / 1920 */
+  font-size: 1.75rem;
   line-height: 130%;
   letter-spacing: -2.5%;
   vertical-align: middle;
@@ -295,13 +294,13 @@ const ToggleIcon = styled.img`
 
 const PasswordNotice = styled.div`
   font-family: "Pretendard";
-  font-size: 0.94vw; /* 18px / 1920 */
+  font-size: 1.125rem; /* 18px / 1920 */
   color: #6a6a6a;
   line-height: 150%;
   letter-spacing: -2.5%;
   vertical-align: middle;
-  margin-top: 1vh;
-  margin-left: 2vw;
+  padding-top: 1.48vh;
+  padding-left: 2vw;
 `;
 
 const SignupButton = styled.button`
@@ -309,12 +308,11 @@ const SignupButton = styled.button`
   height: 7.78vh;
   border-radius: 100px;
   background-color: ${({ $enabled }) => ($enabled ? "#2e65f3" : "#dfdfdf")};
-  color: ${({ $enabled }) => ($enabled ? "#ffffff" : "#b4b4b4")};
-  font-size: 1.875vw; /* 36px / 1920 */
-  font-family: "Pretendard";
+  color: ${({ $enabled }) => ($enabled ? "#F7F9FF" : "#b4b4b4")};
+  font-size: 2.25rem;
   font-weight: 500;
   border: none;
+  margin-top: 3.52vh;
   cursor: ${({ $enabled }) => ($enabled ? "pointer" : "not-allowed")};
-  margin-top: 3vh;
   transition: background-color 0.3s ease;
 `;
