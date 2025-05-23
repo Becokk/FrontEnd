@@ -56,9 +56,9 @@ const LoginRightSection = () => {
             />
             <EmailSuffix>@hansung.ac.kr</EmailSuffix>
           </InputRow>
-          {!isEmailValid && (
-            <ErrorMessage>유효한 이메일 주소를 입력해주세요.</ErrorMessage>
-          )}
+          <ErrorMessage>
+            {!isEmailValid ? "유효한 이메일 주소를 입력해주세요." : ""}
+          </ErrorMessage>
         </FieldGroupWrapper>
       </IdInputBlock>
 
@@ -79,9 +79,9 @@ const LoginRightSection = () => {
               onClick={() => setShowPassword(!showPassword)}
             />
           </PasswordInputRow>
-          {!isPasswordValid && (
-            <ErrorMessage>비밀번호를 입력해주세요.</ErrorMessage>
-          )}
+          <ErrorMessage>
+            {!isPasswordValid ? "비밀번호를 입력해주세요." : ""}
+          </ErrorMessage>
         </FieldGroupWrapper>
       </PasswordInputBlock>
       <LoginActionGroup>
@@ -106,7 +106,8 @@ const LoginRightSection = () => {
         <LoginButton disabled={!isFormValid}>로그인</LoginButton>
       </LoginActionGroup>
       <SignUpMessage>
-        아직 회원이 아니신가요? <SignUpLink onClick={goToSignup}>회원가입</SignUpLink>
+        아직 회원이 아니신가요?{" "}
+        <SignUpLink onClick={goToSignup}>회원가입</SignUpLink>
       </SignUpMessage>
     </RightSectionContainer>
   );
@@ -118,29 +119,30 @@ const RightSectionContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 41.042vw; /* 572px / 1920 */
-  height: 75.926vh;
-  // padding: 3.7vh 2.5vw; /* 40px / 1080 and 48px / 1920 */
+  height: 75.93vh;
   border-radius: 2.08vw; /* 40px / 1920 */
-  border: 0.104vw solid #cfcfcf; /* 2px / 1920 */
-  box-shadow: 0.52vw 0.52vw 1.04vw #eaeded; /* 10px 10px 20px / 1920 */
+  border: 0.104vw solid #cfcfcf;
+  box-shadow: 0.52vw 0.52vw 1.04vw #eaeded;
   box-sizing: border-box;
-  margin-top: 12.04vh; /* 130px / 1080 */
-  margin-bottom: 12.04vh;
   align-items: center;
+
+  margin-top: 12.04vh;
+  margin-bottom: 12.04vh;
 `;
 
 const LoginTitle = styled.h1`
+  font-family: "Pretendard", sans-serif;
   font-weight: 500;
-  font-size: 2.92vw; /* 56px / 1920 */
-  color: #3f4149;
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
   line-height: 100%;
   letter-spacing: -2.5%;
-  margin-top: 9.259vh; /* 100px / 1080 */
+  color: #363636;
+  padding-top: 9.26vh;
 `;
 
 const IdInputBlock = styled.div`
   width: 100%;
-  margin-bottom: 3.5vh;
+  // margin-bottom: 0.5vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -148,8 +150,7 @@ const IdInputBlock = styled.div`
 `;
 
 const InputLabel = styled.label`
-  font-family: "Pretendard", sans-serif;
-  font-size: 1rem;
+  font-size: clamp(1rem, 1.5vw, 1.375rem);
   letter-spacing: 0%;
   display: block;
   color: #3f4149;
@@ -181,6 +182,7 @@ const InputField = styled.input`
   transition: all 0.2s ease;
 
   &::placeholder {
+    font-size: 1rem;
     color: #b4b4b4;
   }
 
@@ -193,16 +195,17 @@ const InputField = styled.input`
 `;
 
 const ErrorMessage = styled.div`
+  min-height: 1.8vh; /* enough space for one line */
   margin-top: 0.5vh;
   margin-left: 0.8vw;
   color: red;
-  font-size: 0.83vw;
+  font-size: clamp(0.875rem, 1vw, 1rem);
   font-family: "Pretendard";
 `;
 
 const EmailSuffix = styled.span`
   font-weight: 400;
-  font-size: 1.46vw; /* 28px / 1920 */
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
   line-height: 130%;
   letter-spacing: -2.5%;
   vertical-align: middle;
@@ -251,6 +254,7 @@ const PasswordField = styled.input`
   background-color: ${({ $isvalid }) => ($isvalid ? "#f7f9ff" : "#fbeaec")};
 
   &::placeholder {
+    font-size: 1rem;
     color: #b4b4b4;
   }
 
@@ -281,7 +285,7 @@ const SaveLoginLabel = styled.label`
   display: flex;
   align-items: center;
   font-family: "Pretendard", sans-serif;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
   font-weight: 400;
   color: #3f4149;
   cursor: pointer;
@@ -301,6 +305,7 @@ const CheckBox = styled.input`
   justify-content: center;
   font-family: "Pretendard";
   margin-right: 0.3vw;
+  font-size: clamp(0.625rem, 1vw, 0.75rem);
 
   &:checked {
     background-color: #2e65f3;
@@ -317,6 +322,7 @@ const CheckBox = styled.input`
 
 const SaveLoginText = styled.span`
   font-weight: 500;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
 `;
 
 const LoginButton = styled.button`
@@ -324,9 +330,8 @@ const LoginButton = styled.button`
   width: 29.79vw;
   height: 7.78vh;
   border-radius: 100px;
-  font-size: 1.67vw;
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
   font-weight: 500;
-  font-family: "Pretendard";
   border: none;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   background-color: ${({ disabled }) => (disabled ? "#DFDFDF" : "#2E65F3")};
@@ -336,15 +341,15 @@ const LoginButton = styled.button`
 
 const LoginActionGroup = styled.div`
   width: 29.79vw;
-  margin-top: 5vh;
+  margin-top: 3vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 `;
 
 const SignUpMessage = styled.p`
-  margin-top: 6vh;
-  font-size: 1rem;
+  margin-top: 5.93vh;
+  font-size: clamp(1rem, 1.5vw, 1.375rem);
   font-family: "Pretendard";
   color: #777c89;
 `;
