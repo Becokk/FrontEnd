@@ -136,7 +136,7 @@ const MenuItem = styled.div`
 `;
 
 const MenuIcon = styled.img`
-  width: clamp(16px, 1.8vw, 24px);
+  width: 2.2vw;
   margin-right: clamp(8px, 0.52vw, 12px);
   padding: clamp(4px, 0.26vw, 6px) clamp(5px, 0.31vw, 7px);
 `;
@@ -161,20 +161,18 @@ const LogoutButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
   font-size: 1.375rem; /* 22px / 1920 */
   font-weight: 600;
   line-height: 140%;
   letter-spacing: -2.5%;
   color: #898eae;
   cursor: pointer;
-  padding: 0.25rem 0;
   text-align: center;
 `;
 
 const Hr = styled.hr`
   width: 100%;
-  height: 1px;
+  height: 2px;
   background-color: #d6d6d6;
   border: none;
   margin-top: 0.25rem;
