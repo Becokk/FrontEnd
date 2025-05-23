@@ -20,9 +20,10 @@ export default Signup;
 
 const Logo = styled.img`
   position: absolute;
-  top: 3vh;
-  left: 3vw;
-  width: 8vw;
+  top: 2.22vh;
+  left: 2.6vw;
+  width: 7.92vw;
+  height: auto;
 `;
 
 const SignupContainer = styled.div`

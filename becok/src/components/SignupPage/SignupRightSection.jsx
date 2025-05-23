@@ -212,11 +212,11 @@ const InputField = styled.input`
 `;
 
 const ErrorMessage = styled.div`
+  padding-top: 1.48vh;
+  padding-left: 2vw;
   color: red;
   font-size: 1.125rem;
   min-height: 2em;
-  padding-top: 1.48vh;
-  padding-left: 2vw;
 `;
 
 const EmailSuffix = styled.span`
