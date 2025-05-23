@@ -25,21 +25,18 @@ const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 30vw;
-  padding: 10vh 0 0 0vw;
+  padding-left: 9.9vw;
 `;
 
 const Title = styled.h2`
-  font-family: Pretendard;
   font-weight: 500;
-  font-size: 2.5vw;
+  font-size: 3rem;
   line-height: 150%;
   letter-spacing: -2.5%;
-  color: #626474;
+  color: #363636;
   text-align: left;
-  margin-top: 0;
-  margin-bottom: 1.5vh;
   white-space: nowrap;
+  margin-top: 60px;
   width: 100%;
   opacity: 0;
   animation: fadeSlideUp 0.6s ease-out forwards;
@@ -53,14 +50,13 @@ const Title = styled.h2`
 const Subtitle = styled.p`
   font-family: "Pretendard", sans-serif;
   font-weight: 500;
-  font-size: 1.15vw; /* approximately 22px / 1920 */
+  font-size: 1.375rem; /* approximately 22px / 1920 */
   line-height: 140%;
   letter-spacing: -2.5%;
   color: #626474;
   vertical-align: middle;
   text-align: left;
-  margin-top: 0;
-  margin-bottom: 3vh;
+  margin-bottom: 10.28vh;
   opacity: 0;
   animation: fadeSlideUp 0.8s ease-out forwards;
   animation-delay: 0.2s;
@@ -72,7 +68,6 @@ const Subtitle = styled.p`
 
 const Character = styled.img`
   width: 22vw;
-  max-width: 340px;
   align-self: center;
   margin-top: auto;
   animation: float 3s ease-in-out infinite;

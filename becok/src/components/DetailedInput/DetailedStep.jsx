@@ -90,13 +90,7 @@ const DetailedStep = ({
 
 export default DetailedStep;
 
-const StepContainer = styled.div`
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
-  //   height: 100%;
-  //   position: relative;
-`;
+const StepContainer = styled.div``;
 
 const PaginationWrapper = styled.div`
   position: absolute;
@@ -130,7 +124,7 @@ const NextButton = styled.button`
   position: absolute;
   right: 5%;
   bottom: 15%;
-  width: ${(props) => (props.step === 6 ? "15.3vw" : "5.2vw")};
+  width: ${(props) => (props.step === 6 ? "15vw" : "5.2vw")};
   height: 5.2vw;
   border-radius: 5.2vw;
   background-color: #dfdfdf;

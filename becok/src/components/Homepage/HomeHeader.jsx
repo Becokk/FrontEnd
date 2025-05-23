@@ -77,7 +77,7 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 22.22vh;
+  padding-top: 22.22vh; /* 240px / 1080 */
   width: 100%;
 `;
 

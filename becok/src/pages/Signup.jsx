@@ -23,14 +23,13 @@ const Logo = styled.img`
   top: 3vh;
   left: 3vw;
   width: 8vw;
-  min-width: 120px;
 `;
 
 const SignupContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 186px;
+  gap: 80px;
   width: 100%;
   height: 100%;
 `;

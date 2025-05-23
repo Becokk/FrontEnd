@@ -52,7 +52,7 @@ const Title = styled.h2`
   line-height: 150%;
   letter-spacing: -2.5%;
   text-align: center;
-  margin-top: 18vh;
+  margin-top: 14vh;
 `;
 
 const OptionContainer = styled.div`
