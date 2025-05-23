@@ -182,6 +182,7 @@ const InputField = styled.input`
   transition: all 0.2s ease;
 
   &::placeholder {
+    font-size: 1rem;
     color: #b4b4b4;
   }
 
@@ -253,6 +254,7 @@ const PasswordField = styled.input`
   background-color: ${({ $isvalid }) => ($isvalid ? "#f7f9ff" : "#fbeaec")};
 
   &::placeholder {
+    font-size: 1rem;
     color: #b4b4b4;
   }
 
@@ -330,7 +332,6 @@ const LoginButton = styled.button`
   border-radius: 100px;
   font-size: clamp(1.5rem, 2.5vw, 2.25rem);
   font-weight: 500;
-  font-family: "Pretendard";
   border: none;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   background-color: ${({ disabled }) => (disabled ? "#DFDFDF" : "#2E65F3")};
