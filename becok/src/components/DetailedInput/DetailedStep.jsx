@@ -5,7 +5,8 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
-import Step6 from "./Step6";
+import Step6Yes from "./Step6Yes";
+import Step6No from "./Step6No";
 
 const DetailedStep = ({
   step,
@@ -14,8 +15,17 @@ const DetailedStep = ({
   isNextEnabled,
   onValidityChange,
 }) => {
+  const [hasExperience, setHasExperience] = React.useState(null);
+
+  const handleNext = () => {
+    if (step === 5) {
+      setHasExperience(true);
+    }
+    onNext();
+  };
+
   const renderStep = () => {
-    const props = { onNext, onValidityChange };
+    const props = { onNext: handleNext, onValidityChange };
     switch (step) {
       case 1:
         return <Step1 {...props} />;
@@ -26,9 +36,22 @@ const DetailedStep = ({
       case 4:
         return <Step4 {...props} />;
       case 5:
-        return <Step5 {...props} />;
+        return (
+          <Step5
+            onNext={handleNext}
+            onNoHistory={() => {
+              setHasExperience(false);
+              onNext();
+            }}
+            onValidityChange={onValidityChange}
+          />
+        );
       case 6:
-        return <Step6 {...props} />;
+        return hasExperience ? (
+          <Step6Yes {...props} />
+        ) : (
+          <Step6No {...props} />
+        );
       default:
         return null;
     }
@@ -46,7 +69,7 @@ const DetailedStep = ({
       </PaginationWrapper>
 
       {/* Next Button */}
-      <NextButton onClick={onNext} disabled={!isNextEnabled} step={step}>
+      <NextButton onClick={handleNext} disabled={!isNextEnabled} step={step}>
         {step === 6 ? (
           <>
             <ResultText>결과보기</ResultText>
@@ -100,7 +123,9 @@ const PaginationWrapper = styled.div`
   gap: 8px;
 `;
 
-const PaginationDot = styled.span`
+const PaginationDot = styled.span.withConfig({
+  shouldForwardProp: (prop) => prop !== "active",
+})`
   width: ${(props) => (props.active ? "2.34vw" : "0.78vw")};
   height: 0.78vw;
   border-radius: 100px;

@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useCallback } from "react";
 import DetailedStep from "../components/DetailedInput/DetailedStep";
 
 const initialState = {
@@ -31,9 +31,9 @@ const DetailedInput = () => {
     dispatch({ type: "NEXT_STEP" });
   };
 
-  const setIsNextEnabled = (enabled) => {
+  const setIsNextEnabled = useCallback((enabled) => {
     dispatch({ type: "SET_NEXT_ENABLED", payload: enabled });
-  };
+  }, []);
 
   return (
     <DetailedStep

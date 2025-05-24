@@ -1,60 +1,103 @@
-import React from "react";
-import Step4Modal from "./Step4Modal";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import bang from "../../assets/bang.png";
 
-const Step4 = () => {
-  const [inputText, setInputText] = React.useState("");
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+const Step4 = ({ onValidityChange }) => {
+  const [selectedKeywords, setSelectedKeywords] = useState([]);
 
-  const handleInputChange = (e) => {
-    setInputText(e.target.value);
+  const toggleKeyword = (keyword) => {
+    setSelectedKeywords((prev) =>
+      prev.includes(keyword)
+        ? prev.filter((item) => item !== keyword)
+        : prev.length < 5
+          ? [...prev, keyword]
+          : prev
+    );
   };
 
-  const handleIconClick = () => {
-    setIsModalOpen(true);
-  };
+  useEffect(() => {
+    if (onValidityChange) {
+      onValidityChange(
+        selectedKeywords.length >= 2 && selectedKeywords.length <= 5
+      );
+    }
+  }, [selectedKeywords, onValidityChange]);
 
   return (
     <Container>
-      <TitleWrapper>
-        <TitleText>지금까지 참여한 비교과 프로그램을 알려주세요.</TitleText>
-        <BangIcon src={bang} alt="정보 아이콘" onClick={handleIconClick} />
-      </TitleWrapper>
-      <InputSection>
-        <SearchInputWrapper>
-          <SearchInput
-            value={inputText}
-            onChange={handleInputChange}
-            placeholder="비교과 프로그램을 모두 입력해주세요."
-          />
-          {/* <CharacterCount>{inputText.length}/50자</CharacterCount> */}
-          {/* <ArrowButton
-            disabled={inputText.length === 0}
-            onClick={() => {
-              if (inputText.length > 0) {
-                window.location.href = "main/detailed";
-              }
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1.2vw"
-              height="1.2vw"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="1" y1="12" x2="21" y2="12" />
-              <polyline points="12 5 21 12 12 19" />
-            </svg>
-          </ArrowButton> */}
-        </SearchInputWrapper>
-      </InputSection>
-      {isModalOpen && <Step4Modal onClose={() => setIsModalOpen(false)} />}
+      <TitleText>관심 분야를 선택해주세요.</TitleText>
+      <SubtitleText>
+        회원님이 평소 관심가는 분야 <span>2~5개</span>를 선택하세요.
+        <br />
+        선택하신 키워드는 언제든지 바꿀 수 있습니다.
+      </SubtitleText>
+      <KeywordGrid>
+        <KeywordRow>
+          {["마케팅", "자기개발", "자원봉사", "진로 로드맵"].map((keyword) => (
+            <KeywordWrapper key={keyword}>
+              <KeywordButton
+                selected={selectedKeywords.includes(keyword)}
+                onClick={() => toggleKeyword(keyword)}
+              >
+                <>
+                  {keyword}
+                  {selectedKeywords.includes(keyword) && (
+                    <OrderBadge>
+                      {selectedKeywords.indexOf(keyword) + 1}
+                    </OrderBadge>
+                  )}
+                </>
+              </KeywordButton>
+            </KeywordWrapper>
+          ))}
+        </KeywordRow>
+        <KeywordRow>
+          {["주식", "창업", "IT", "공모전", "자기이해", "디자인", "여행"].map(
+            (keyword) => (
+              <KeywordWrapper key={keyword}>
+                <KeywordButton
+                  selected={selectedKeywords.includes(keyword)}
+                  onClick={() => toggleKeyword(keyword)}
+                >
+                  <>
+                    {keyword}
+                    {selectedKeywords.includes(keyword) && (
+                      <OrderBadge>
+                        {selectedKeywords.indexOf(keyword) + 1}
+                      </OrderBadge>
+                    )}
+                  </>
+                </KeywordButton>
+              </KeywordWrapper>
+            )
+          )}
+        </KeywordRow>
+        <KeywordRow>
+          {[
+            "인문예술",
+            "상담",
+            "백앤드",
+            "스포츠",
+            "글쓰기",
+            "진로의사 결정",
+          ].map((keyword) => (
+            <KeywordWrapper key={keyword}>
+              <KeywordButton
+                selected={selectedKeywords.includes(keyword)}
+                onClick={() => toggleKeyword(keyword)}
+              >
+                <>
+                  {keyword}
+                  {selectedKeywords.includes(keyword) && (
+                    <OrderBadge>
+                      {selectedKeywords.indexOf(keyword) + 1}
+                    </OrderBadge>
+                  )}
+                </>
+              </KeywordButton>
+            </KeywordWrapper>
+          ))}
+        </KeywordRow>
+      </KeywordGrid>
     </Container>
   );
 };
@@ -65,18 +108,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 0 2vw;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.8vw;
-  margin-top: 19.07vh;
-  margin-bottom: 13.24vh;
+  margin-top: 13vh;
 `;
 
 const TitleText = styled.h2`
@@ -84,98 +116,78 @@ const TitleText = styled.h2`
   font-size: 2.5rem;
   line-height: 150%;
   letter-spacing: -2.5%;
-  color: #363636;
   text-align: center;
+  color: #363636;
+  margin-bottom: 1.11vh;
 `;
 
-const BangIcon = styled.img`
-  width: 2.51vw;
-  cursor: pointer;
+const SubtitleText = styled.p`
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 130%;
+  letter-spacing: -2.5%;
+  text-align: center;
+  color: #898eae;
+
+  span {
+    font-weight: 500;
+    color: #6a6f90;
+  }
 `;
 
-const InputSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-`;
-
-const SearchInputWrapper = styled.div`
-  width: 66.56vw;
-  height: 30.56vh;
-  background-color: #f1f1f4;
-  border-radius: 100px;
+const KeywordGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1vh 2vw;
-  overflow-y: auto;
+  justify-content: center;
+  gap: 1.25vw 1.39vw; // 수평, 수직 간격 조정
+  margin-top: 6.67vh;
+  width: 64.4vw;
+`;
+
+const KeywordRow = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 0.5vh;
+  gap: 1.25vw;
+`;
+
+const KeywordWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const KeywordButton = styled.button`
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: ${(props) => (props.selected ? "#2E65F3" : "#6a6f90")};
+  padding: 0.94vh 1.94vw;
+  border-radius: 100px;
+  border: ${(props) =>
+    props.selected ? "2px solid #2E65F3" : "1px solid #6a6f90"};
+  background-color: ${(props) =>
+    props.selected ? "rgba(0, 102, 254, 0.2)" : "transparent"};
+  cursor: pointer;
+  min-width: fit-content;
+  height: 7.69vh;
   box-sizing: border-box;
-  transition: max-height 0.2s ease;
+  transition: all 0.3s ease;
 `;
 
-const SearchInput = styled.textarea`
-  flex: 1;
-  font-size: 1.96rem;
-  border: none;
-  background: none;
-  color: #4f4f4f;
-  resize: none;
-  line-height: 150%;
-  overflow-wrap: break-word;
-  white-space: pre-wrap;
-  min-height: 80%;
-  width: 58.35vw;
-  padding-left: 4vw;
-
-  &::placeholder {
-    font-weight: 400;
-    font-size: 1.96rem;
-    color: #b4b4b4;
-    line-height: 150%;
-    letter-spacing: 0;
-  }
-
-  &:focus {
-    outline: none;
-  }
+const OrderBadge = styled.span`
+  position: absolute;
+  top: -0.8vh;
+  right: -0.8vw;
+  background-color: #ffffff;
+  color: #2e65f3;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 2px solid #2e65f3;
+  border-radius: 50%;
+  width: 1.8rem;
+  height: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1);
 `;
-
-// const CharacterCount = styled.span`
-//   font-size: 0.9vw;
-//   color: #b4b4b4;
-//   margin-left: 1vw;
-// `;
-
-// const ErrorMessage = styled.div`
-//   margin-top: 1vh;
-//   margin-left: 1vw;
-//   width: 51.25vw; /* match input box */
-//   text-align: left;
-//   padding-left: 1vw;
-//   color: #e64942;
-//   font-size: 0.83vw;
-//   font-family: "Pretendard";
-//   font-weight: 400;
-// `;
-
-// const ArrowButton = styled.button`
-//   width: 2.5vw;
-//   height: 2.5vw;
-//   margin-left: 1vw;
-//   border-radius: 50%;
-//   border: none;
-//   background-color: ${({ disabled }) => (disabled ? "#e0e0e0" : "#2e65f3")};
-//   color: ${({ disabled }) => (disabled ? "#a0a0a0" : "#ffffff")};
-//   font-size: 1.5vw;
-//   font-weight: bold;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
-//   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-//   transition:
-//     background-color 0.3s ease,
-//     color 0.3s ease;
-// `;

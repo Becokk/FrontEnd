@@ -60,7 +60,7 @@ const PointWrapper = styled.div`
 `;
 
 const NumberInput = styled.input`
-  width: 9.8vw;
+  width: 11vw;
   font-size: 6rem;
   font-weight: 400;
   color: #060606;
@@ -70,11 +70,8 @@ const NumberInput = styled.input`
   background: transparent;
 
   &::placeholder {
-    color: #b4b4b4;
-  }
-
-  &:placeholder-shown {
-    border-bottom: 2px solid #c4c4c4;
+    color: #b1b2ba;
+    text-decoration: underline;
   }
 `;
 

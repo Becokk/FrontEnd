@@ -3,11 +3,10 @@ import styled from "styled-components";
 
 const options = [
   "상대적으로 부족한 역량의 프로그램을 추천해주세요",
-  "비교과 프로그램 참여가 처음이에요",
   "주로 참여한 역량의 프로그램을 추천해주세요",
 ];
 
-const Step6 = ({ onValidityChange }) => {
+const Step6Yes = ({ onValidityChange }) => {
   const [selectedIdx, setSelectedIdx] = useState(null);
 
   useEffect(() => {
@@ -34,7 +33,7 @@ const Step6 = ({ onValidityChange }) => {
   );
 };
 
-export default Step6;
+export default Step6Yes;
 
 const Container = styled.div`
   display: flex;
@@ -59,11 +58,11 @@ const OptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.85vh;
-  margin-top: 8.33vh;
+  margin-top: 17.04vh;
 `;
 
 const OptionBox = styled.div`
-  width: 44.79vw;
+  width: 714px;
   height: 10.09vh;
   border-radius: 20px;
   border: 3px solid ${({ selected }) => (selected ? "#2E65F3" : "#dfdfdf")};
