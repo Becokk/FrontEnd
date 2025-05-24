@@ -10,9 +10,8 @@ const LoginLeftSection = () => {
         <Title>캠퍼스 라이프를 더 스마트하게</Title>
       </LogoTitleWrapper>
       <Subtitle>
-        비교과 포인트를 빠르고 스마트하게 모으고 싶으신가요?
-        <br />
-        비콕이 그 고민을 해결해 드릴게요!
+        비교과와 공모전을 한번에 잡고 싶으신가요?
+        <br />그 고민, 비콕이 해결해 드릴게요!
       </Subtitle>
     </LeftSection>
   );
@@ -65,7 +64,7 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 500;
   line-height: 140%;
   letter-spacing: -0.025em;
