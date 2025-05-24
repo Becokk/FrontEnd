@@ -1,103 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
+import bang from "../../assets/bang.png";
+import Step5Modal from "./Step5Modal";
 
-const Step5 = ({ onValidityChange }) => {
-  const [selectedKeywords, setSelectedKeywords] = useState([]);
+const Step5 = ({ onNoHistory, onValidityChange }) => {
+  const [inputText, setInputText] = React.useState("");
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
-  const toggleKeyword = (keyword) => {
-    setSelectedKeywords((prev) =>
-      prev.includes(keyword)
-        ? prev.filter((item) => item !== keyword)
-        : prev.length < 5
-          ? [...prev, keyword]
-          : prev
-    );
+  const textareaRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (onValidityChange) {
+      onValidityChange(inputText.trim().length > 0);
+    }
+  }, [inputText, onValidityChange]);
+
+  const autoResizeTextarea = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = `${Math.min(textarea.scrollHeight, 330)}px`;
+    }
   };
 
-  useEffect(() => {
-    if (onValidityChange) {
-      onValidityChange(
-        selectedKeywords.length >= 2 && selectedKeywords.length <= 5
-      );
-    }
-  }, [selectedKeywords, onValidityChange]);
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+    autoResizeTextarea();
+  };
+
+  const handleIconClick = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <Container>
-      <TitleText>관심 분야를 선택해주세요.</TitleText>
-      <SubtitleText>
-        회원님이 평소 관심가는 분야 <span>2~5개</span>를 선택하세요.
-        <br />
-        선택하신 키워드는 언제든지 바꿀 수 있습니다.
-      </SubtitleText>
-      <KeywordGrid>
-        <KeywordRow>
-          {["마케팅", "자기개발", "자원봉사", "진로 로드맵"].map((keyword) => (
-            <KeywordWrapper key={keyword}>
-              <KeywordButton
-                selected={selectedKeywords.includes(keyword)}
-                onClick={() => toggleKeyword(keyword)}
-              >
-                <>
-                  {keyword}
-                  {selectedKeywords.includes(keyword) && (
-                    <OrderBadge>
-                      {selectedKeywords.indexOf(keyword) + 1}
-                    </OrderBadge>
-                  )}
-                </>
-              </KeywordButton>
-            </KeywordWrapper>
-          ))}
-        </KeywordRow>
-        <KeywordRow>
-          {["주식", "창업", "IT", "공모전", "자기이해", "디자인", "여행"].map(
-            (keyword) => (
-              <KeywordWrapper key={keyword}>
-                <KeywordButton
-                  selected={selectedKeywords.includes(keyword)}
-                  onClick={() => toggleKeyword(keyword)}
-                >
-                  <>
-                    {keyword}
-                    {selectedKeywords.includes(keyword) && (
-                      <OrderBadge>
-                        {selectedKeywords.indexOf(keyword) + 1}
-                      </OrderBadge>
-                    )}
-                  </>
-                </KeywordButton>
-              </KeywordWrapper>
-            )
-          )}
-        </KeywordRow>
-        <KeywordRow>
-          {[
-            "인문예술",
-            "상담",
-            "백앤드",
-            "스포츠",
-            "글쓰기",
-            "진로의사 결정",
-          ].map((keyword) => (
-            <KeywordWrapper key={keyword}>
-              <KeywordButton
-                selected={selectedKeywords.includes(keyword)}
-                onClick={() => toggleKeyword(keyword)}
-              >
-                <>
-                  {keyword}
-                  {selectedKeywords.includes(keyword) && (
-                    <OrderBadge>
-                      {selectedKeywords.indexOf(keyword) + 1}
-                    </OrderBadge>
-                  )}
-                </>
-              </KeywordButton>
-            </KeywordWrapper>
-          ))}
-        </KeywordRow>
-      </KeywordGrid>
+      <TitleWrapper>
+        <TitleText>지금까지 참여한 비교과 프로그램을 알려주세요.</TitleText>
+        <BangIcon src={bang} alt="정보 아이콘" onClick={handleIconClick} />
+      </TitleWrapper>
+      <InputSection>
+        <SearchInputWrapper>
+          <SearchInput
+            ref={textareaRef}
+            value={inputText}
+            onChange={handleInputChange}
+            placeholder="비교과 프로그램을 입력해주세요."
+          />
+        </SearchInputWrapper>
+        <NoHistoryButton onClick={onNoHistory}>
+          참여한 이력이 없다면?
+        </NoHistoryButton>
+      </InputSection>
+      {isModalOpen && <Step5Modal onClose={() => setIsModalOpen(false)} />}
     </Container>
   );
 };
@@ -108,7 +62,18 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 13vh;
+  justify-content: center;
+  height: 100%;
+  padding: 0 2vw;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8vw;
+  margin-top: 19.07vh;
+  margin-bottom: 13.24vh;
 `;
 
 const TitleText = styled.h2`
@@ -116,78 +81,93 @@ const TitleText = styled.h2`
   font-size: 2.5rem;
   line-height: 150%;
   letter-spacing: -2.5%;
-  text-align: center;
   color: #363636;
-  margin-bottom: 1.11vh;
+  text-align: center;
 `;
 
-const SubtitleText = styled.p`
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 130%;
-  letter-spacing: -2.5%;
-  text-align: center;
-  color: #898eae;
+const BangIcon = styled.img`
+  width: 2.51vw;
+  cursor: pointer;
+`;
 
-  span {
-    font-weight: 500;
-    color: #6a6f90;
+const InputSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const SearchInputWrapper = styled.div`
+  width: 66.56vw;
+  background-color: #f1f1f4;
+  border-radius: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1vh 2vw;
+  overflow-y: auto;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
   }
 `;
 
-const KeywordGrid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.25vw 1.39vw; // 수평, 수직 간격 조정
-  margin-top: 6.67vh;
-  width: 64.4vw;
-`;
-
-const KeywordRow = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 0.5vh;
-  gap: 1.25vw;
-`;
-
-const KeywordWrapper = styled.div`
-  position: relative;
-  display: inline-block;
-`;
-
-const KeywordButton = styled.button`
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: ${(props) => (props.selected ? "#2E65F3" : "#6a6f90")};
-  padding: 0.94vh 1.94vw;
-  border-radius: 100px;
-  border: ${(props) =>
-    props.selected ? "2px solid #2E65F3" : "1px solid #6a6f90"};
-  background-color: ${(props) =>
-    props.selected ? "rgba(0, 102, 254, 0.2)" : "transparent"};
-  cursor: pointer;
-  min-width: fit-content;
-  height: 7.69vh;
+const SearchInput = styled.textarea`
+  flex: 1;
+  font-size: 2rem;
+  border: none;
+  background: none;
+  color: #363636;
+  resize: none;
+  line-height: 150%;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  height: auto;
+  overflow-y: auto;
+  min-height: 12.04vh;
+  max-height: 30.56vh;
+  display: block;
   box-sizing: border-box;
-  transition: all 0.3s ease;
+  padding: 0;
+  padding-top: 4vh;
+  padding-left: 1vw;
+
+  &::placeholder {
+    font-weight: 400;
+    font-size: 2rem;
+    color: #b4b4b4;
+    line-height: 150%;
+    letter-spacing: 0;
+  }
+
+  &:focus {
+    outline: none;
+  }
 `;
 
-const OrderBadge = styled.span`
-  position: absolute;
-  top: -0.8vh;
-  right: -0.8vw;
-  background-color: #ffffff;
+const NoHistoryButton = styled.button`
+  margin-top: 2.22vh;
+  font-family: "Inter";
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: -2.5%;
+  text-align: center;
   color: #2e65f3;
-  font-size: 0.8rem;
-  font-weight: 600;
-  border: 2px solid #2e65f3;
-  border-radius: 50%;
-  width: 1.8rem;
-  height: 1.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1);
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    color: #1e4ed8;
+  }
 `;

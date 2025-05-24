@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import cancelIcon from "../../assets/cancel.png";
 
-const Step4Modal = ({ onClose }) => {
+const Step5Modal = ({ onClose }) => {
   const handleOverlayClick = (e) => {
     // e.target이 ModalContent가 아닌 경우에만 onClose 호출
     if (e.target.id === "overlay") {
@@ -35,7 +35,7 @@ const Step4Modal = ({ onClose }) => {
   );
 };
 
-export default Step4Modal;
+export default Step5Modal;
 
 const Overlay = styled.div`
   position: fixed;

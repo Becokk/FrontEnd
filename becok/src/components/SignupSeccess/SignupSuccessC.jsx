@@ -62,12 +62,12 @@ const BackgroundGradient = styled.div`
   height: 100%;
   z-index: 1;
   background: linear-gradient(
-    135deg,
-    rgba(46, 101, 243, 1) 0%,
-    rgba(47, 69, 240, 0.88) 19%,
-    rgba(72, 72, 247, 0.8) 42%,
-    rgba(50, 91, 233, 0.89) 69%,
-    rgba(52, 146, 228, 1) 93%
+    166.25deg,
+    #2e65f3 -12.65%,
+    rgba(47, 69, 240, 0.879356) 10.09%,
+    rgba(72, 72, 247, 0.8) 35.92%,
+    rgba(50, 91, 233, 0.888907) 67.7%,
+    #3492e4 96.37%
   );
 `;
 
@@ -79,10 +79,11 @@ const BackgroundCircle = styled.div`
   height: 35vw;
   border-radius: 50%;
   background: linear-gradient(
-    135deg,
-    rgba(46, 101, 243, 0.1) 0%,
-    rgba(134, 239, 248, 0.5) 91%
+    174.47deg,
+    rgba(46, 101, 243, 0.07) -37.86%,
+    rgba(134, 239, 248, 0.35) 103.47%
   );
+
   filter: blur(100px);
   z-index: 1; // 변경
 `;
@@ -95,10 +96,11 @@ const TopRightCircle = styled.div`
   height: 47.5vw;
   border-radius: 50%;
   background: linear-gradient(
-    135deg,
-    rgba(240, 119, 228, 1) 3%,
-    rgba(46, 101, 243, 0.1) 100%
+    170.95deg,
+    rgba(240, 119, 228, 0.5) 15.95%,
+    rgba(46, 101, 243, 0.05) 93.13%
   );
+
   opacity: 0.5;
   filter: blur(100px);
   z-index: 1;
@@ -108,6 +110,7 @@ const ContentWrapper = styled.div`
   text-align: center;
   z-index: 2;
   animation: ${fadeSlideUp} 0.8s ease-out forwards;
+  margin-top: 10vh;
 `;
 
 const Logo = styled.img`
@@ -134,19 +137,19 @@ const WelcomeTitle = styled.h1`
 
 const WelcomeSubTitle = styled.p`
   font-weight: 400;
-  font-size: 2.25rem; /* 36px */
+  font-size: 2rem; /* 36px */
   line-height: 140%;
   letter-spacing: -2.5%;
   color: #f7f9ff;
   text-align: center;
   vertical-align: middle;
-  margin-bottom: 2.5rem;
+  padding-bottom: 20.74vh;
   animation: ${fadeSlideUp} 0.8s ease-out forwards;
   animation-delay: 0.3s;
   animation-fill-mode: both;
 
   @media (max-width: 768px) {
-    font-size: 4.5vw;
+    font-size: 4.5rem;
   }
 `;
 
@@ -154,7 +157,6 @@ const LoginButton = styled.button`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: "Pretendard";
   font-weight: 600;
   font-size: 1.25rem; /* 24px */
   line-height: 140%;
