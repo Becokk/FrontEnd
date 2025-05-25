@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import EyeIcon from "../../assets/i.png";
+import { useSignupMutation } from "../../hooks/mutation/SignupMutation";
 
 const SignupRightSection = () => {
   const navigate = useNavigate();
@@ -31,6 +32,8 @@ const SignupRightSection = () => {
       [hasLower, hasUpper, hasNumber].filter(Boolean).length >= 2;
     setIsPasswordValid(isValidLength && validTypeCount);
   };
+
+  const signupMutation = useSignupMutation();
 
   return (
     <RightSectionContainer>
@@ -119,7 +122,13 @@ const SignupRightSection = () => {
             passwordConfirm &&
             isPasswordMatch
           }
-          onClick={() => navigate("/signup-success")}
+          onClick={() =>
+            signupMutation.mutate({
+              email,
+              password,
+              passwordCheck: passwordConfirm,
+            })
+          }
         >
           가입
         </SignupButton>
