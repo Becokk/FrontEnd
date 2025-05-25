@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import EyeIcon from "../../assets/i.png";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../hooks/mutation/LoginMutation";
 
 const LoginRightSection = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -12,6 +13,7 @@ const LoginRightSection = () => {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   const navigate = useNavigate();
+  const loginMutation = useLoginMutation();
   const goToSignup = () => navigate("/signup");
 
   const handleEmailChange = (e) => {
@@ -103,7 +105,12 @@ const LoginRightSection = () => {
             <SaveLoginText>아이디 저장</SaveLoginText>
           </SaveLoginLabel>
         </SaveLoginBlock>
-        <LoginButton disabled={!isFormValid}>로그인</LoginButton>
+        <LoginButton
+          disabled={!isFormValid}
+          onClick={() => loginMutation.mutate({ email: email, password })}
+        >
+          로그인
+        </LoginButton>
       </LoginActionGroup>
       <SignUpMessage>
         아직 회원이 아니신가요?{" "}
