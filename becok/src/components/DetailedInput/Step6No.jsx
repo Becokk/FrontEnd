@@ -3,14 +3,18 @@ import styled from "styled-components";
 
 const options = ["비교과 프로그램 참여가  처음이에요"];
 
-const Step6No = ({ onValidityChange }) => {
+const Step6No = ({ onValidityChange, onChange }) => {
   const [selectedIdx, setSelectedIdx] = useState(null);
 
   useEffect(() => {
-    if (onValidityChange) {
-      onValidityChange(selectedIdx !== null);
+    const isValid = selectedIdx !== null;
+    if (typeof onValidityChange === "function") {
+      onValidityChange(isValid);
     }
-  }, [selectedIdx, onValidityChange]);
+    if (typeof onChange === "function" && isValid) {
+      onChange("FIRST");
+    }
+  }, [selectedIdx]);
 
   return (
     <Container>

@@ -6,14 +6,22 @@ const options = [
   "주로 참여한 역량의 프로그램을 추천해주세요",
 ];
 
-const Step6Yes = ({ onValidityChange }) => {
+const Step6Yes = ({ onValidityChange, onChange }) => {
   const [selectedIdx, setSelectedIdx] = useState(null);
 
-  useEffect(() => {
-    if (onValidityChange) {
-      onValidityChange(selectedIdx !== null);
+  const recommendTypes = ["LACKING", "EXPERIENCED"];
+
+useEffect(() => {
+  const isValid = selectedIdx !== null;
+  if (isValid) {
+    if (typeof onChange === "function") {
+      onChange(recommendTypes[selectedIdx]);
     }
-  }, [selectedIdx, onValidityChange]);
+  }
+  if (typeof onValidityChange === "function") {
+    onValidityChange(isValid);
+  }
+}, [selectedIdx]);
 
   return (
     <Container>

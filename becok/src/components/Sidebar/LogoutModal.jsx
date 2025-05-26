@@ -30,7 +30,14 @@ const LogoutModal = ({ onClose }) => {
         </ModalBody>
         <ButtonContainer>
           <CancelButton onClick={onClose}>돌아가기</CancelButton>
-          <ConfirmButton onClick={() => navigate("/")}>로그아웃</ConfirmButton>
+          <ConfirmButton
+            onClick={() => {
+              localStorage.removeItem("memberId");
+              navigate("/");
+            }}
+          >
+            로그아웃
+          </ConfirmButton>
         </ButtonContainer>
       </ModalContent>
     </ModalWrapper>

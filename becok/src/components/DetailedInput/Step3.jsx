@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const Step3 = ({ onValidityChange }) => {
+const Step3 = ({ onValidityChange, onChange }) => {
   const [point, setPoint] = useState("");
 
   const handleChange = (e) => {
@@ -12,6 +12,9 @@ const Step3 = ({ onValidityChange }) => {
   useEffect(() => {
     if (typeof onValidityChange === "function") {
       onValidityChange(point !== "");
+    }
+    if (typeof onChange === "function" && point !== "") {
+      onChange(Number(point));
     }
   }, [point]);
 
