@@ -8,15 +8,20 @@ export const useLoginMutation = () => {
   return useMutation({
     mutationFn: (loginData) => login(loginData),
     onSuccess: (res) => {
-      if (res.data.isSuccess) {
-        localStorage.setItem("userEmail", res.data.data.email);
+      console.log("로그인 응답:", res);
+
+      const response = res;
+      if (response.isSuccess) {
+        const { id, email } = response.data;
+        localStorage.setItem("memberId", id);
+        localStorage.setItem("email", email);
         navigate("/main");
       } else {
-        alert("로그인 실패: " + res.data.message);
+        console.error("로그인 실패:", response?.message || "알 수 없는 오류");
       }
     },
     onError: () => {
-      alert("회원가입 중 오류가 발생했습니다. 에러메시지를 확인해주세요!");
+      console.error("로그인 중 오류가 발생했습니다.");
     },
   });
 };

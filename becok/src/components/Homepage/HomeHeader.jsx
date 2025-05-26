@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import SearchIconImage from "../../assets/magnifier.png";
+import { useGoalMutation } from "../../hooks/mutation/GoalMutation";
 
 const HomeHeader = () => {
   const [inputText, setInputText] = useState("");
+  const addGoalMutation = useGoalMutation();
 
   const handleInputChange = (e) => {
     if (e.target.value.length <= 50) {
@@ -42,7 +44,22 @@ const HomeHeader = () => {
             disabled={inputText.length === 0}
             onClick={() => {
               if (inputText.length > 0) {
-                window.location.href = "main/detailed";
+                const memberId = localStorage.getItem("memberId");
+                if (memberId) {
+                  addGoalMutation.mutate(
+                    { memberId, goal: inputText },
+                    {
+                      onSuccess: () => {
+                        window.location.href = "main/detailed";
+                      },
+                      onError: () => {
+                        alert("목표 저장에 실패했습니다.");
+                      },
+                    }
+                  );
+                } else {
+                  alert("로그인이 필요합니다.");
+                }
               }
             }}
           >

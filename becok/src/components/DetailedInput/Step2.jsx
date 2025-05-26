@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Step2 = ({ onValidityChange }) => {
+const Step2 = ({ onValidityChange, onChange }) => {
   const [grade, setGrade] = React.useState("");
   const [semester, setSemester] = React.useState("");
 
@@ -10,6 +10,9 @@ const Step2 = ({ onValidityChange }) => {
     setTimeout(() => {
       if (typeof onValidityChange === "function") {
         onValidityChange(isValid);
+      }
+      if (isValid && typeof onChange === "function") {
+        onChange({ grade: Number(grade), semester: Number(semester) });
       }
     }, 0);
   }, [grade, semester]);

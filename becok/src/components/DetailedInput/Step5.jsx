@@ -3,17 +3,21 @@ import styled from "styled-components";
 import bang from "../../assets/bang.png";
 import Step5Modal from "./Step5Modal";
 
-const Step5 = ({ onNoHistory, onValidityChange }) => {
+const Step5 = ({ onNoHistory, onValidityChange, onChange }) => {
   const [inputText, setInputText] = React.useState("");
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const textareaRef = React.useRef(null);
 
   React.useEffect(() => {
-    if (onValidityChange) {
-      onValidityChange(inputText.trim().length > 0);
+    const isValid = inputText.trim().length > 0;
+    if (typeof onValidityChange === "function") {
+      onValidityChange(isValid);
     }
-  }, [inputText, onValidityChange]);
+    if (typeof onChange === "function" && isValid) {
+      onChange(inputText);
+    }
+  }, [inputText]);
 
   const autoResizeTextarea = () => {
     const textarea = textareaRef.current;
@@ -47,7 +51,15 @@ const Step5 = ({ onNoHistory, onValidityChange }) => {
             placeholder="비교과 프로그램을 입력해주세요."
           />
         </SearchInputWrapper>
-        <NoHistoryButton onClick={onNoHistory}>
+        <NoHistoryButton
+          onClick={() => {
+            setInputText("없음");
+            if (typeof onChange === "function") {
+              onChange("없음");
+            }
+            onNoHistory();
+          }}
+        >
           참여한 이력이 없다면?
         </NoHistoryButton>
       </InputSection>

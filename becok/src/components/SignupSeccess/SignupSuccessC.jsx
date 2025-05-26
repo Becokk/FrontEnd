@@ -109,7 +109,7 @@ const TopRightCircle = styled.div`
 const ContentWrapper = styled.div`
   text-align: center;
   z-index: 2;
-  animation: ${fadeSlideUp} 0.8s ease-out forwards;
+  animation: ${fadeSlideUp} 1.2s ease-out forwards;
   margin-top: 10vh;
 `;
 
@@ -127,7 +127,7 @@ const WelcomeTitle = styled.h1`
   vertical-align: middle;
   color: #f7f9ff;
   margin-bottom: 1.5rem;
-  animation: ${fadeSlideUp} 0.8s ease-out forwards;
+  animation: ${fadeSlideUp} 1.5s ease-out forwards;
 
   @media (max-width: 768px) {
     font-size: 6vw;
@@ -144,7 +144,7 @@ const WelcomeSubTitle = styled.p`
   text-align: center;
   vertical-align: middle;
   padding-bottom: 20.74vh;
-  animation: ${fadeSlideUp} 0.8s ease-out forwards;
+  animation: ${fadeSlideUp} 1.7s ease-out forwards;
   animation-delay: 0.3s;
   animation-fill-mode: both;
 
