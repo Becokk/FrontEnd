@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
@@ -36,7 +35,8 @@ const Step4 = ({ onValidityChange, onChange }) => {
   };
 
   useEffect(() => {
-    const isValid = selectedKeywords.length >= 2 && selectedKeywords.length <= 5;
+    const isValid =
+      selectedKeywords.length >= 2 && selectedKeywords.length <= 5;
     if (typeof onValidityChange === "function") {
       onValidityChange(isValid);
     }
@@ -133,7 +133,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 13vh;
+  margin-top: 19.07vh;
 `;
 
 const TitleText = styled.h2`

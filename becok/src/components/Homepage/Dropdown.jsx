@@ -47,8 +47,8 @@ const Dropdown = ({ setCategory }) => {
 export default Dropdown;
 
 const Container = styled.div`
-  margin-top: 20vh;
-  padding: 0 2vw;
+  margin-top: 25vh;
+  padding-left: 3.51vw;
 `;
 
 const CategoryFilter = styled.div`
@@ -79,9 +79,9 @@ const ArrowImage = styled.img`
 
 const DropdownLabel = styled.span`
   font-weight: 500;
-  font-size: 1.375rem; /* 22px / 1920 */
+  font-size: clamp(1rem, 1.375rem, 1.5rem);
   line-height: 130%;
-  letter-spacing: -2.5%;
+  letter-spacing: -0.025em; // % 대신 em 단위 사용
   color: #5d626f;
 `;
 
@@ -93,7 +93,9 @@ const DropdownMenu = styled.div`
   background-color: #f0f2f8;
   border-radius: 1.04vw;
   z-index: 10;
+  min-width: 150px; // 최소 너비 설정
   width: 9.9vw;
+  max-width: 250px; // 최대 너비 설정
   border: 1px solid #e1e7fb;
 `;
 

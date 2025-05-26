@@ -79,9 +79,10 @@ const HomeHeader = () => {
             </svg>
           </ArrowButton>
         </SearchInputWrapper>
-        {inputText.length >= 50 && (
-          <ErrorMessage>글자 수는 공백제외 최대 50자 입니다.</ErrorMessage>
-        )}
+        <ErrorMessage>
+          {(inputText.length >= 50 && "글자 수는 공백제외 최대 50자 입니다.") ||
+            ""}
+        </ErrorMessage>
       </InputSection>
     </HeaderContainer>
   );
@@ -94,7 +95,7 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 22.22vh; /* 240px / 1080 */
+  margin-top: 18vh; /* 240px / 1080 */
   width: 100%;
 `;
 
@@ -153,6 +154,7 @@ const CharacterCount = styled.span`
 `;
 
 const ErrorMessage = styled.div`
+  min-height: 1.9vh;
   margin-top: 1vh;
   margin-left: 1vw;
   width: 51.25vw; /* match input box */

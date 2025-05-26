@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import LogoImage from "../../assets/success.png";
@@ -16,30 +16,39 @@ const fadeSlideUp = keyframes`
 
 const SignupSuccessC = () => {
   const navigate = useNavigate();
+  const contentRef = useRef(null);
+
+  const handleClickOutside = (e) => {
+    if (contentRef.current && !contentRef.current.contains(e.target)) {
+      navigate("/"); // Replace with appropriate close modal logic
+    }
+  };
 
   return (
-    <Container>
-      <BackgroundGradient />
-      <BackgroundCircle />
-      <TopRightCircle />
-      <ContentWrapper>
-        <Logo src={LogoImage} alt="logo" />
-        <WelcomeTitle>환영합니다!</WelcomeTitle>
-        <WelcomeSubTitle>
-          앞으로 회원님과 함께하게 되어 정말 기뻐요.
-          <br />
-          이제부터 비콕과 함께 차곡차곡 비교과 포인트를 모아볼까요?
-        </WelcomeSubTitle>
-        <LoginButton onClick={() => navigate("/login")}>
-          로그인하러 가기{" "}
-          <img
-            src={require("../../assets/go.png")}
-            alt="arrow"
-            style={{ width: "1.25rem" }}
-          />
-        </LoginButton>
-      </ContentWrapper>
-    </Container>
+    <ModalBackground onClick={handleClickOutside}>
+      <Container>
+        <BackgroundGradient />
+        <BackgroundCircle />
+        <TopRightCircle />
+        <ContentWrapper ref={contentRef}>
+          <Logo src={LogoImage} alt="logo" />
+          <WelcomeTitle>환영합니다!</WelcomeTitle>
+          <WelcomeSubTitle>
+            앞으로 회원님과 함께하게 되어 정말 기뻐요.
+            <br />
+            이제부터 비콕과 함께 차곡차곡 비교과 포인트를 모아볼까요?
+          </WelcomeSubTitle>
+          <LoginButton onClick={() => navigate("/login")}>
+            로그인하러 가기{" "}
+            <img
+              src={require("../../assets/go.png")}
+              alt="arrow"
+              style={{ width: "1.25rem" }}
+            />
+          </LoginButton>
+        </ContentWrapper>
+      </Container>
+    </ModalBackground>
   );
 };
 
@@ -62,12 +71,18 @@ const BackgroundGradient = styled.div`
   height: 100%;
   z-index: 1;
   background: linear-gradient(
-    166.25deg,
-    #2e65f3 -12.65%,
-    rgba(47, 69, 240, 0.879356) 10.09%,
-    rgba(72, 72, 247, 0.8) 35.92%,
-    rgba(50, 91, 233, 0.888907) 67.7%,
-    #3492e4 96.37%
+    174.74deg,
+    #1f59ea -19.7%,
+    #2f45f0 -6.04%,
+    rgba(51, 51, 236, 0.928044) -1.39%,
+    rgba(52, 44, 235, 0.899322) 3.36%,
+    rgba(54, 36, 233, 0.866908) 12.99%,
+    rgba(73, 48, 242, 0.795999) 29.04%,
+    rgba(72, 52, 244, 0.787478) 41.41%,
+    rgba(57, 45, 238, 0.835037) 51.63%,
+    rgba(36, 36, 229, 0.905416) 63.64%,
+    rgba(30, 72, 214, 0.888907) 83.1%,
+    #3492e4 108.76%
   );
 `;
 
@@ -174,4 +189,13 @@ const LoginButton = styled.button`
   &:hover {
     opacity: 0.8;
   }
+`;
+
+const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
 `;
