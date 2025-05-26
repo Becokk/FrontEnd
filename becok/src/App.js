@@ -11,7 +11,7 @@ import SignupSuccess from "./pages/SignupSuccess";
 import HomeLayout from "./layout/HomeLayout";
 import GlobalStyle from "./styles/GlobalStyle";
 import PlanPage from "./pages/PlanPage";
-import RememberPage from "./pages/RememberPage";
+import StorageBoxPage from "./pages/StorageBoxPage";
 import DetailedInput from "./pages/DetailedInput";
 
 const router = createBrowserRouter([
@@ -45,8 +45,12 @@ const router = createBrowserRouter([
         element: <PlanPage />,
       },
       {
-        path: "remember",
-        element: <RememberPage />,
+        path: "storage",
+        element: <StorageBoxPage />,
+      },
+      {
+        path: "plan",
+        element: <PlanPage/>,
       },
       {
         path: "detailed",
