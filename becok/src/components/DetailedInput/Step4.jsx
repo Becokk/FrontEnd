@@ -1,7 +1,28 @@
+
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const Step4 = ({ onValidityChange }) => {
+const interestMap = {
+  마케팅: "MARKETING",
+  자기개발: "SELF_DEVELOPMENT",
+  자원봉사: "VOLUNTEERING",
+  "진로 로드맵": "CAREER_ROADMAP",
+  주식: "STOCK_INVESTING",
+  창업: "STARTUP",
+  IT: "IT",
+  공모전: "CONTEST",
+  자기이해: "SELF_UNDERSTANDING",
+  디자인: "DESIGN",
+  여행: "TRAVEL",
+  인문예술: "HUMANITIES_AND_ARTS",
+  상담: "COUNSELING",
+  백앤드: "BACKEND",
+  스포츠: "SPORTS",
+  글쓰기: "WRITING",
+  "진로의사 결정": "CAREER_DECISION",
+};
+
+const Step4 = ({ onValidityChange, onChange }) => {
   const [selectedKeywords, setSelectedKeywords] = useState([]);
 
   const toggleKeyword = (keyword) => {
@@ -15,12 +36,16 @@ const Step4 = ({ onValidityChange }) => {
   };
 
   useEffect(() => {
-    if (onValidityChange) {
-      onValidityChange(
-        selectedKeywords.length >= 2 && selectedKeywords.length <= 5
-      );
+    const isValid = selectedKeywords.length >= 2 && selectedKeywords.length <= 5;
+    if (typeof onValidityChange === "function") {
+      onValidityChange(isValid);
     }
-  }, [selectedKeywords, onValidityChange]);
+    if (typeof onChange === "function") {
+      onChange(selectedKeywords.map((k) => interestMap[k]));
+    }
+    // intentionally no dependencies on onChange or onValidityChange
+    // to prevent inconsistent dependency size warnings
+  }, [selectedKeywords]);
 
   return (
     <Container>

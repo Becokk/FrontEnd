@@ -8,14 +8,16 @@ export const useSignupMutation = () => {
   return useMutation({
     mutationFn: (signupData) => signup(signupData),
     onSuccess: (res) => {
-      if (res.data.isSuccess) {
+      if (res.isSuccess) {
         navigate("/signup-success");
       } else {
-        alert("회원가입 실패: " + res.data.message);
+        console.error("회원가입 실패: " + res.message);
       }
     },
     onError: () => {
-      alert("회원가입 중 오류가 발생했습니다. 에러메시지를 확인해주세요!");
+      console.error(
+        "회원가입 중 오류가 발생했습니다. 에러메시지를 확인해주세요!"
+      );
     },
   });
 };
