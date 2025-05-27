@@ -33,6 +33,7 @@ const LogoutModal = ({ onClose }) => {
           <ConfirmButton
             onClick={() => {
               localStorage.removeItem("memberId");
+              localStorage.removeItem("email");
               navigate("/");
             }}
           >
@@ -116,7 +117,9 @@ const CancelButton = styled.button`
   border-bottom: none;
   border-radius: 0 0 0 1.56vw;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 
   &:hover {
     background-color: rgba(46, 101, 243, 0.1);
@@ -134,7 +137,9 @@ const ConfirmButton = styled.button`
   border: none;
   border-radius: 0 0 1.56vw 0;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 
   &:hover {
     background-color: #1f4fc1;
