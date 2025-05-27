@@ -51,42 +51,42 @@ export default Storage;
 
 const Frame = styled.div`
     position: relative;
-    width: 1594px;
-    height: 1080px;
+    width: 100%;
+    height: 100vh;
     margin: 0 auto;
     background-color: white;
+    overflow-y: auto;
 `;
 
 const Title = styled.div`
-    position: absolute;
+    position: relative;
     margin-top: 110px;
     margin-left: 135px;
-    font-size: 64px;
+    font-size: min(64px, 3.33vw);
     font-weight: 500;
     font-family: "Pretendard-SemiBold", Helvetica;
     letter-spacing: -1.6px;
     line-height: 83.2px;
     color: #363636;
     white-space: nowrap;
-
 `;
 
 const TabWrapper = styled.div`
-    position: absolute;
-    margin-top: 244px;
+    position: relative;
+    margin-top: 51px;
     margin-left: 135px;
     display: flex;
-    width: 192px;
-    height: 48px;
+    width: min(192px, 10vw);
+    height: min(48px, 2.5vw);
 `;
 
 const Tab = styled.div`
-    width: 96px;
-    height: 48px;
+    width: min(96px, 5vw);
+    height: min(48px, 2.5vw);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    font-size: min(28px, 1.46vw);
     font-weight: ${props => props.active ? 600 : 500};
     color: ${props => props.active ? '#2E65F3' : '#b4b4b4'};
     font-family: "Pretendard-Medium", Helvetica;
@@ -113,9 +113,9 @@ const Tab = styled.div`
 `;
 
 const ContentArea = styled.div`
-    position: absolute;
-    top: 413px;
-    left: 162px;
-    width: 1270px;
-    height: 667px;
+    position: relative;
+    margin-top: 121px;
+    margin-left: 162px;
+    width: min(1270px, 66.15vw);
+    height: min(667px, 34.74vw);
 `;

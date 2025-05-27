@@ -135,7 +135,7 @@ const Mark = ({ id = 1 }) => {
 export default Mark;
 
 const TableWrapper = styled.div`
-    width: 1270px;
+    width: min(1270px, 66.15vw);
     border-radius: 20px;
 `;
 
@@ -148,10 +148,9 @@ const StyledTable = styled.table`
     td {
         border-bottom: 1px solid #e0e0e0;
         text-align: left;
-        padding: 50px 0 52px 0;
+        padding: min(50px, 2.6vw) 0 min(52px, 2.7vw) 0;
         color: #626474;
-        font-size: 20px;
-        
+        font-size: min(20px, 1.04vw);
     }
 
     th:first-child, td:first-child {
@@ -160,17 +159,17 @@ const StyledTable = styled.table`
     }
 
     th:nth-child(2), td:nth-child(2) {
-        padding-left: 89px;
+        padding-left: min(89px, 4.63vw);
         text-align: left;
     }
 
     th:nth-child(3), td:nth-child(3) {
-        padding-right: 86px;
+        padding-right: min(86px, 4.48vw);
         text-align: left;
     }
 
     th:nth-child(4), td:nth-child(4) {
-        padding-left: 50px;
+        padding-left: min(50px, 2.6vw);
         text-align: left;
     }
 
@@ -183,11 +182,12 @@ const StyledTable = styled.table`
     td:last-child {
         border: none;
     }
+
     th {
         font-weight: 600;
-        font-size: 24px;
+        font-size: min(24px, 1.25vw);
         border-bottom: 1px solid #626474;
-        padding-bottom: 22px;
+        padding-bottom: min(22px, 1.15vw);
         color: #B4B4B4
     }
 
@@ -221,8 +221,8 @@ const DeleteButton = styled.button`
     border: none;
     color: #000000;
     cursor: pointer;
-    font-size: 16px;
-    padding: 5px 10px;
+    font-size: min(16px, 0.83vw);
+    padding: min(5px, 0.26vw) min(10px, 0.52vw);
     
     &:hover {
         color: #000000;
