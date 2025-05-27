@@ -11,9 +11,11 @@ export const getPopularContests = async () => {
   }
 };
 
-export const getContestById = async (contestsId) => {
+export const getContestById = async (contestsId, memberId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/contests/${contestsId}`);
+    const response = await axios.get(`${BASE_URL}/api/contests/${contestsId}`, {
+      params: { memberId },
+    });
     return response.data;
   } catch (error) {
     throw error;
@@ -33,9 +35,11 @@ export const getPopularPrograms = async () => {
 
 
 
-export const getProgramById = async (programId) => {
+export const getProgramById = async (programId, memberId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/programs/${programId}`);
+    const response = await axios.get(`${BASE_URL}/api/programs/${programId}`, {
+      params: { memberId },
+    });
     return response.data;
   } catch (error) {
     throw error;

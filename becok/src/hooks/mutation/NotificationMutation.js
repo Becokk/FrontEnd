@@ -1,7 +1,7 @@
 import { postNotification } from "../../apis/notification";
 import { useMutation } from "@tanstack/react-query";
 
-export const useGetNotificationSettings = () => {
+export const usePostNotificationSettings = () => {
   return useMutation({
     mutationFn: ({ type, contentId }) => {
       const memberId = localStorage.getItem("memberId");

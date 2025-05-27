@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { usePostUserBookMark } from "../../hooks/mutation/BookMarkMutation";
-import { useGetNotificationSettings } from "../../hooks/mutation/NotificationMutation";
-import axios from "axios";
+import { usePostNotificationSettings } from "../../hooks/mutation/NotificationMutation";
 import shipIcon from "../../assets/ship.png";
 import handIcon from "../../assets/hand.png";
 import {
@@ -20,32 +19,23 @@ import {
   IconContainer,
   BookmarkIcon,
   BellIcon,
-} from "./ContestModal.style";
+} from "../../styles/CardModal/ContestModal.style";
+import { useContestDetails } from "../../hooks/queries/useContestDetails";
 
 const ContestsModal = ({ onClose, contestId }) => {
-  const [program, setProgram] = useState(null);
-
-  useEffect(() => {
-    const fetchContestDetail = async () => {
-      try {
-        const response = await axios.get(
-          `http://3.36.162.164:8080/api/contests/${contestId}`
-        );
-        setProgram(response.data.data);
-        setIsBookmarked(response.data.data.bookmarked);
-      } catch (error) {
-        console.error("공모전 상세 정보 호출 실패:", error);
-      }
-    };
-
-    fetchContestDetail();
-  }, [contestId]);
-
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const { program, isBookmarked, setIsBookmarked } =
+    useContestDetails(contestId);
+  const [isNotified, setIsNotified] = useState(false);
   const modalRef = useRef(null);
 
+  useEffect(() => {
+    if (program) {
+      setIsNotified(program.notification);
+    }
+  }, [program]);
+
   const { mutate: postBookmark } = usePostUserBookMark();
-  const { mutate: getNotificationSettings } = useGetNotificationSettings();
+  const { mutate: postNotification } = usePostNotificationSettings();
 
   const handleBackgroundClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
@@ -109,26 +99,25 @@ const ContestsModal = ({ onClose, contestId }) => {
         </ProgramInfoWrapper>
         <IconContainer>
           <BookmarkIcon
-            onClick={async () => {
-              try {
-                await postBookmark(
-                  { type: "contest", contentId: program.id },
-                  {
-                    onSuccess: (data) => {
-                      const newStatus = data.data.status;
-                      setIsBookmarked(newStatus === "on");
-                      console.log("Bookmark status:", newStatus);
-                    },
-                  }
-                );
-              } catch (error) {
-                console.error("Bookmark update failed:", error);
-              }
+            onClick={() => {
+              console.log("북마크 클릭됨");
+              postBookmark(
+                { type: "contest", contentId: program.id },
+                {
+                  onSuccess: (res) => {
+                    const newStatus = res.data?.status;
+                    setIsBookmarked(newStatus === "on");
+                  },
+                  onError: (err) => {
+                    console.error("북마크 처리 실패:", err);
+                  },
+                }
+              );
             }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="40"
+              width="50"
               height="50"
               fill={isBookmarked ? "#2D63EF" : "none"}
               stroke={isBookmarked ? "#2D63EF" : "#363636"}
@@ -140,22 +129,31 @@ const ContestsModal = ({ onClose, contestId }) => {
           </BookmarkIcon>
           <BellIcon
             onClick={() => {
-              const payload = {
-                type: "contest",
-                contentId: program.id,
-              };
-              console.log("알림 요청 payload:", payload);
-              getNotificationSettings(payload);
+              console.log("알림 버튼 클릭됨");
+              postNotification(
+                { type: "contest", contentId: program.id },
+                {
+                  onSuccess: (res) => {
+                    const newStatus = res.data?.status;
+                    setIsNotified(newStatus === "on");
+                  },
+                  onError: (err) => {
+                    console.error("알림 설정 실패:", err);
+                  },
+                }
+              );
             }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="40"
+              width="50"
               height="50"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
               viewBox="0 0 24 24"
+              fill={isNotified ? "#FFD700" : "none"}
+              stroke={isNotified ? "#FFD700" : "#363636"}
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9z" />
               <path d="M13.73 21a2 2 0 01-3.46 0" />

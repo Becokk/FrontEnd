@@ -33,14 +33,10 @@ const router = createBrowserRouter([
     element: <SignupSuccess />,
   },
   {
-    path: "/main",
+    path: "/",
     element: <HomeLayout />,
     errorElement: <NotFoundPage />,
     children: [
-      {
-        path: "",
-        element: <Homepage />,
-      },
       {
         path: "plan",
         element: <PlanPage />,
@@ -50,12 +46,19 @@ const router = createBrowserRouter([
         element: <StorageBoxPage />,
       },
       {
-        path: "plan",
-        element: <PlanPage/>,
-      },
-      {
         path: "detailed",
         element: <DetailedInput />,
+      },
+    ],
+  },
+  {
+    path: "/main",
+    element: <HomeLayout />,
+    errorElement: <NotFoundPage />,
+    children: [
+      {
+        path: "",
+        element: <Homepage />,
       },
     ],
   },

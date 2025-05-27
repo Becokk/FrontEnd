@@ -90,7 +90,11 @@ const LoginRightSection = () => {
             />
           </PasswordInputRow>
           <ErrorMessage>
-            {!isPasswordValid ? "비밀번호를 입력해주세요." : ""}
+            {!isPasswordValid
+              ? "비밀번호를 입력해주세요."
+              : loginMutation.error?.response?.code === "AUTH_401_1"
+              ? "아이디 또는 비밀번호가 잘못 입력되었습니다."
+              : ""}
           </ErrorMessage>
         </FieldGroupWrapper>
       </PasswordInputBlock>
