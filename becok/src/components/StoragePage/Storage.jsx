@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import StorageBecok from "../../assets/StorageBecok.png";
 import Mark from "../StoragePage/Mark";
 import Alarm from "../StoragePage/Alarm";
 
@@ -22,94 +21,101 @@ const Storage = () => {
     };
 
     return (
-        <StorageContain>
+        <Frame>
             <Title>보관함</Title>
 
-            <Category>
-                <Item 
-                    active={activeCategory === "알림"} 
+            <TabWrapper>
+                <Tab
+                    active={activeCategory === "알림"}
                     onClick={() => handleCategoryChange("알림")}
                 >
                     알림
-                </Item>
-                <Item 
-                    active={activeCategory === "찜"} 
+                </Tab>
+                <Tab
+                    active={activeCategory === "찜"}
                     onClick={() => handleCategoryChange("찜")}
                 >
                     찜
-                </Item>
-            </Category>
+                </Tab>
+            </TabWrapper>
 
-            {activeCategory === "알림" && <Alarm/>}
-            {activeCategory === "찜" && <Mark />}
-            <BecokImage src={StorageBecok} alt="리멤버 이미지"/>
-        </StorageContain>
+            <ContentArea>
+                {activeCategory === "알림" && <Alarm />}
+                {activeCategory === "찜" && <Mark />}
+            </ContentArea>
+        </Frame>
     );
 };
 
 export default Storage;
 
-const StorageContain = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+const Frame = styled.div`
     position: relative;
-    padding: 80px 0 0 150px;
-`
+    width: 1594px;
+    height: 1080px;
+    margin: 0 auto;
+    background-color: white;
+`;
 
 const Title = styled.div`
-    color: #363636;
-    font-family: "Pretendard-Medium", Helvetica;
+    position: absolute;
+    margin-top: 110px;
+    margin-left: 135px;
     font-size: 64px;
     font-weight: 500;
+    font-family: "Pretendard-SemiBold", Helvetica;
     letter-spacing: -1.6px;
     line-height: 83.2px;
+    color: #363636;
     white-space: nowrap;
-    margin-bottom: 24px;
-`
 
-const BecokImage = styled.img`
-    width: 124px;
-    height: 124px;
-    opacity: 0.5;
+`;
+
+const TabWrapper = styled.div`
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-`
-
-const Category = styled.div`
+    margin-top: 244px;
+    margin-left: 135px;
     display: flex;
-    gap: 32px;
-    margin-bottom: 40px;
-    padding-left: 25px;
-`
+    width: 192px;
+    height: 48px;
+`;
 
-const Item = styled.div`
-    color: ${props => props.active ? '#2E65F3' : '#898EAE'};
+const Tab = styled.div`
+    width: 96px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: ${props => props.active ? 600 : 500};
+    color: ${props => props.active ? '#2E65F3' : '#b4b4b4'};
     font-family: "Pretendard-Medium", Helvetica;
-    font-size: 24px;
-    font-weight: ${props => props.active ? '600' : '400'};
-    letter-spacing: -0.6px;
+    letter-spacing: -0.7px;
     line-height: 33.6px;
-    cursor: pointer;
     position: relative;
-    padding-bottom: 8px;
-    
+    cursor: pointer;
+
     &:hover {
         color: #2E65F3;
     }
 
     ${props => props.active && `
-        &:after {
+        &::after {
             content: '';
             position: absolute;
-            left: 0;
             bottom: 0;
+            left: 0;
             width: 100%;
             height: 2px;
             background-color: #2E65F3;
         }
     `}
-`
+`;
+
+const ContentArea = styled.div`
+    position: absolute;
+    top: 413px;
+    left: 162px;
+    width: 1270px;
+    height: 667px;
+`;

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 
 const RoadMap = () => {
     const [programs, setPrograms] = useState([]);
     const [currentMonth, setCurrentMonth] = useState(5);
     const [nextMonth, setNextMonth] = useState(6);
+    const memberId = 123; // 실제 로그인 사용자 ID로 교체 필요
 
     const assignRows = (programs) => {
         const sortedPrograms = [...programs].sort((a, b) => {
@@ -46,7 +48,7 @@ const RoadMap = () => {
         });
 
         const totalRows = rows.length;
-        const baseSpacing = totalRows <= 3 ? 120 : 80; 
+        const baseSpacing = totalRows <= 3 ? 120 : 80;
 
         return sortedPrograms.map(program => ({
             ...program,
@@ -55,122 +57,47 @@ const RoadMap = () => {
     };
 
     useEffect(() => {
-        const savedPrograms = JSON.parse(localStorage.getItem('savedPrograms') || '[]');
-        
-        const deletedPrograms = [
-            {
-                id: 6,
-                type: "공모전",
-                name: "제 20회 D2B 디자인 페어",
-                linkUrl: "https://example.com/program/6",
-                startDate: "2025.5.14",
-                endDate: "2025.6.8"
-            },
-            {
-                id: 5,
-                type: "비교과 프로그램",
-                name: "제9회 Global Culture Competition",
-                linkUrl: "https://example.com/program/5",
-                startDate: "2025.4.1",
-                endDate: "2025.06.19"
-            },
-            {
-                id: 4,
-                type: "비교과 프로그램",
-                name: "프로그램 명",
-                linkUrl: "https://example.com/program/4",
-                startDate: "모집예정",
-                endDate: ""
-            },
-            {
-                id: 3,
-                type: "공모전",
-                name: "프로그램 명",
-                linkUrl: "https://example.com/program/3",
-                startDate: "접수기간",
-                endDate: ""
-            },
-            {
-                id: 2,
-                type: "비교과 프로그램",
-                name: "프로그램 명",
-                linkUrl: "https://example.com/program/2",
-                startDate: "접수기간",
-                endDate: ""
-            },
-            {
-                id: 1,
-                type: "비교과 프로그램",
-                name: "프로그램 명",
-                linkUrl: "https://example.com/program/1",
-                startDate: "접수기간",
-                endDate: ""
-            }
-        ];
+        const fetchPrograms = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/api/recommend/roadmap/${memberId}`);
 
-        localStorage.setItem('savedPrograms', JSON.stringify([...savedPrograms, ...deletedPrograms]));
-
-        const mockResponse = {
-            isSuccess: true,
-            code: "SUCCESS_200",
-            httpStatus: 200,
-            message: "조회에 성공하였습니다.",
-            data: {
-                recommended_program: [
-                    {
-                        program_id: 1,
-                        name: "[미래역량] 2025년 자기소개서 작성법",
-                        startDate: `2025-${String(currentMonth).padStart(2, '0')}-05`,
-                        endDate: `2025-${String(currentMonth).padStart(2, '0')}-10`
-                    },
-                    {
-                        program_id: 2,
-                        name: "제 9회 Global Creative Competition",
-                        startDate: `2025-${String(currentMonth).padStart(2, '0')}-10`,
-                        endDate: `2025-${String(currentMonth).padStart(2, '0')}-15`
-                    },
-                    {
-                        program_id: 3,
-                        name: "3D 프린팅 기초교육",
-                        startDate: `2025-${String(currentMonth).padStart(2, '0')}-15`,
-                        endDate: `2025-${String(currentMonth).padStart(2, '0')}-20`
-                    },
-                    {
-                        program_id: 4,
-                        name: "창업과 지식재산권의 이해",
-                        startDate: `2025-${String(currentMonth).padStart(2, '0')}-15`,
-                        endDate: `2025-${String(currentMonth).padStart(2, '0')}-25`
-                    },
-                    {
-                        program_id: 5,
-                        name: "2025년 취업 역량 강화 프로그램",
-                        startDate: `2025-${String(currentMonth).padStart(2, '0')}-25`,
-                        endDate: `2025-${String(nextMonth).padStart(2, '0')}-05`
-                    },
-                    {
-                        program_id: 6,
-                        name: "글로벌 역량 강화 프로그램",
-                        startDate: `2025-${String(nextMonth).padStart(2, '0')}-05`,
-                        endDate: `2025-${String(nextMonth).padStart(2, '0')}-10`
-                    },
-                    {
-                        program_id: 7,
-                        name: "2025 커리어 개발 프로그램",
-                        startDate: `2025-${String(nextMonth).padStart(2, '0')}-10`,
-                        endDate: `2025-${String(nextMonth).padStart(2, '0')}-25`
-                    },
-                    {
-                        program_id: 8,
-                        name: "2025학년도 취업역량 마일리지 환급액 및 신청안내",
-                        startDate: `2025-${String(nextMonth).padStart(2, '0')}-01`,
-                        endDate: `2025-${String(nextMonth).padStart(2, '0')}-28`
+                // ✅ 실제 응답 예시는 아래와 같음:
+                /*
+                {
+                    isSuccess: true,
+                    code: "SUCCESS_200",
+                    httpStatus: 200,
+                    message: "조회에 성공하였습니다.",
+                    data: {
+                        recommended_program: [
+                            {
+                                program_id: 1,
+                                name: "비교과 프로그램 제목1",
+                                grade: "전체학년",
+                                startDate: "2025-05-15",
+                                endDate: "2025-05-26",
+                                point: 30,
+                                status: "ONGOING", // UPCOMING, CLOSED 등
+                                category: ["#기획", "#마케팅"],
+                                competencies: [50, 10, 10, 10, 10, 10]
+                            },
+                            ...
+                        ]
                     }
-                ]
+                }
+                */
+
+                const { recommended_program } = response.data.data;
+
+                const programsWithRows = assignRows(recommended_program);
+                setPrograms(programsWithRows);
+
+            } catch (error) {
+                console.error("로드맵 프로그램 조회 실패:", error);
             }
         };
 
-        const programsWithRows = assignRows(mockResponse.data.recommended_program);
-        setPrograms(programsWithRows);
+        fetchPrograms();
     }, [currentMonth, nextMonth]);
 
     const calculatePosition = (date) => {
@@ -224,6 +151,7 @@ const RoadMap = () => {
 };
 
 export default RoadMap;
+
 
 const RoadMapWrapper = styled.div`
     padding: 30px 0;
