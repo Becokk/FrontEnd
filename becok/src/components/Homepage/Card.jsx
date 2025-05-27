@@ -1,4 +1,6 @@
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
+import { useEffect, useRef, useState } from "react";
+import usePopularCards from "./usePopularCards";
 import {
   CardSection,
   CardContainer,
@@ -13,49 +15,8 @@ import {
   ScrollButtonContainer,
   ScrollButton,
 } from "../../styles/Card.style";
-import test1 from "../../assets/test1.png";
-import test2 from "../../assets/test2.png";
-import test3 from "../../assets/test3.jpg";
-import test4 from "../../assets/test4.jpg";
-import CardModalPopup from "../CardModal/CardModalPopup";
-
-const cardData = [
-  {
-    id: 1,
-    title: "[ZARA] 기업 및 채용 설명회",
-    date: "25.05.15 (목) 10:00 ~ 11:30 / 12:00~ 13:30",
-    status: "모집중",
-    image: test1,
-  },
-  {
-    id: 2,
-    title: "제9회 Global Culture Competition",
-    date: "25.04.14 (월) ~ 25.06.04 (수)",
-    status: "모집대기",
-    image: test2,
-  },
-  {
-    id: 3,
-    title: "[외재인증] 2025 저자와의 만남",
-    date: "25.05.25 (수) 14:00 ~ 16:00",
-    status: "모집중",
-    image: test3,
-  },
-  {
-    id: 4,
-    title: "2025 년 자기소개서 작성법 특강",
-    date: "25.05.19 (월) ~ 25.05.20 (화)",
-    status: "모집중",
-    image: test4,
-  },
-  {
-    id: 5,
-    title: "[STRONG] 취업 준비 프로그램",
-    date: "25.05.21 (화) 13:00 ~ 15:00",
-    status: "모집대기",
-    image: test1,
-  },
-];
+import ProgramsModal from "../CardModal/ProgramsModal";
+import ContestsModal from "../CardModal/ContestModal";
 
 const Card = ({ category }) => {
   const scrollRef = useRef(null);
@@ -63,6 +24,21 @@ const Card = ({ category }) => {
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const getStatusLabel = (status) => {
+    switch (status) {
+      case "UPCOMING":
+        return "모집 예정";
+      case "ONGOING":
+        return "모집 중";
+      case "CLOSED":
+        return "모집 종료";
+      default:
+        return "알 수 없음";
+    }
+  };
+
+  const cards = usePopularCards(category);
 
   const checkScroll = () => {
     if (scrollRef.current) {
@@ -105,8 +81,8 @@ const Card = ({ category }) => {
           : "인기 급상승 비교과 프로그램"}
       </SectionTitle>
       <CardContainer ref={scrollRef}>
-        {cardData.length > 0 &&
-          cardData.map((card) => (
+        {cards.length > 0 &&
+          cards.map((card) => (
             <CardImageContainer
               key={card.id}
               onClick={() => {
@@ -116,11 +92,24 @@ const Card = ({ category }) => {
               style={{ cursor: "pointer" }}
             >
               <StatusLabel $status={card.status}>
-                <LabelText>{card.status}</LabelText>
+                <LabelText>
+                  {category === "비교과 프로그램"
+                    ? getStatusLabel(card.status)
+                    : card.status}
+                </LabelText>
               </StatusLabel>
-              <CardTitle>{card.title}</CardTitle>
-              <CardDate>{card.date}</CardDate>
-              <CardImage src={card.image} alt={card.title} />
+              <CardTitle>
+                {category === "비교과 프로그램" ? card.title : card.name}
+              </CardTitle>
+              <CardDate>{`${card.startDate} ~ ${card.endDate}`}</CardDate>
+              <CardImage
+                src={
+                  category === "비교과 프로그램"
+                    ? card.thumbnailUrl
+                    : card.imgUrl
+                }
+                alt={category === "비교과 프로그램" ? card.title : card.name}
+              />
               <GradientOverlay />
             </CardImageContainer>
           ))}
@@ -167,11 +156,19 @@ const Card = ({ category }) => {
           </ScrollButton>
         </ScrollButtonContainer>
       )}
-      {isModalOpen && selectedCard && (
-        <CardModalPopup
-          program={selectedCard}
+      {isModalOpen && selectedCard && category === "비교과 프로그램" ? (
+        <ProgramsModal
+          programId={selectedCard.id}
           onClose={() => setIsModalOpen(false)}
         />
+      ) : (
+        isModalOpen &&
+        selectedCard && (
+          <ContestsModal
+            contestId={selectedCard.id}
+            onClose={() => setIsModalOpen(false)}
+          />
+        )
       )}
     </CardSection>
   );

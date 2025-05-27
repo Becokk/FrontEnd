@@ -42,8 +42,16 @@ const LoginRightSection = () => {
   const isFormValid =
     isEmailValid && isPasswordValid && email.length > 0 && password.length > 0;
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isFormValid) {
+      loginMutation.mutate({ email: email, password });
+    }
+  };
+
   return (
-    <RightSectionContainer>
+    <form onSubmit={handleSubmit}>
+      <RightSectionContainer>
       <LoginTitle>로그인</LoginTitle>
       <IdInputBlock>
         <FieldGroupWrapper>
@@ -107,7 +115,7 @@ const LoginRightSection = () => {
         </SaveLoginBlock>
         <LoginButton
           disabled={!isFormValid}
-          onClick={() => loginMutation.mutate({ email: email, password })}
+          type="submit"
         >
           로그인
         </LoginButton>
@@ -116,7 +124,8 @@ const LoginRightSection = () => {
         아직 회원이 아니신가요?{" "}
         <SignUpLink onClick={goToSignup}>회원가입</SignUpLink>
       </SignUpMessage>
-    </RightSectionContainer>
+      </RightSectionContainer>
+    </form>
   );
 };
 

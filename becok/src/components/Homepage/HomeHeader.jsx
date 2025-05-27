@@ -9,7 +9,7 @@ const HomeHeader = () => {
   const addGoalMutation = useGoalMutation();
 
   const handleInputChange = (e) => {
-    if (e.target.value.length <= 50) {
+    if (e.target.value.length <= 100) {
       setInputText(e.target.value);
     }
   };
@@ -37,9 +37,9 @@ const HomeHeader = () => {
             value={inputText}
             onChange={handleInputChange}
             placeholder="“마케팅 전문가가 되고싶어”, “토익 800점을 준비중이야”"
-            maxLength={50}
+            maxLength={100}
           />
-          <CharacterCount>{inputText.length}/50자</CharacterCount>
+          <CharacterCount>{inputText.length}/100자</CharacterCount>
           <ArrowButton
             disabled={inputText.length === 0}
             onClick={() => {
@@ -80,7 +80,7 @@ const HomeHeader = () => {
           </ArrowButton>
         </SearchInputWrapper>
         <ErrorMessage>
-          {(inputText.length >= 50 && "글자 수는 공백제외 최대 50자 입니다.") ||
+          {(inputText.length >= 100 && "글자 수는 공백제외 최대 100자 입니다.") ||
             ""}
         </ErrorMessage>
       </InputSection>

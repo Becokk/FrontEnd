@@ -52,7 +52,13 @@ const SignupRightSection = () => {
             <EmailSuffix>@hansung.ac.kr</EmailSuffix>
           </InputRow>
           <ErrorMessage>
-            {!isEmailValid ? "유효한 이메일 주소를 입력해주세요." : ""}
+            {!isEmailValid
+              ? "유효한 이메일 주소를 입력해주세요."
+              : signupMutation.isError &&
+                  signupMutation.error?.response?.data?.code === "MEMBER_400_1"
+                ? signupMutation.error?.response?.data?.message ||
+                  "이미 사용 중인 아이디입니다."
+                : ""}
           </ErrorMessage>
         </FieldGroupWrapper>
       </IdInputBlock>
