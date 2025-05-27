@@ -5,7 +5,6 @@ import EyeIcon from "../../assets/i.png";
 import { useSignupMutation } from "../../hooks/mutation/SignupMutation";
 
 const SignupRightSection = () => {
-  const navigate = useNavigate();
   const [email, setEmail] = React.useState("");
   const [isEmailValid, setIsEmailValid] = React.useState(true);
   const [password, setPassword] = React.useState("");
@@ -55,8 +54,8 @@ const SignupRightSection = () => {
             {!isEmailValid
               ? "유효한 이메일 주소를 입력해주세요."
               : signupMutation.isError &&
-                  signupMutation.error?.response?.data?.code === "MEMBER_400_1"
-                ? signupMutation.error?.response?.data?.message ||
+                  signupMutation.error?.response?.code === "MEMBER_400_1"
+                ? signupMutation.error?.response?.message ||
                   "이미 사용 중인 아이디입니다."
                 : ""}
           </ErrorMessage>
@@ -80,9 +79,6 @@ const SignupRightSection = () => {
               onClick={() => setShowPassword(!showPassword)}
             />
           </PasswordInputRow>
-          {/* {!isPasswordValid && (
-            <ErrorMessage>비밀번호를 입력해주세요.</ErrorMessage>
-          )} */}
         </FieldGroupWrapper>
         <FieldGroupWrapper style={{ marginTop: "1.8vh" }}>
           <PasswordInputRow>

@@ -16,8 +16,8 @@ const Sidebar = () => {
     setActiveMenu(menu);
     const pathMap = {
       홈: "/main",
-      플랜: "/main/plan",
-      보관함: "/main/storage",
+      플랜: "/plan",
+      보관함: "/storage",
     };
     navigate(pathMap[menu]);
   };
