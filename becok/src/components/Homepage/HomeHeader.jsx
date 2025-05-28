@@ -50,7 +50,7 @@ const HomeHeader = () => {
                     { memberId, goal: inputText },
                     {
                       onSuccess: () => {
-                        window.location.href = "main/detailed";
+                        window.location.href = "/detailed";
                       },
                       onError: () => {
                         alert("목표 저장에 실패했습니다.");
@@ -80,7 +80,8 @@ const HomeHeader = () => {
           </ArrowButton>
         </SearchInputWrapper>
         <ErrorMessage>
-          {(inputText.length >= 100 && "글자 수는 공백제외 최대 100자 입니다.") ||
+          {(inputText.length >= 100 &&
+            "글자 수는 공백제외 최대 100자 입니다.") ||
             ""}
         </ErrorMessage>
       </InputSection>

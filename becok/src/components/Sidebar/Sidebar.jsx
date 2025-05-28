@@ -120,13 +120,13 @@ const MenuItem = styled.div`
     &::before {
       content: "";
       position: absolute;
-      left: -1.5vw;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 4px;
-      height: 2.76vw;
+      left: -1.5rem;
+      top: 0;
+      width: 0.26vw;
+      height: 100%;
       background-color: #2e65f3;
-      border-radius: 4px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
     }
   }
 

@@ -52,82 +52,79 @@ const LoginRightSection = () => {
   return (
     <form onSubmit={handleSubmit}>
       <RightSectionContainer>
-      <LoginTitle>로그인</LoginTitle>
-      <IdInputBlock>
-        <FieldGroupWrapper>
-          <InputLabel>아이디</InputLabel>
-          <InputRow>
-            <InputField
-              type="text"
-              placeholder="아이디를 입력해주세요"
-              value={email}
-              onChange={handleEmailChange}
-              $isvalid={isEmailValid}
-            />
-            <EmailSuffix>@hansung.ac.kr</EmailSuffix>
-          </InputRow>
-          <ErrorMessage>
-            {!isEmailValid ? "유효한 이메일 주소를 입력해주세요." : ""}
-          </ErrorMessage>
-        </FieldGroupWrapper>
-      </IdInputBlock>
+        <LoginTitle>로그인</LoginTitle>
+        <IdInputBlock>
+          <FieldGroupWrapper>
+            <InputLabel>아이디</InputLabel>
+            <InputRow>
+              <InputField
+                type="text"
+                placeholder="아이디를 입력해주세요"
+                value={email}
+                onChange={handleEmailChange}
+                $isvalid={isEmailValid}
+              />
+              <EmailSuffix>@hansung.ac.kr</EmailSuffix>
+            </InputRow>
+            <ErrorMessage>
+              {!isEmailValid ? "유효한 이메일 주소를 입력해주세요." : ""}
+            </ErrorMessage>
+          </FieldGroupWrapper>
+        </IdInputBlock>
 
-      <PasswordInputBlock>
-        <FieldGroupWrapper>
-          <PasswordLabel>비밀번호</PasswordLabel>
-          <PasswordInputRow>
-            <PasswordField
-              type={showPassword ? "text" : "password"}
-              placeholder="8자 이상, 영문, 숫자 조합으로 입력해주세요."
-              value={password}
-              onChange={handlePasswordChange}
-              $isvalid={isPasswordValid}
-            />
-            <ToggleIcon
-              src={EyeIcon}
-              alt="비밀번호 보기"
-              onClick={() => setShowPassword(!showPassword)}
-            />
-          </PasswordInputRow>
-          <ErrorMessage>
-            {!isPasswordValid
-              ? "비밀번호를 입력해주세요."
-              : loginMutation.error?.response?.code === "AUTH_401_1"
-              ? "아이디 또는 비밀번호가 잘못 입력되었습니다."
-              : ""}
-          </ErrorMessage>
-        </FieldGroupWrapper>
-      </PasswordInputBlock>
-      <LoginActionGroup>
-        <SaveLoginBlock>
-          <SaveLoginLabel>
-            <CheckBox
-              type="checkbox"
-              checked={isChecked}
-              onChange={() => {
-                const newChecked = !isChecked;
-                setIsChecked(newChecked);
-                if (newChecked) {
-                  localStorage.setItem("savedEmail", email);
-                } else {
-                  localStorage.removeItem("savedEmail");
-                }
-              }}
-            />
-            <SaveLoginText>아이디 저장</SaveLoginText>
-          </SaveLoginLabel>
-        </SaveLoginBlock>
-        <LoginButton
-          disabled={!isFormValid}
-          type="submit"
-        >
-          로그인
-        </LoginButton>
-      </LoginActionGroup>
-      <SignUpMessage>
-        아직 회원이 아니신가요?{" "}
-        <SignUpLink onClick={goToSignup}>회원가입</SignUpLink>
-      </SignUpMessage>
+        <PasswordInputBlock>
+          <FieldGroupWrapper>
+            <PasswordLabel>비밀번호</PasswordLabel>
+            <PasswordInputRow>
+              <PasswordField
+                type={showPassword ? "text" : "password"}
+                placeholder="8자 이상, 영문, 숫자 조합으로 입력해주세요."
+                value={password}
+                onChange={handlePasswordChange}
+                $isvalid={isPasswordValid}
+              />
+              <ToggleIcon
+                src={EyeIcon}
+                alt="비밀번호 보기"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            </PasswordInputRow>
+            <ErrorMessage>
+              {!isPasswordValid
+                ? "비밀번호를 입력해주세요."
+                : loginMutation.error?.response?.code === "MEMBER_400_1"
+                  ? "아이디 또는 비밀번호가 잘못 입력되었습니다."
+                  : ""}
+            </ErrorMessage>
+          </FieldGroupWrapper>
+        </PasswordInputBlock>
+        <LoginActionGroup>
+          <SaveLoginBlock>
+            <SaveLoginLabel>
+              <CheckBox
+                type="checkbox"
+                checked={isChecked}
+                onChange={() => {
+                  const newChecked = !isChecked;
+                  setIsChecked(newChecked);
+                  if (newChecked) {
+                    localStorage.setItem("savedEmail", email);
+                  } else {
+                    localStorage.removeItem("savedEmail");
+                  }
+                }}
+              />
+              <SaveLoginText>아이디 저장</SaveLoginText>
+            </SaveLoginLabel>
+          </SaveLoginBlock>
+          <LoginButton disabled={!isFormValid} type="submit">
+            로그인
+          </LoginButton>
+        </LoginActionGroup>
+        <SignUpMessage>
+          아직 회원이 아니신가요?{" "}
+          <SignUpLink onClick={goToSignup}>회원가입</SignUpLink>
+        </SignUpMessage>
       </RightSectionContainer>
     </form>
   );
