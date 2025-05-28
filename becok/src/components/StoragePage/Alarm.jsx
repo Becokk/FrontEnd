@@ -42,9 +42,9 @@ const Alarm = ({ memberId }) => {
           </tr>
         </thead>
         <tbody>
-          {programs.map((item) => (
+          {[...programs].reverse().map((item, index) => (
             <tr key={item.id}>
-              <td>{item.id}</td>
+              <td>{programs.length - index}</td>
               <td>{item.type || "비교과 프로그램"}</td>
               <td>
                 <span

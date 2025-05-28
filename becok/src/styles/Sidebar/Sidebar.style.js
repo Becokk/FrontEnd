@@ -9,7 +9,7 @@ export const SidebarContainer = styled.div`
   justify-content: space-between;
   background-color: #f1f1f4;
   padding: 2rem 1.5rem;
-  min-width: 240px;
+  min-width: 16.98vw;
 `;
 
 export const TopSection = styled.div`
