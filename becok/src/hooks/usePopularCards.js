@@ -1,7 +1,5 @@
-
-
 import { useEffect, useState } from "react";
-import { getPopularContests, getPopularPrograms } from "../../apis/popular";
+import { getPopularContests, getPopularPrograms } from "../apis/popular";
 
 const usePopularCards = (category) => {
   const [cards, setCards] = useState([]);
