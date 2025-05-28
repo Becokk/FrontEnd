@@ -7,6 +7,7 @@ import {GetRecommendRoadMap} from '../../apis/roadmap';
 
 const getTagColor = (tag, isFiltered) => {
     if (!isFiltered) return '#2e65f3';
+    if (!isFiltered) return '#2e65f3';
     
     switch (tag) {
         case '창의융합 역량':
@@ -16,6 +17,7 @@ const getTagColor = (tag, isFiltered) => {
         case '글로벌 역량':
             return '#75D7DC99';
         default:
+            return '#f2f0f0';
             return '#f2f0f0';
     }
 };
@@ -114,7 +116,7 @@ const RoadMap = () => {
 
         return sortedPrograms.map(program => ({
             ...program,
-            verticalPosition: program.row * baseSpacing + 20
+            verticalPosition: program.row * baseSpacing + 40 // 상단 여백도 약간 증가
         }));
     };
 
@@ -223,11 +225,17 @@ const MonthUnderline = styled.div`
 const TimelineContainer = styled.div`
     position: relative;
     width: 100%;
-    min-height: 600px;
+    min-height: 800px;
     padding: 20px 40px;
     background: #F8F9FE;
     border-radius: 12px;
     box-sizing: border-box;
+    overflow: visible;
+
+    @media (max-width: 768px) {
+        padding: 16px;
+        min-height: 600px;
+    }
 `;
 
 const BaseDivider = styled.div`
@@ -236,6 +244,7 @@ const BaseDivider = styled.div`
     bottom: 0;
     width: 3px;
     z-index: 1;
+    height: 100%;
 `;
 
 const MonthDivider = styled(BaseDivider)`
@@ -288,4 +297,59 @@ const ProgramText = styled.div`
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    width: 100%;
+`;
+
+const DropdownWrapper = styled.div `
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+`;
+
+const Dropdown = styled.select `
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #f1f1f4;
+    color: #666;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+        background: #e8e8f0;
+    }
+`;
+const TitleSection = styled.div `
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px; // 우측 여백
+`;
+
+const FilterRow = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-right: 40px;
+`;
+
+const TagSelector = styled.div`
+    display: flex;
+    gap: 12px;
+`;
+
+const Tag = styled.div`
+    cursor: pointer;
+    font-size: 14px;
+    color: ${({ active }) => (active ? '#2E65F3' : '#666')};
+    font-weight: ${({ active }) => (active ? '700' : '400')};
+    border-bottom: ${({ active }) => (active ? '2px solid #2E65F3' : 'none')};
+    padding: 4px 8px;
+
+    &:hover {
+        color: #2E65F3;
+    }
 `;

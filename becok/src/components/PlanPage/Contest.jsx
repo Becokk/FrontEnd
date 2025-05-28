@@ -1,12 +1,15 @@
-import React from "react";
-import styled from "styled-components";
-import ContestItem from "./ContestItem";
+import React from 'react';
+import styled from 'styled-components';
+import ContestItem from './ContestItem';
 
 const Contest = () => {
-        const memberId = localStorage.getItem("memberId");
+    const memberId = localStorage.getItem("memberId");
+
     return (
         <ContentWrapper>
-            <ContestItem />
+            {Array.from({ length: 9 }).map((_, index) => (
+                <ContestItem key={index} />
+            ))}
         </ContentWrapper>
     );
 };
