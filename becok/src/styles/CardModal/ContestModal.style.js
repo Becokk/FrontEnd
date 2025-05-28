@@ -112,7 +112,6 @@ export const StatusButton = styled.button`
   width: ${(props) =>
     props.status === "UPCOMING" ? "10.5rem" : "9.125rem"}; /* 168px/146px */
   height: 5.74vh; /* 62px = 3.875rem */
-  padding: 0.875rem 1.125rem;
   background-color: ${(props) =>
     props.status === "UPCOMING" ? "#E5E8EF" : "#2e65f3"};
   border-radius: 0.5rem;
@@ -124,6 +123,9 @@ export const StatusButton = styled.button`
   gap: 0.5rem;
   flex-shrink: 0;
   align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ProgramInfoWrapper = styled.div`

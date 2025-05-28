@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import {
+  Container,
+  Title,
+  OptionContainer,
+  OptionBox,
+} from "../../styles/DetailedInput/Step6Yes.style";
 
 const options = [
   "상대적으로 부족한 역량의 프로그램을 추천해주세요",
@@ -11,17 +16,17 @@ const Step6Yes = ({ onValidityChange, onChange }) => {
 
   const recommendTypes = ["LACKING", "EXPERIENCED"];
 
-useEffect(() => {
-  const isValid = selectedIdx !== null;
-  if (isValid) {
-    if (typeof onChange === "function") {
-      onChange(recommendTypes[selectedIdx]);
+  useEffect(() => {
+    const isValid = selectedIdx !== null;
+    if (isValid) {
+      if (typeof onChange === "function") {
+        onChange(recommendTypes[selectedIdx]);
+      }
     }
-  }
-  if (typeof onValidityChange === "function") {
-    onValidityChange(isValid);
-  }
-}, [selectedIdx]);
+    if (typeof onValidityChange === "function") {
+      onValidityChange(isValid);
+    }
+  }, [selectedIdx]);
 
   return (
     <Container>
@@ -42,51 +47,3 @@ useEffect(() => {
 };
 
 export default Step6Yes;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-`;
-
-const Title = styled.h2`
-  font-weight: 600;
-  font-size: 2.5rem;
-  color: #363636;
-  line-height: 150%;
-  letter-spacing: -2.5%;
-  text-align: center;
-  margin-top: 14vh;
-`;
-
-const OptionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.85vh;
-  margin-top: 17.04vh;
-`;
-
-const OptionBox = styled.div`
-  width: 714px;
-  height: 10.09vh;
-  border-radius: 20px;
-  border: 3px solid ${({ selected }) => (selected ? "#2E65F3" : "#dfdfdf")};
-  background-color: ${({ selected }) =>
-    selected ? "rgba(46, 101, 243, 0.1)" : "transparent"};
-  box-shadow: ${({ selected }) =>
-    selected ? "0 4px 20px rgba(46, 101, 243, 0.25)" : "none"};
-  font-size: ${({ selected }) => (selected ? "1.75rem" : "1.5rem")};
-  font-weight: ${({ selected }) => (selected ? 500 : 400)};
-  line-height: 150%;
-  letter-spacing: -2.5%;
-  text-align: center;
-  color: ${({ selected }) => (selected ? "#2E65F3" : "#b1b2ba")};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
-`;

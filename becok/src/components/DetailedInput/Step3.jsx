@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import {
+  Container,
+  TitleText,
+  PointWrapper,
+  NumberInput,
+  LabelText,
+} from "../../styles/DetailedInput/Step3.style";
 
 const Step3 = ({ onValidityChange, onChange }) => {
   const [point, setPoint] = useState("");
@@ -36,53 +42,3 @@ const Step3 = ({ onValidityChange, onChange }) => {
 };
 
 export default Step3;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-`;
-
-const TitleText = styled.div`
-  font-weight: 500;
-  font-size: 2.5rem;
-  line-height: 150%;
-  letter-spacing: -2.5%;
-  color: #363636;
-  text-align: center;
-  margin-top: 15vh;
-  margin-bottom: 24.63vh;
-`;
-
-const PointWrapper = styled.div`
-  display: flex;
-  align-items: flex-end;
-  gap: 1.25vw;
-`;
-
-const NumberInput = styled.input`
-  width: 11vw;
-  font-size: 6rem;
-  font-weight: 400;
-  color: #060606;
-  text-align: right;
-  border: none;
-  outline: none;
-  background: transparent;
-
-  &::placeholder {
-    color: #b1b2ba;
-    text-decoration: underline;
-  }
-`;
-
-const LabelText = styled.span`
-  font-weight: 400;
-  font-size: 4rem;
-  line-height: 130%;
-  letter-spacing: -2.5%;
-  color: #626474;
-  align-self: flex-end;
-`;
