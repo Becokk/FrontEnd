@@ -4,6 +4,7 @@ import useMarkedPrograms from "../../hooks/useMarkedPrograms";
 
 import ContestModal from "../CardModal/ContestModal";
 import ProgramsModal from "../CardModal/ProgramsModal";
+import qImage from "../../assets/q.png";
 
 const Mark = ({ memberId }) => {
   const { programs, handleDelete } = useMarkedPrograms(memberId);
@@ -13,7 +14,11 @@ const Mark = ({ memberId }) => {
     return (
       <TableWrapper>
         <EmptyMessage>
-          <div style={{ fontSize: "3rem", marginBottom: "3.7vh" }}>ⓘ</div>
+          <img
+            src={qImage}
+            alt="info"
+            style={{ height: "3rem", marginBottom: "5.65vh" }}
+          />
           찜한 항목이 없습니다.
         </EmptyMessage>
       </TableWrapper>
@@ -199,4 +204,5 @@ const EmptyMessage = styled.div`
   color: #cecece;
   text-align: center;
   padding: 0 1rem;
+  vertical-align: middle;
 `;
