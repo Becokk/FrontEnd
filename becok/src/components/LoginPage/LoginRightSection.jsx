@@ -11,6 +11,7 @@ const LoginRightSection = () => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [password, setPassword] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [loginError, setLoginError] = useState(false);
 
   const navigate = useNavigate();
   const loginMutation = useLoginMutation();
@@ -44,8 +45,16 @@ const LoginRightSection = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoginError(false);
     if (isFormValid) {
-      loginMutation.mutate({ email: email, password });
+      loginMutation.mutate(
+        { email: email, password },
+        {
+          onError: () => {
+            setLoginError(true);
+          },
+        }
+      );
     }
   };
 
@@ -92,9 +101,9 @@ const LoginRightSection = () => {
             <ErrorMessage>
               {!isPasswordValid
                 ? "비밀번호를 입력해주세요."
-                : loginMutation.error?.response?.code === "MEMBER_400_1"
-                  ? "아이디 또는 비밀번호가 잘못 입력되었습니다."
-                  : ""}
+                : loginError
+                ? "아이디 또는 비밀번호가 잘못 입력되었습니다."
+                : ""}
             </ErrorMessage>
           </FieldGroupWrapper>
         </PasswordInputBlock>

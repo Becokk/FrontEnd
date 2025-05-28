@@ -38,6 +38,10 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     children: [
       {
+        path: "/main",
+        element: <Homepage />,
+      },
+      {
         path: "plan",
         element: <PlanPage />,
       },
@@ -48,17 +52,6 @@ const router = createBrowserRouter([
       {
         path: "detailed",
         element: <DetailedInput />,
-      },
-    ],
-  },
-  {
-    path: "/main",
-    element: <HomeLayout />,
-    errorElement: <NotFoundPage />,
-    children: [
-      {
-        path: "",
-        element: <Homepage />,
       },
     ],
   },
