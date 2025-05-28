@@ -43,9 +43,12 @@ const Mark = ({ memberId }) => {
           </tr>
         </thead>
         <tbody>
-          {programs.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
+          {programs
+            .slice()
+            .reverse()
+            .map((item, index) => (
+              <tr key={item.id}>
+                <td>{programs.length - index}</td>
               <td>{item.type || "비교과 프로그램"}</td>
               <td>
                 <span
