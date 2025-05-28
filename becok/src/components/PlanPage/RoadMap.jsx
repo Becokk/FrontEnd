@@ -1,6 +1,68 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import Contest from './Contest';
+import {GetRecommendRoadMap} from '../../apis/roadmap';
+
+
+const getTagColor = (tag, isFiltered) => {
+    if (!isFiltered) return '#2e65f3';
+    
+    switch (tag) {
+        case '창의융합 역량':
+            return '#F885BF66';
+        case '공동체 역량':
+            return '#F3AB4680';
+        case '글로벌 역량':
+            return '#75D7DC99';
+        default:
+            return '#f2f0f0';
+    }
+};
+
+const RoadMapContent = ({
+    currentMonth,
+    nextMonth,
+    programs,
+    calculatePosition,
+    calculateWidth,
+    activeFilter
+}) => (
+    <RoadMapWrapper>
+        <MonthsContainer>
+            <MonthSection>
+                <MonthLabel>{currentMonth}월</MonthLabel>
+                <MonthUnderline/>
+            </MonthSection>
+            <MonthSection>
+                <MonthLabel>{nextMonth}월</MonthLabel>
+            </MonthSection>
+        </MonthsContainer>
+        <TimelineContainer>
+            <DashedDivider style={{left: '12.5%'}}/>
+            <MidMonthDivider style={{left: '25%'}}/>
+            <DashedDivider style={{left: '37.5%'}}/>
+            <MonthDivider/>
+            <DashedDivider style={{left: '62.5%'}}/>
+            <MidMonthDivider style={{left: '75%'}}/>
+            <DashedDivider style={{left: '87.5%'}}/>
+            {programs.map((program) => (
+                <ProgramBlock
+                    key={program.program_id}
+                    style={{
+                        left: `${calculatePosition(program.startDate)}%`,
+                        width: `${calculateWidth(program.startDate, program.endDate)}%`,
+                        top: `${program.verticalPosition}px`,
+                        backgroundColor: activeFilter ? 
+                            (program.tag === activeFilter ? getTagColor(program.tag, true) : '#8F8F8F') 
+                            : '#56627E'
+                    }}>
+                    <ProgramText>{program.name}</ProgramText>
+                </ProgramBlock>
+            ))}
+        </TimelineContainer>
+    </RoadMapWrapper>
+);
 
 const RoadMap = () => {
     const [programs, setPrograms] = useState([]);
@@ -59,46 +121,16 @@ const RoadMap = () => {
     useEffect(() => {
         const fetchPrograms = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/recommend/roadmap/${memberId}`);
+                const memberId = localStorage.getItem('memberId');
+                const res = await GetRecommendRoadMap(memberId);
 
-                // ✅ 실제 응답 예시는 아래와 같음:
-                /*
-                {
-                    isSuccess: true,
-                    code: "SUCCESS_200",
-                    httpStatus: 200,
-                    message: "조회에 성공하였습니다.",
-                    data: {
-                        recommended_program: [
-                            {
-                                program_id: 1,
-                                name: "비교과 프로그램 제목1",
-                                grade: "전체학년",
-                                startDate: "2025-05-15",
-                                endDate: "2025-05-26",
-                                point: 30,
-                                status: "ONGOING", // UPCOMING, CLOSED 등
-                                category: ["#기획", "#마케팅"],
-                                competencies: [50, 10, 10, 10, 10, 10]
-                            },
-                            ...
-                        ]
-                    }
-                }
-                */
-
-                const { recommended_program } = response.data.data;
-
-                const programsWithRows = assignRows(recommended_program);
+                const programsWithRows = assignRows(res.data.recommend_program);
                 setPrograms(programsWithRows);
-
-            } catch (error) {
-                console.error("로드맵 프로그램 조회 실패:", error);
-            }
-        };
-
-        fetchPrograms();
-    }, [currentMonth, nextMonth]);
+            } catch(err) {
+                    console.error("로드맵 불러오기 실패", err);
+                }
+            };
+        }, [currentMonth, nextMonth]);
 
     const calculatePosition = (date) => {
         const startOfMonth = new Date(`2025-${String(currentMonth).padStart(2, '0')}-01`);
