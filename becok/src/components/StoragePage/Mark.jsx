@@ -49,33 +49,32 @@ const Mark = ({ memberId }) => {
             .map((item, index) => (
               <tr key={item.id}>
                 <td>{programs.length - index}</td>
-              <td>{item.type || "비교과 프로그램"}</td>
-              <td>
-                <span
-                  style={{
-                    cursor: "pointer",
-                    color: "#626474",
-                    textDecoration: "underline",
-                  }}
-                  onClick={() =>
-                    setSelectedCard({
-                      id: item.linkUrl.split("/").pop(),
-                      type: item.type,
-                      name: item.name,
-                    })
-                  }
-                >
-                  {item.name}
-                </span>
-              </td>
-              <td>{item.startDate}</td>
-              <td>
-                <DeleteButton onClick={() => handleDelete(item.id)}>
-                  X
-                </DeleteButton>
-              </td>
-            </tr>
-          ))}
+                <td>{item.type || "비교과 프로그램"}</td>
+                <td>
+                  <span
+                    style={{
+                      cursor: "pointer",
+                      color: "#626474",
+                    }}
+                    onClick={() =>
+                      setSelectedCard({
+                        id: item.linkUrl.split("/").pop(),
+                        type: item.type,
+                        name: item.name,
+                      })
+                    }
+                  >
+                    {item.name}
+                  </span>
+                </td>
+                <td>{item.startDate}</td>
+                <td>
+                  <DeleteButton onClick={() => handleDelete(item.id)}>
+                    X
+                  </DeleteButton>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </StyledTable>
       {selectedCard &&
