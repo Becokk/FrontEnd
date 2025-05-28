@@ -63,7 +63,7 @@ const TitleText = styled.div`
   font-weight: 500;
   color: #363636;
   text-align: center;
-  padding-top: 19.07vh;
+  padding-top: 15vh;
   margin-bottom: 26.67vh;
   line-height: 150%;
   letter-spacing: -2.5%;

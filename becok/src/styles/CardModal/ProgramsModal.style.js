@@ -19,7 +19,7 @@ export const ModalBox = styled.div`
   width: 80%;
   max-width: 52.125rem;
   height: 80%;
-  max-height: 43.75rem;
+  max-height: 35rem;
   border-radius: 3.125rem;
   display: flex;
   flex-direction: column;
