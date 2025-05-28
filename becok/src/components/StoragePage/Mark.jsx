@@ -2,97 +2,60 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 // import axios from "axios"; // 원래 코드, 지금은 주석처리
 
-const Mark = ({ id = 1 }) => {
+const Mark = ({ memberId }) => {
     const [programs, setPrograms] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            // 로컬 스토리지에서 저장된 데이터 불러오기
-            const savedPrograms = localStorage.getItem('markedPrograms');
-            
-            if (savedPrograms) {
-                setPrograms(JSON.parse(savedPrograms));
-            } else {
-                // 초기 데이터 설정
-                const mockData = [
-                    {
-                        id: 7,
-                        type: "비교과 프로그램",
-                        name: "2025 취업 역량 강화 프로그램",
-                        linkUrl: "https://example.com/program/7",
-                        startDate: "2025.5.25",
-                        endDate: "2025.6.5"
-                    },
-                    {
-                        id: 6,
-                        type: "공모전",
-                        name: "제 20회 D2B 디자인 페어",
-                        linkUrl: "https://example.com/program/6",
-                        startDate: "2025.5.14",
-                        endDate: "2025.6.8"
-                    },
-                    {
-                        id: 5,
-                        type: "비교과 프로그램",
-                        name: "제9회 Global Culture Competition",
-                        linkUrl: "https://example.com/program/5",
-                        startDate: "2025.4.1(월)",
-                        endDate: "2025.06.19(수)"
-                    },
-                    {
-                        id: 4,
-                        type: "비교과 프로그램",
-                        name: "프로그램 명",
-                        linkUrl: "https://example.com/program/4",
-                        startDate: "모집예정",
-                        endDate: ""
-                    },
-                    {
-                        id: 3,
-                        type: "공모전",
-                        name: "프로그램 명",
-                        linkUrl: "https://example.com/program/3",
-                        startDate: "접수기간",
-                        endDate: ""
-                    },
-                    {
-                        id: 2,
-                        type: "비교과 프로그램",
-                        name: "프로그램 명",
-                        linkUrl: "https://example.com/program/2",
-                        startDate: "접수기간",
-                        endDate: ""
-                    },
-                    {
-                        id: 1,
-                        type: "비교과 프로그램",
-                        name: "프로그램 명",
-                        linkUrl: "https://example.com/program/1",
-                        startDate: "접수기간",
-                        endDate: ""
-                    }
-                ];
-                setPrograms(mockData);
-                // 초기 데이터를 로컬 스토리지에 저장
-                localStorage.setItem('markedPrograms', JSON.stringify(mockData));
+            try {
+                const response = await fetch(`http://3.36.162.164:8080/api/remember?memberId=${memberId}&view=bookmark`);
+                const result = await response.json();
+                if (result.isSuccess && Array.isArray(result.data)) {
+                    const reversedData = result.data.slice().reverse().map((item, index, arr) => ({
+                        id: arr.length - index,
+                        type: item.domain === "contest" ? "공모전" : "비교과 프로그램",
+                        name: item.title,
+                        startDate: item.period,
+                        endDate: null,
+                        linkUrl: `/${item.domain}/${item.contentId}`
+                    }));
+                    setPrograms(reversedData);
+                } else {
+                    console.error("API 응답 실패 또는 형식 오류", result);
+                }
+            } catch (error) {
+                console.error("데이터를 불러오는 중 오류 발생:", error);
             }
         };
 
         fetchData();
-    }, [id]);
+    }, [memberId]);
 
-    const handleDelete = (idToDelete) => {
-        // 프로그램 삭제 및 번호 재정렬
+    const handleDelete = async (idToDelete) => {
+        const programToDelete = programs.find(program => program.id === idToDelete);
+        if (!programToDelete) return;
+
+        const contentId = programToDelete.linkUrl.split("/").pop();
+        const type = programToDelete.type === "공모전" ? "contest" : "program";
+
+        try {
+            await fetch(`http://3.36.162.164:8080/api/bookmark/${memberId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ type, contentId: parseInt(contentId) })
+            });
+        } catch (error) {
+            console.error("Bookmark API 요청 실패:", error);
+        }
+
         const filteredPrograms = programs.filter(program => program.id !== idToDelete);
         const updatedPrograms = filteredPrograms.map((program, index) => ({
             ...program,
             id: filteredPrograms.length - index
-        }));
-        
-        // 상태 업데이트
+        })).sort((a, b) => b.id - a.id); // Ensure descending order
         setPrograms(updatedPrograms);
-        
-        // 로컬 스토리지 업데이트
         localStorage.setItem('markedPrograms', JSON.stringify(updatedPrograms));
     };
 
@@ -119,7 +82,7 @@ const Mark = ({ id = 1 }) => {
                                         {item.name}
                                     </a>
                                 </td>
-                                <td>{item.endDate ? `${item.startDate} ~ ${item.endDate}` : item.startDate}</td>
+                                <td>{item.startDate}</td>
                                 <td>
                                     <DeleteButton onClick={() => handleDelete(item.id)}>X</DeleteButton>
                                 </td>
@@ -228,4 +191,3 @@ const DeleteButton = styled.button`
         color: #000000;
     }
 `;
-
