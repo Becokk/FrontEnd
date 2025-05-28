@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
-import usePopularCards from "./usePopularCards";
+import usePopularCards from "../../hooks/usePopularCards";
 import {
   CardSection,
   CardContainer,

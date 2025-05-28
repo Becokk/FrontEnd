@@ -59,7 +59,7 @@ const ContestsModal = ({ onClose, contestId }) => {
           <ProgramHeader>
             <ProgramName
               as="a"
-              href={program.linkUrl}
+              href={program.detailUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
