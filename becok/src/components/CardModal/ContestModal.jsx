@@ -30,6 +30,7 @@ const ContestsModal = ({ onClose, contestId }) => {
 
   useEffect(() => {
     if (program) {
+      console.log("ContestModal program response:", program);
       setIsNotified(program.notification);
     }
   }, [program]);

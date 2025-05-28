@@ -28,14 +28,15 @@ import {
 const ProgramsModal = ({ onClose, programId }) => {
   const { mutate: postNotification } = usePostNotificationSettings();
   const { mutate: postBookmark } = usePostUserBookMark();
-  const { program } = useProgramDetails(programId);
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const { program, isBookmarked, setIsBookmarked } =
+    useProgramDetails(programId);
   const [isNotified, setIsNotified] = useState(false);
 
   useEffect(() => {
     if (program) {
-      setIsBookmarked(program.bookmarked);
-      setIsNotified(program.notification);
+      console.log("ProgramsModal program response:", program);
+      setIsNotified(!!program.notification);
+      setIsBookmarked(!!program.bookmarked);
     }
   }, [program]);
   const modalRef = useRef(null);
@@ -114,7 +115,7 @@ const ProgramsModal = ({ onClose, programId }) => {
             onClick={() => {
               console.log("북마크 클릭됨");
               postBookmark(
-                { type: "contest", contentId: program.id },
+                { type: "program", contentId: program.id },
                 {
                   onSuccess: (res) => {
                     const newStatus = res.data?.status;
@@ -143,7 +144,7 @@ const ProgramsModal = ({ onClose, programId }) => {
             onClick={() => {
               console.log("알림 버튼 클릭됨");
               postNotification(
-                { type: "contest", contentId: program.id },
+                { type: "program", contentId: program.id },
                 {
                   onSuccess: (res) => {
                     const newStatus = res.data?.status;
