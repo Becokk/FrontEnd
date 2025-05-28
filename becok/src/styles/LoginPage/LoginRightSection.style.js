@@ -152,7 +152,7 @@ export const PasswordField = styled.input`
 `;
 
 export const ToggleIcon = styled.img`
-  width: 1.67vw;
+  width: 1.3vw;
   height: auto;
   margin-left: -3vw;
   margin-right: 1.25vw;
