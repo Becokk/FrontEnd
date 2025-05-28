@@ -11,7 +11,11 @@ export const RightSectionContainer = styled.div`
   box-sizing: border-box;
   margin-top: 12.04vh;
   margin-bottom: 12.04vh;
-  align-items: center;
+
+  @media (max-width: 768px) {
+    width: 90vw;
+    height: auto;
+  }
 `;
 
 export const SignupTitle = styled.h2`
@@ -22,7 +26,11 @@ export const SignupTitle = styled.h2`
   color: #3f4149;
   text-align: center;
   margin-top: 7.22vh;
-  margin-bottom: 4.26vh;
+  margin-bottom: 4vh;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 
 export const IdInputBlock = styled.div`
@@ -79,6 +87,10 @@ export const InputField = styled.input`
     background-color: ${({ $isvalid }) =>
       $isvalid ? "rgba(46, 101, 243, 0.1)" : "#fbeaec"};
   }
+
+  @media (max-width: 768px) {
+    width: 90vw;
+  }
 `;
 
 export const ErrorMessage = styled.div`
@@ -104,6 +116,10 @@ export const FieldGroupWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  @media (max-width: 768px) {
+    width: 90vw;
+  }
 `;
 
 export const PasswordInputBlock = styled.div`
@@ -152,6 +168,10 @@ export const PasswordField = styled.input`
     background-color: ${({ $isvalid }) =>
       $isvalid ? "rgba(46, 101, 243, 0.1)" : "#fbeaec"};
   }
+
+  @media (max-width: 768px) {
+    width: 90vw;
+  }
 `;
 
 export const ToggleIcon = styled.img`
@@ -160,6 +180,12 @@ export const ToggleIcon = styled.img`
   margin-left: -3vw;
   margin-right: 1.25vw;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    width: 5vw;
+    margin-left: -8vw;
+    margin-right: 3vw;
+  }
 `;
 
 export const PasswordNotice = styled.div`
@@ -182,7 +208,20 @@ export const SignupButton = styled.button`
   font-size: 2.25rem;
   font-weight: 500;
   border: none;
-  margin-top: 3.52vh;
+  margin-top: 3vh;
   cursor: ${({ $enabled }) => ($enabled ? "pointer" : "not-allowed")};
   transition: background-color 0.3s ease;
+
+  @media (max-width: 768px) {
+    width: 90vw;
+  }
+`;
+
+export const SignupContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 2vw;
 `;

@@ -4,6 +4,7 @@ import EyeIconOn from "../../assets/EyeIconOn.png";
 import EyeIconClose from "../../assets/EyeIconClose.png";
 import { useSignupMutation } from "../../hooks/mutation/SignupMutation";
 import {
+  SignupContentWrapper,
   RightSectionContainer,
   SignupTitle,
   IdInputBlock,
@@ -54,117 +55,121 @@ const SignupRightSection = () => {
 
   return (
     <RightSectionContainer>
-      <SignupTitle>회원가입</SignupTitle>
-      <IdInputBlock>
-        <FieldGroupWrapper>
-          <InputLabel>아이디</InputLabel>
-          <InputRow>
-            <InputField
-              type="text"
-              placeholder="아이디를 입력해주세요"
-              value={email}
-              onChange={handleEmailChange}
-              $isvalid={isEmailValid}
-            />
-            <EmailSuffix>@hansung.ac.kr</EmailSuffix>
-          </InputRow>
-          <ErrorMessage>
-            {!isEmailValid
-              ? "유효한 이메일 주소를 입력해주세요."
-              : signupMutation.isError &&
-                  signupMutation.error?.response?.code === "MEMBER_400_1"
-                ? signupMutation.error?.response?.message ||
-                  "이미 사용 중인 아이디입니다."
-                : ""}
-          </ErrorMessage>
-        </FieldGroupWrapper>
-      </IdInputBlock>
+      <SignupContentWrapper>
+        <SignupTitle>회원가입</SignupTitle>
+        <IdInputBlock>
+          <FieldGroupWrapper>
+            <InputLabel>아이디</InputLabel>
+            <InputRow>
+              <InputField
+                type="text"
+                placeholder="아이디를 입력해주세요"
+                value={email}
+                onChange={handleEmailChange}
+                $isvalid={isEmailValid}
+              />
+              <EmailSuffix>@hansung.ac.kr</EmailSuffix>
+            </InputRow>
+            <ErrorMessage>
+              {!isEmailValid
+                ? "유효한 이메일 주소를 입력해주세요."
+                : signupMutation.isError &&
+                    signupMutation.error?.response?.code === "MEMBER_400_1"
+                  ? signupMutation.error?.response?.message ||
+                    "이미 사용 중인 아이디입니다."
+                  : ""}
+            </ErrorMessage>
+          </FieldGroupWrapper>
+        </IdInputBlock>
 
-      <PasswordInputBlock>
-        <FieldGroupWrapper>
-          <PasswordLabel>비밀번호</PasswordLabel>
-          <PasswordInputRow>
-            <PasswordField
-              type={showPassword ? "text" : "password"}
-              placeholder="비밀번호 입력"
-              value={password}
-              onChange={handlePasswordChange}
-              $isvalid={isPasswordValid}
-            />
-            <ToggleIcon
-              src={
-                showPassword
-                  ? EyeIconOn
-                  : password.length > 0
-                    ? EyeIconClose
-                    : EyeIcon
-              }
-              alt="비밀번호 보기"
-              onClick={() => setShowPassword(!showPassword)}
-            />
-          </PasswordInputRow>
-        </FieldGroupWrapper>
-        <FieldGroupWrapper style={{ marginTop: "1.8vh" }}>
-          <PasswordInputRow>
-            <PasswordField
-              type={showPassword ? "text" : "password"}
-              placeholder="비밀번호 확인"
-              value={passwordConfirm}
-              onChange={(e) => {
-                const confirmValue = e.target.value;
-                setPasswordConfirm(confirmValue);
-                setIsPasswordMatch(confirmValue === password);
-              }}
-              $isvalid={isPasswordMatch}
-            />
-            <ToggleIcon
-              src={
-                showPassword
-                  ? EyeIconOn
-                  : password.length > 0
-                    ? EyeIconClose
-                    : EyeIcon
-              }
-              alt="비밀번호 보기"
-              onClick={() => setShowPassword(!showPassword)}
-            />
-          </PasswordInputRow>
-          {!isPasswordMatch ? (
-            <ErrorMessage>입력하신 비밀번호와 일치하지 않습니다.</ErrorMessage>
-          ) : (
-            <PasswordNotice>
-              8~16자/ 영문 대문자, 소문자, 숫자 중 2가지 이상 조합
-            </PasswordNotice>
-          )}
-        </FieldGroupWrapper>
-        <SignupButton
-          disabled={
-            !email ||
-            !isEmailValid ||
-            !password ||
-            !isPasswordValid ||
-            !passwordConfirm ||
-            !isPasswordMatch
-          }
-          $enabled={
-            email &&
-            isEmailValid &&
-            password &&
-            isPasswordValid &&
-            passwordConfirm &&
-            isPasswordMatch
-          }
-          onClick={() =>
-            signupMutation.mutate({
-              email,
-              password,
-              passwordCheck: passwordConfirm,
-            })
-          }
-        >
-          가입
-        </SignupButton>
-      </PasswordInputBlock>
+        <PasswordInputBlock>
+          <FieldGroupWrapper>
+            <PasswordLabel>비밀번호</PasswordLabel>
+            <PasswordInputRow>
+              <PasswordField
+                type={showPassword ? "text" : "password"}
+                placeholder="비밀번호 입력"
+                value={password}
+                onChange={handlePasswordChange}
+                $isvalid={isPasswordValid}
+              />
+              <ToggleIcon
+                src={
+                  showPassword
+                    ? EyeIconOn
+                    : password.length > 0
+                      ? EyeIconClose
+                      : EyeIcon
+                }
+                alt="비밀번호 보기"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            </PasswordInputRow>
+          </FieldGroupWrapper>
+          <FieldGroupWrapper style={{ marginTop: "1vh" }}>
+            <PasswordInputRow>
+              <PasswordField
+                type={showPassword ? "text" : "password"}
+                placeholder="비밀번호 확인"
+                value={passwordConfirm}
+                onChange={(e) => {
+                  const confirmValue = e.target.value;
+                  setPasswordConfirm(confirmValue);
+                  setIsPasswordMatch(confirmValue === password);
+                }}
+                $isvalid={isPasswordMatch}
+              />
+              <ToggleIcon
+                src={
+                  showPassword
+                    ? EyeIconOn
+                    : password.length > 0
+                      ? EyeIconClose
+                      : EyeIcon
+                }
+                alt="비밀번호 보기"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            </PasswordInputRow>
+            {!isPasswordMatch ? (
+              <ErrorMessage>
+                입력하신 비밀번호와 일치하지 않습니다.
+              </ErrorMessage>
+            ) : (
+              <PasswordNotice>
+                8~16자/ 영문 대문자, 소문자, 숫자 중 2가지 이상 조합
+              </PasswordNotice>
+            )}
+          </FieldGroupWrapper>
+          <SignupButton
+            disabled={
+              !email ||
+              !isEmailValid ||
+              !password ||
+              !isPasswordValid ||
+              !passwordConfirm ||
+              !isPasswordMatch
+            }
+            $enabled={
+              email &&
+              isEmailValid &&
+              password &&
+              isPasswordValid &&
+              passwordConfirm &&
+              isPasswordMatch
+            }
+            onClick={() =>
+              signupMutation.mutate({
+                email,
+                password,
+                passwordCheck: passwordConfirm,
+              })
+            }
+          >
+            가입
+          </SignupButton>
+        </PasswordInputBlock>
+      </SignupContentWrapper>
     </RightSectionContainer>
   );
 };
