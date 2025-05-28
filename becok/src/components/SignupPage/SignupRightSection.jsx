@@ -1,5 +1,7 @@
 import React from "react";
 import EyeIcon from "../../assets/i.png";
+import EyeIconOn from "../../assets/EyeIconOn.png";
+import EyeIconClose from "../../assets/EyeIconClose.png";
 import { useSignupMutation } from "../../hooks/mutation/SignupMutation";
 import {
   RightSectionContainer,
@@ -90,7 +92,13 @@ const SignupRightSection = () => {
               $isvalid={isPasswordValid}
             />
             <ToggleIcon
-              src={EyeIcon}
+              src={
+                showPassword
+                  ? EyeIconOn
+                  : password.length > 0
+                    ? EyeIconClose
+                    : EyeIcon
+              }
               alt="비밀번호 보기"
               onClick={() => setShowPassword(!showPassword)}
             />
@@ -110,7 +118,13 @@ const SignupRightSection = () => {
               $isvalid={isPasswordMatch}
             />
             <ToggleIcon
-              src={EyeIcon}
+              src={
+                showPassword
+                  ? EyeIconOn
+                  : password.length > 0
+                    ? EyeIconClose
+                    : EyeIcon
+              }
               alt="비밀번호 보기"
               onClick={() => setShowPassword(!showPassword)}
             />

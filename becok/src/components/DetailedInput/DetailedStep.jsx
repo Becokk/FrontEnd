@@ -20,6 +20,7 @@ const DetailedStep = ({
   step,
   totalSteps,
   onNext,
+  onBack,
   isNextEnabled,
   onValidityChange,
 }) => {
@@ -127,6 +128,28 @@ const DetailedStep = ({
   return (
     <StepContainer>
       {renderStep()}
+      {step >= 2 && (
+        <NextButton
+          onClick={onBack}
+          style={{ left: "22%", right: "auto", transform: "rotate(180deg)" }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M8 5l8 7-8 7"
+              stroke="#666"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </NextButton>
+      )}
       <PaginationWrapper>
         {Array.from({ length: totalSteps }).map((_, idx) => (
           <PaginationDot key={idx} active={step === idx + 1} />

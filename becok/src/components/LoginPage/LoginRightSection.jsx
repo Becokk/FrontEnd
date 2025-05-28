@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import EyeIcon from "../../assets/i.png";
+import EyeIconOn from "../../assets/EyeIconOn.png";
+import EyeIconClose from "../../assets/EyeIconClose.png";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../hooks/mutation/LoginMutation";
 import {
@@ -113,7 +115,13 @@ const LoginRightSection = () => {
                 $isvalid={isPasswordValid}
               />
               <ToggleIcon
-                src={EyeIcon}
+                src={
+                  showPassword
+                    ? EyeIconOn
+                    : password.length > 0
+                    ? EyeIconClose
+                    : EyeIcon
+                }
                 alt="비밀번호 보기"
                 onClick={() => setShowPassword(!showPassword)}
               />
