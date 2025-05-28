@@ -139,7 +139,7 @@ export const IconContainer = styled.div`
   gap: 2.25rem;
   position: absolute;
   bottom: 4.63vh;
-  right: 4vw;
+  right: 5vw;
 `;
 
 export const BookmarkIcon = styled.div`

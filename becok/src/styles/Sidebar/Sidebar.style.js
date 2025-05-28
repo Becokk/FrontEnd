@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SidebarContainer = styled.div`
   width: 16.98vw; /* 326 / 1920 ≈ 16.98 */
-  height: 100vh;
+  height: auto;
   background-color: #f5f6fa;
   display: flex;
   flex-direction: column;

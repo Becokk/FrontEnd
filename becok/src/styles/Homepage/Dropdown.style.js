@@ -47,9 +47,7 @@ export const DropdownMenu = styled.div`
   background-color: #f0f2f8;
   border-radius: 1.04vw;
   z-index: 10;
-  min-width: 150px; // 최소 너비 설정
-  width: 9.9vw;
-  max-width: 250px; // 최대 너비 설정
+  width: 10.5vw;
   border: 1px solid #e1e7fb;
 `;
 

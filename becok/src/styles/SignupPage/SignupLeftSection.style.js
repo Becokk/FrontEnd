@@ -5,6 +5,10 @@ export const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  @media (max-width: 768px) {
+    align-items: center;
+  }
 `;
 
 export const Title = styled.h2`
@@ -14,7 +18,7 @@ export const Title = styled.h2`
   letter-spacing: -2.5%;
   color: #363636;
   text-align: left;
-  white-space: nowrap;
+  white-space: normal;
   margin-top: 5vh;
   width: 100%;
 
@@ -22,7 +26,6 @@ export const Title = styled.h2`
   animation: fadeSlideUp 0.6s ease-out forwards;
   @media (max-width: 768px) {
     font-size: 1.8rem;
-    white-space: normal;
   }
 `;
 
@@ -43,6 +46,9 @@ export const Subtitle = styled.p`
   @media (max-width: 768px) {
     font-size: 1rem;
   }
+  @media (max-width: 768px) {
+    align-items: center;
+  }
 `;
 
 export const Character = styled.img`
@@ -61,12 +67,20 @@ export const Character = styled.img`
       transform: translateY(0px);
     }
   }
+
+  @media (max-width: 768px) {
+    width: 40vw;
+  }
 `;
 
 export const BottomLine = styled.img`
   width: calc(30vw + 117px);
   height: auto;
   margin-top: 2vh;
+
+  @media (max-width: 768px) {
+    width: 80vw;
+  }
 `;
 
 export const GlobalStyle = createGlobalStyle`
@@ -84,4 +98,8 @@ export const GlobalStyle = createGlobalStyle`
 
 export const Grop1 = styled.div`
   padding-right: 10vw;
+
+  @media (max-width: 768px) {
+    padding-right: 0;
+  }
 `;
