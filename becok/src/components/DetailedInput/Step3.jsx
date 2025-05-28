@@ -52,7 +52,7 @@ const TitleText = styled.div`
   letter-spacing: -2.5%;
   color: #363636;
   text-align: center;
-  margin-top: 19.07vh;
+  margin-top: 15vh;
   margin-bottom: 24.63vh;
 `;
 

@@ -96,7 +96,7 @@ const ContestsModal = ({ onClose, contestId }) => {
             )}
           </ProgramHeader>
           <CategoryContainer>
-            <CategoryTag>{program.category}</CategoryTag>
+            <CategoryTag>#{program.category}</CategoryTag>
           </CategoryContainer>
         </ProgramInfoWrapper>
         <IconContainer>

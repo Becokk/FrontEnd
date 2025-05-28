@@ -36,7 +36,7 @@ const StyledMainText = styled.p`
   letter-spacing: -2.5%;
   color: #363636;
   padding-left: 11.67vw;
-  padding-bottom: 9vh;
+  padding-bottom: 14vh;
 `;
 
 export default Step1;

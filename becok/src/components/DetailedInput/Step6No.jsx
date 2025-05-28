@@ -18,7 +18,7 @@ const Step6No = ({ onValidityChange, onChange }) => {
 
   return (
     <Container>
-      <Title>비콕이 회원님의 선택에 맞춰 추천해드릴게요.</Title>
+      <Title>비교과 프로그램이 처음이에요.</Title>
       <OptionContainer>
         {options.map((option, idx) => (
           <OptionBox

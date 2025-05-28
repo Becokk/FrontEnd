@@ -37,7 +37,7 @@ export const SectionTitle = styled.h2`
 export const CardImageContainer = styled.div`
   position: relative;
   width: 23.75vw; /* 456px / 1920 */
-  height: 21vh; /* 237px / 1080 */
+  height: 25vh; /* 237px / 1080 */
   border-radius: 1.82vw;
   overflow: hidden;
   flex-shrink: 0;
@@ -45,8 +45,8 @@ export const CardImageContainer = styled.div`
 
 export const StatusLabel = styled.div`
   position: absolute;
-  top: 2.78vh;
-  right: 1.15vw;
+  top: 2.2vh;
+  right: 1.4vw;
   background: ${(props) =>
     props.$status === "모집대기" ? "#D9D9D9" : "#2d63ef"};
   color: ${(props) => (props.$status === "모집대기" ? "#5A5A5A" : "#F5F5F5")};
@@ -144,4 +144,3 @@ export const ScrollButton = styled.button`
   align-items: center;
   justify-content: center;
 `;
-

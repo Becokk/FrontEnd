@@ -43,8 +43,6 @@ const Step4 = ({ onValidityChange, onChange }) => {
     if (typeof onChange === "function") {
       onChange(selectedKeywords.map((k) => interestMap[k]));
     }
-    // intentionally no dependencies on onChange or onValidityChange
-    // to prevent inconsistent dependency size warnings
   }, [selectedKeywords]);
 
   return (
@@ -56,6 +54,25 @@ const Step4 = ({ onValidityChange, onChange }) => {
         선택하신 키워드는 언제든지 바꿀 수 있습니다.
       </SubtitleText>
       <KeywordGrid>
+        <KeywordRow>
+          {["주식", "여행", "인문예술", "진로의사 결정"].map((keyword) => (
+            <KeywordWrapper key={keyword}>
+              <KeywordButton
+                selected={selectedKeywords.includes(keyword)}
+                onClick={() => toggleKeyword(keyword)}
+              >
+                <>
+                  {keyword}
+                  {selectedKeywords.includes(keyword) && (
+                    <OrderBadge>
+                      {selectedKeywords.indexOf(keyword) + 1}
+                    </OrderBadge>
+                  )}
+                </>
+              </KeywordButton>
+            </KeywordWrapper>
+          ))}
+        </KeywordRow>
         <KeywordRow>
           {["마케팅", "자기개발", "자원봉사", "진로 로드맵"].map((keyword) => (
             <KeywordWrapper key={keyword}>
@@ -76,35 +93,26 @@ const Step4 = ({ onValidityChange, onChange }) => {
           ))}
         </KeywordRow>
         <KeywordRow>
-          {["주식", "창업", "IT", "공모전", "자기이해", "디자인", "여행"].map(
-            (keyword) => (
-              <KeywordWrapper key={keyword}>
-                <KeywordButton
-                  selected={selectedKeywords.includes(keyword)}
-                  onClick={() => toggleKeyword(keyword)}
-                >
-                  <>
-                    {keyword}
-                    {selectedKeywords.includes(keyword) && (
-                      <OrderBadge>
-                        {selectedKeywords.indexOf(keyword) + 1}
-                      </OrderBadge>
-                    )}
-                  </>
-                </KeywordButton>
-              </KeywordWrapper>
-            )
-          )}
+          {["창업", "IT", "공모전", "자기이해", "디자인"].map((keyword) => (
+            <KeywordWrapper key={keyword}>
+              <KeywordButton
+                selected={selectedKeywords.includes(keyword)}
+                onClick={() => toggleKeyword(keyword)}
+              >
+                <>
+                  {keyword}
+                  {selectedKeywords.includes(keyword) && (
+                    <OrderBadge>
+                      {selectedKeywords.indexOf(keyword) + 1}
+                    </OrderBadge>
+                  )}
+                </>
+              </KeywordButton>
+            </KeywordWrapper>
+          ))}
         </KeywordRow>
         <KeywordRow>
-          {[
-            "인문예술",
-            "상담",
-            "백앤드",
-            "스포츠",
-            "글쓰기",
-            "진로의사 결정",
-          ].map((keyword) => (
+          {["상담", "백앤드", "스포츠", "글쓰기"].map((keyword) => (
             <KeywordWrapper key={keyword}>
               <KeywordButton
                 selected={selectedKeywords.includes(keyword)}
@@ -133,7 +141,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 19.07vh;
+  margin-top: 15vh;
 `;
 
 const TitleText = styled.h2`
@@ -164,8 +172,8 @@ const KeywordGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.25vw 1.39vw; // 수평, 수직 간격 조정
-  margin-top: 6.67vh;
+  gap: 1.5vh 1.39vw; // 수평, 수직 간격 조정
+  margin-top: 11vh;
   width: 64.4vw;
 `;
 
