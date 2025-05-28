@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import cancelIcon from "../../assets/cancel.png";
+import programImage from "../../assets/program.png";
 
 const Step5Modal = ({ onClose }) => {
   const handleOverlayClick = (e) => {
@@ -27,6 +28,7 @@ const Step5Modal = ({ onClose }) => {
           </li>
           <li>이 창에 그대로 붙여넣기</li>
         </Instructions>
+        <Image src={programImage} alt="program example" />
         <CloseButton onClick={onClose}>
           <img src={cancelIcon} alt="닫기" />
         </CloseButton>
@@ -104,4 +106,11 @@ const Instructions = styled.ol`
 const Highlight = styled.span`
   color: #2e65f3;
   font-weight: 500;
+`;
+
+const Image = styled.img`
+  display: block;
+  width: 30vw;
+  margin: 4vh auto 0;
+  border-radius: 1.5vh;
 `;
