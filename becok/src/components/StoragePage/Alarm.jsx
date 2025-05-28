@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import useNotifiedPrograms from "../../hooks/useNotifiedPrograms";
+import ContestsModal from "../CardModal/ContestModal";
+import ProgramsModal from "../CardModal/ProgramsModal";
 
 const Alarm = ({ memberId }) => {
   const { programs, handleDelete } = useNotifiedPrograms(memberId);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   if (!programs || programs.length === 0) {
     return (
@@ -34,9 +37,18 @@ const Alarm = ({ memberId }) => {
               <td>{item.id}</td>
               <td>{item.type || "비교과 프로그램"}</td>
               <td>
-                <a href={item.linkUrl} target="_blank" rel="noreferrer">
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() =>
+                    setSelectedCard({
+                      id: item.linkUrl.split("/").pop(),
+                      type: item.type,
+                      name: item.name,
+                    })
+                  }
+                >
                   {item.name}
-                </a>
+                </span>
               </td>
               <td>{item.startDate}</td>
               <td>
@@ -48,6 +60,19 @@ const Alarm = ({ memberId }) => {
           ))}
         </tbody>
       </StyledTable>
+      {selectedCard && (
+        selectedCard.type === "공모전" ? (
+          <ContestsModal
+            contestId={selectedCard.id}
+            onClose={() => setSelectedCard(null)}
+          />
+        ) : (
+          <ProgramsModal
+            programId={selectedCard.id}
+            onClose={() => setSelectedCard(null)}
+          />
+        )
+      )}
     </TableWrapper>
   );
 };

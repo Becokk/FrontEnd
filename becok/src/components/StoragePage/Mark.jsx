@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import useMarkedPrograms from "../../hooks/useMarkedPrograms";
 
+import ContestModal from "../CardModal/ContestModal";
+import ProgramsModal from "../CardModal/ProgramsModal";
+
 const Mark = ({ memberId }) => {
   const { programs, handleDelete } = useMarkedPrograms(memberId);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   if (!programs || programs.length === 0) {
     return (
@@ -34,9 +38,22 @@ const Mark = ({ memberId }) => {
               <td>{item.id}</td>
               <td>{item.type || "비교과 프로그램"}</td>
               <td>
-                <a href={item.linkUrl} target="_blank" rel="noreferrer">
+                <span
+                  style={{
+                    cursor: "pointer",
+                    color: "#626474",
+                    textDecoration: "underline",
+                  }}
+                  onClick={() =>
+                    setSelectedCard({
+                      id: item.linkUrl.split("/").pop(),
+                      type: item.type,
+                      name: item.name,
+                    })
+                  }
+                >
                   {item.name}
-                </a>
+                </span>
               </td>
               <td>{item.startDate}</td>
               <td>
@@ -48,6 +65,19 @@ const Mark = ({ memberId }) => {
           ))}
         </tbody>
       </StyledTable>
+      {selectedCard && (
+        selectedCard.type === "공모전" ? (
+          <ContestModal
+            contestId={selectedCard.id}
+            onClose={() => setSelectedCard(null)}
+          />
+        ) : (
+          <ProgramsModal
+            programId={selectedCard.id}
+            onClose={() => setSelectedCard(null)}
+          />
+        )
+      )}
     </TableWrapper>
   );
 };
