@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { usePostUserBookMark } from "../../hooks/mutation/BookMarkMutation";
 import { usePostNotificationSettings } from "../../hooks/mutation/NotificationMutation";
 import shipIcon from "../../assets/ship.png";
-import handIcon from "../../assets/hand.png";
+
+
 import {
   ModalWrapper,
   ModalBox,
@@ -66,37 +67,21 @@ const ContestsModal = ({ onClose, contestId }) => {
             >
               {program.name}
             </ProgramName>
-            {program.status === "모집 중" && (
-              <StatusButton status={program.status}>
-                <img
-                  src={shipIcon}
-                  alt="ship icon"
-                  style={{
-                    width: "1.2vw",
-                    height: "2.13vh",
-                    marginRight: "0.5rem",
-                  }}
-                />
-                모집 중
-              </StatusButton>
-            )}
-            {program.status === "모집 대기" && (
-              <StatusButton status={program.status}>
-                <img
-                  src={handIcon}
-                  alt="hand icon"
-                  style={{
-                    width: "1.2vw",
-                    height: "2.13vh",
-                    marginRight: "0.5rem",
-                  }}
-                />
-                모집 예정
-              </StatusButton>
-            )}
+            <StatusButton status="모집 중">
+              <img
+                src={shipIcon}
+                alt="ship icon"
+                style={{
+                  width: "1.2vw",
+                  height: "2.13vh",
+                  marginRight: "0.5rem",
+                }}
+              />
+              모집 중
+            </StatusButton>
           </ProgramHeader>
           <CategoryContainer>
-            <CategoryTag>{program.category}</CategoryTag>
+            <CategoryTag>#{program.category}</CategoryTag>
           </CategoryContainer>
         </ProgramInfoWrapper>
         <IconContainer>

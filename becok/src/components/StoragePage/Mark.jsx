@@ -65,8 +65,8 @@ const Mark = ({ memberId }) => {
           ))}
         </tbody>
       </StyledTable>
-      {selectedCard && (
-        selectedCard.type === "공모전" ? (
+      {selectedCard &&
+        (selectedCard.type === "공모전" ? (
           <ContestModal
             contestId={selectedCard.id}
             onClose={() => setSelectedCard(null)}
@@ -76,8 +76,7 @@ const Mark = ({ memberId }) => {
             programId={selectedCard.id}
             onClose={() => setSelectedCard(null)}
           />
-        )
-      )}
+        ))}
     </TableWrapper>
   );
 };
@@ -193,7 +192,7 @@ const EmptyMessage = styled.div`
   justify-content: center;
   height: min(300px, 20vh);
   font-family: "Pretendard", sans-serif;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-size: 2rem;
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: -0.025em;

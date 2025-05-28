@@ -47,7 +47,7 @@ const Dropdown = ({ setCategory }) => {
 export default Dropdown;
 
 const Container = styled.div`
-  margin-top: 25vh;
+  margin-top: 20vh;
   padding-left: 3.51vw;
 `;
 

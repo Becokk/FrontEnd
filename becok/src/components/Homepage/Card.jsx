@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 import usePopularCards from "../../hooks/usePopularCards";
+import noImage from "../../assets/noImage.png";
 import {
   CardSection,
   CardContainer,
@@ -95,7 +96,9 @@ const Card = ({ category }) => {
                 <LabelText>
                   {category === "비교과 프로그램"
                     ? getStatusLabel(card.status)
-                    : card.status}
+                    : card.dday !== undefined
+                      ? `${card.dday}`
+                      : card.status}
                 </LabelText>
               </StatusLabel>
               <CardTitle>
@@ -104,9 +107,9 @@ const Card = ({ category }) => {
               <CardDate>{`${card.startDate} ~ ${card.endDate}`}</CardDate>
               <CardImage
                 src={
-                  category === "비교과 프로그램"
+                  (category === "비교과 프로그램"
                     ? card.thumbnailUrl
-                    : card.imgUrl
+                    : card.imgUrl) || noImage
                 }
                 alt={category === "비교과 프로그램" ? card.title : card.name}
               />
