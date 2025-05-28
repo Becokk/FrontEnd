@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import qImage from "../../assets/q.png";
 import styled from "styled-components";
 import useNotifiedPrograms from "../../hooks/useNotifiedPrograms";
 import ContestsModal from "../CardModal/ContestModal";
@@ -12,7 +13,11 @@ const Alarm = ({ memberId }) => {
     return (
       <TableWrapper>
         <EmptyMessage>
-          <div style={{ fontSize: "3rem", marginBottom: "3.7vh" }}>ⓘ</div>
+          <img
+            src={qImage}
+            alt="info"
+            style={{ height: "3rem", marginBottom: "5.65vh" }}
+          />
           알림설정한 항목이 없습니다.
         </EmptyMessage>
       </TableWrapper>
@@ -194,4 +199,5 @@ const EmptyMessage = styled.div`
   color: #cecece;
   text-align: center;
   padding: 0 1rem;
+  vertical-align: middle;
 `;
