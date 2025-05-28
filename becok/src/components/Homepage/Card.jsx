@@ -15,7 +15,7 @@ import {
   CardDate,
   ScrollButtonContainer,
   ScrollButton,
-} from "../../styles/Card.style";
+} from "../../styles/Homepage/Card.style";
 import ProgramsModal from "../CardModal/ProgramsModal";
 import ContestsModal from "../CardModal/ContestModal";
 
