@@ -32,8 +32,9 @@ const ContestsModal = ({ onClose, contestId }) => {
     if (program) {
       console.log("ContestModal program response:", program);
       setIsNotified(program.notification);
+      setIsBookmarked(!!program.bookmarked);
     }
-  }, [program]);
+  }, [program, setIsBookmarked]);
 
   const { mutate: postBookmark } = usePostUserBookMark();
   const { mutate: postNotification } = usePostNotificationSettings();

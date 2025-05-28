@@ -38,7 +38,7 @@ const ProgramsModal = ({ onClose, programId }) => {
       setIsNotified(!!program.notification);
       setIsBookmarked(!!program.bookmarked);
     }
-  }, [program]);
+  }, [program, setIsBookmarked]);
   const modalRef = useRef(null);
 
   const handleBackgroundClick = (e) => {
