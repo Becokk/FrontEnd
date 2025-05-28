@@ -5,6 +5,8 @@ import { usePostNotificationSettings } from "../../hooks/mutation/NotificationMu
 import { usePostUserBookMark } from "../../hooks/mutation/BookMarkMutation";
 import shipIcon from "../../assets/ship.png";
 import handIcon from "../../assets/hand.png";
+import noImage from "../../assets/noImage.png";
+
 import {
   ModalWrapper,
   ModalBox,
@@ -64,7 +66,14 @@ const ProgramsModal = ({ onClose, programId }) => {
             </DdayText>
           </PointInfoContainer>
         </TopLeftBox>
-        <ModalImage src={program.thumbnailUrl} alt="thumbnail" />
+        <ModalImage
+          src={program.thumbnailUrl || noImage}
+          alt="thumbnail"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = noImage;
+          }}
+        />
         <ProgramInfoWrapper>
           <ProgramHeader>
             <a href={program.linkUrl} target="_blank" rel="noopener noreferrer">
