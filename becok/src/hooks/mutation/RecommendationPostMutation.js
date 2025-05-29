@@ -7,7 +7,7 @@ const useRecommendationPostMutation = () => {
       return postUserRecommendation(memberId, recommendData);
     },
     onSuccess: () => {
-      window.location.href = "/main";
+      window.location.href = "/plan";
     },
   });
 };
