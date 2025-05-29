@@ -81,7 +81,12 @@ const ContestsModal = ({ onClose, contestId }) => {
             </StatusButton>
           </ProgramHeader>
           <CategoryContainer>
-            <CategoryTag>#{program.category}</CategoryTag>
+            {program.category
+              .split(/[\n/]+/)
+              .filter((tag) => tag.trim() !== "")
+              .map((tag, index) => (
+                <CategoryTag key={index}>#{tag.trim()}</CategoryTag>
+              ))}
           </CategoryContainer>
         </ProgramInfoWrapper>
         <IconContainer>
