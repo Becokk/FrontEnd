@@ -28,12 +28,16 @@ const calculateDday = (endDate) => {
   const [year, month, day] = endDate.split("-").map(Number);
   const targetDate = new Date(Date.UTC(year, month - 1, day));
 
-  const now = new Date();
-  const todayUTC = new Date(
-    Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())
+  const koreaNow = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" })
+  );
+  const todayKST = new Date(
+    koreaNow.getFullYear(),
+    koreaNow.getMonth(),
+    koreaNow.getDate()
   );
 
-  const diff = Math.ceil((targetDate - todayUTC) / (1000 * 60 * 60 * 24));
+  const diff = Math.ceil((targetDate - todayKST) / (1000 * 60 * 60 * 24));
 
   if (diff > 0) return `D-${diff}`;
   if (diff === 0) return "D-DAY";
