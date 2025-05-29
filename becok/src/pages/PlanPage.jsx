@@ -3,6 +3,7 @@ import styled from "styled-components";
 import RoadMap from "../components/PlanPage/RoadMap";
 import Contest from "../components/PlanPage/Contest";
 import Dropdown from "../components/Homepage/Dropdown";
+
 const PlanPage = () => {
     const [activeView, setActiveView] = useState("roadmap");
 
@@ -49,17 +50,16 @@ const PlanPage = () => {
 
 export default PlanPage;
 
-const Wrapper = styled.div `
-    margin-top: 3.25rem;
+const Wrapper = styled.div`
     width: 100%;
-    height: calc(100vh - 64px);
-    padding: 2rem;
+    height: calc(100vh - 4rem);
+    padding: clamp(1rem, 3vw, 2rem);
     box-sizing: border-box;
     overflow-y: auto;
     overflow-x: hidden;
 
     &::-webkit-scrollbar {
-        width: 8px;
+        width: 0.5rem;
     }
 
     &::-webkit-scrollbar-track {
@@ -68,7 +68,7 @@ const Wrapper = styled.div `
 
     &::-webkit-scrollbar-thumb {
         background: #ddd;
-        border-radius: 4px;
+        border-radius: 0.25rem;
     }
 
     &::-webkit-scrollbar-thumb:hover {
@@ -76,42 +76,61 @@ const Wrapper = styled.div `
     }
 `;
 
-const SubTitle = styled.div `
+const SubTitle = styled.div`
     color: #626474;
     font-family: "Pretendard-Regular", Helvetica;
-    font-size: 26px;
-    letter-spacing: -0.65px;
+    font-size: clamp(1.25rem, 2vw, 1.625rem);
+    letter-spacing: -0.04em;
     font-weight: 400;
-    line-height: 39px;
-    padding-left: 6.43rem;
+    line-height: 1.5;
+    padding-left: clamp(2rem, 6vw, 6.43rem);
     white-space: nowrap;
-    margin-top: 2.375rem;
-    margin-bottom: 5px;
+    margin-top: -2.5rem;
+    margin-bottom: 0.3125rem;
+
+    @media (max-width: 768px) {
+        white-space: normal;
+    }
 `;
 
-const TitleSection = styled.div `
+const TitleSection = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 `;
 
-const Title = styled.div `
+const Title = styled.div`
     color: #363636;
-    font-size: 56px;
+    font-size: clamp(2rem, 4vw, 3.5rem);
     font-family: "Pretendard-Medium", Helvetica;
     font-weight: 500;
-    line-height: 72.8px;
-    margin-top: 8px;
-    padding-left: 6.43rem;
-    letter-spacing: -1.40px;
+    line-height: 1.3;
+    margin-top: 0.5rem;
+    padding-left: clamp(2rem, 6vw, 6.43rem);
+    letter-spacing: -0.02em;
     white-space: nowrap;
+
+    @media (max-width: 768px) {
+        white-space: normal;
+    }
 `;
 
 const DropdownWrapper = styled.div`
-    position: absolute;
-    top: 1265;
-    left: 170;
-    z-index: 100;
+    margin-left: min(75vw, 1210px);
+    margin-top: -10.625rem;
+
+    @media (max-width: 1440px) {
+        margin-left: min(70vw, 1000px);
+    }
+
+    @media (max-width: 1024px) {
+        margin-left: min(65vw, 800px);
+    }
+
+    @media (max-width: 768px) {
+        margin-left: auto;
+        margin-right: 2rem;
+    }
 `;
 
