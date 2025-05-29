@@ -22,7 +22,7 @@ const Step2 = ({ onValidityChange, onChange }) => {
         onChange({ grade: Number(grade), semester: Number(semester) });
       }
     }, 0);
-  }, [grade, semester]);
+  }, [grade, semester, onValidityChange, onChange]);
 
   return (
     <>

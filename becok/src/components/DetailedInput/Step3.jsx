@@ -22,7 +22,7 @@ const Step3 = ({ onValidityChange, onChange }) => {
     if (typeof onChange === "function" && point !== "") {
       onChange(Number(point));
     }
-  }, [point]);
+  }, [point, onValidityChange, onChange]);
 
   return (
     <Container>

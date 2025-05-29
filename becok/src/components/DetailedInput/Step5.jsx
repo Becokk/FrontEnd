@@ -26,7 +26,7 @@ const Step5 = ({ onNoHistory, onValidityChange, onChange }) => {
     if (typeof onChange === "function" && isValid) {
       onChange(inputText);
     }
-  }, [inputText]);
+  }, [inputText, onValidityChange, onChange]);
 
   const autoResizeTextarea = () => {
     const textarea = textareaRef.current;

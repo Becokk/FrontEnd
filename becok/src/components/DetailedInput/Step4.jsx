@@ -52,7 +52,7 @@ const Step4 = ({ onValidityChange, onChange }) => {
     if (typeof onChange === "function") {
       onChange(selectedKeywords.map((k) => interestMap[k]));
     }
-  }, [selectedKeywords]);
+  }, [selectedKeywords, onValidityChange, onChange]);
 
   return (
     <Container>
