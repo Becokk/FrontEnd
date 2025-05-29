@@ -1,322 +1,322 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Contest from "./Contest";
-import {GetRecommendRoadMap} from "../../apis/roadmap";
+import { GetRecommendRoadMap } from "../../apis/roadmap";
 import ProgramsModal from "../CardModal/ProgramsModal";
 
 const getTagColor = (tag, isFiltered) => {
-    if (!isFiltered) 
-        return "#2e65f3";
-    
-    switch (tag) {
-        case "창의융합 역량":
-            return "#F885BF66";
-        case "공동체 역량":
-            return "#F3AB4680";
-        case "글로벌 역량":
-            return "#75D7DC99";
-            gg
-        default:
-            return "#f2f0f0";
-            return "#f2f0f0";
-    }
+  if (!isFiltered) return "#2e65f3";
+
+  switch (tag) {
+    case "창의융합 역량":
+      return "#F885BF66";
+    case "공동체 역량":
+      return "#F3AB4680";
+    case "글로벌 역량":
+      return "#75D7DC99";
+    default:
+      return "#f2f0f0";
+  }
 };
 
 const RoadMapContent = ({
-    currentMonth,
-    nextMonth,
-    programs,
-    calculatePosition,
-    calculateWidth,
-    activeFilter
+  currentMonth,
+  nextMonth,
+  programs,
+  calculatePosition,
+  calculateWidth,
+  activeFilter,
 }) => (
-    <RoadMapWrapper>
-        <MonthsContainer>
-            <MonthSection>
-                <MonthLabel>{currentMonth}월</MonthLabel>
-                <MonthUnderline/>
-            </MonthSection>
-            <MonthSection>
-                <MonthLabel>{nextMonth}월</MonthLabel>
-            </MonthSection>
-        </MonthsContainer>
-        <TimelineContainer>
-            <DashedDivider style={{
-                    left: "12.5%"
-                }}/>
-            <MidMonthDivider style={{
-                    left: "25%"
-                }}/>
-            <DashedDivider style={{
-                    left: "37.5%"
-                }}/>
-            <MonthDivider/>
-            <DashedDivider style={{
-                    left: "62.5%"
-                }}/>
-            <MidMonthDivider style={{
-                    left: "75%"
-                }}/>
-            <DashedDivider style={{
-                    left: "87.5%"
-                }}/> {
-                programs.map((program) => (
-                    <ProgramBlock
-                        key={program.program_id}
-                        style={{
-                            left: `${calculatePosition(program.startDate)}%`,
-                            width: `${calculateWidth(program.startDate, program.endDate)}%`,
-                            top: `${program.verticalPosition}px`,
-                            backgroundColor: activeFilter
-                                ? program.tag === activeFilter
-                                    ? getTagColor(program.tag, true)
-                                    : "#8F8F8F"
-                                : "#56627E"
-                        }}>
-                        <ProgramText>{program.name}</ProgramText>
-                    </ProgramBlock>
-                ))
-            }
-        </TimelineContainer>
-    </RoadMapWrapper>
+  <RoadMapWrapper>
+    <MonthsContainer>
+      <MonthSection>
+        <MonthLabel>{currentMonth}월</MonthLabel>
+        <MonthUnderline />
+      </MonthSection>
+      <MonthSection>
+        <MonthLabel>{nextMonth}월</MonthLabel>
+      </MonthSection>
+    </MonthsContainer>
+    <TimelineContainer>
+      <DashedDivider
+        style={{
+          left: "12.5%",
+        }}
+      />
+      <MidMonthDivider
+        style={{
+          left: "25%",
+        }}
+      />
+      <DashedDivider
+        style={{
+          left: "37.5%",
+        }}
+      />
+      <MonthDivider />
+      <DashedDivider
+        style={{
+          left: "62.5%",
+        }}
+      />
+      <MidMonthDivider
+        style={{
+          left: "75%",
+        }}
+      />
+      <DashedDivider
+        style={{
+          left: "87.5%",
+        }}
+      />{" "}
+      {programs.map((program) => (
+        <ProgramBlock
+          key={program.program_id}
+          style={{
+            left: `${calculatePosition(program.startDate)}%`,
+            width: `${calculateWidth(program.startDate, program.endDate)}%`,
+            top: `${program.verticalPosition}px`,
+            backgroundColor: activeFilter
+              ? program.tag === activeFilter
+                ? getTagColor(program.tag, true)
+                : "#8F8F8F"
+              : "#56627E",
+          }}
+        >
+          <ProgramText>{program.name}</ProgramText>
+        </ProgramBlock>
+      ))}
+    </TimelineContainer>
+  </RoadMapWrapper>
 );
 
 const RoadMap = () => {
-    const [programs, setPrograms] = useState([]);
-    const [currentMonth, setCurrentMonth] = useState(5);
-    const [nextMonth, setNextMonth] = useState(6);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedProgram, setSelectedProgram] = useState(null);
-    const [activeFilter, setActiveFilter] = useState(null);
+  const [programs, setPrograms] = useState([]);
+  const [currentMonth, setCurrentMonth] = useState(5);
+  const [nextMonth, setNextMonth] = useState(6);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState(null);
+  const [activeFilter, setActiveFilter] = useState(null);
 
-    const assignRows = (programs) => {
-        const sortedPrograms = [...programs].sort((a, b) => {
-            const dateCompare = new Date(a.startDate) - new Date(b.startDate);
-            if (dateCompare === 0) { // 날짜가 같으면 이름 순으로 정렬
-                return a
-                    .name
-                    .localeCompare(b.title);
+  const assignRows = (programs) => {
+    const sortedPrograms = [...programs].sort((a, b) => {
+      const dateCompare = new Date(a.startDate) - new Date(b.startDate);
+      if (dateCompare === 0) {
+        // 날짜가 같으면 이름 순으로 정렬
+        return a.name.localeCompare(b.title);
+      }
+      return dateCompare;
+    });
+
+    const rows = [];
+    sortedPrograms.forEach((program) => {
+      const start = new Date(program.startDate);
+      const end = new Date(program.endDate);
+
+      let row = 0;
+      let foundRow = false;
+
+      while (!foundRow) {
+        foundRow = true;
+        if (!rows[row]) {
+          rows[row] = [];
+        } else {
+          for (const existingProgram of rows[row]) {
+            const existingStart = new Date(existingProgram.startDate);
+            const existingEnd = new Date(existingProgram.endDate);
+
+            if (!(end < existingStart || start > existingEnd)) {
+              foundRow = false;
+              row++;
+              break;
             }
-            return dateCompare;
-        });
+          }
+        }
+      }
 
-        const rows = [];
-        sortedPrograms.forEach((program) => {
-            const start = new Date(program.startDate);
-            const end = new Date(program.endDate);
+      program.row = row;
+      program.tag = getTopCompetencyTag(program.competencies);
+      rows[row].push(program);
+    });
 
-            let row = 0;
-            let foundRow = false;
+    const totalRows = rows.length;
+    const baseSpacing = totalRows <= 3 ? 120 : 80;
 
-            while (!foundRow) {
-                foundRow = true;
-                if (!rows[row]) {
-                    rows[row] = [];
-                } else {
-                    for (const existingProgram of rows[row]) {
-                        const existingStart = new Date(existingProgram.startDate);
-                        const existingEnd = new Date(existingProgram.endDate);
+    return sortedPrograms.map((program) => ({
+      ...program,
+      verticalPosition: program.row * baseSpacing + 40, // 상단 여백도 약간 증가
+    }));
+  };
 
-                        if (!(end < existingStart || start > existingEnd)) {
-                            foundRow = false;
-                            row++;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            program.row = row;
-            program.tag = getTopCompetencyTag(program.competencies);
-            rows[row].push(program);
-        });
-
-        const totalRows = rows.length;
-        const baseSpacing = totalRows <= 3
-            ? 120
-            : 80;
-
-        return sortedPrograms.map((program) => ({
-            ...program,
-            verticalPosition: program.row * baseSpacing + 40, // 상단 여백도 약간 증가
-        }));
-    };
-
-    const getTopCompetencyTag = (competencies) => {
-        const labels = ["창의융합 역량", "공동체 역량", "글로벌 역량"];
-        const slice = competencies.slice(0, 3); // 필요한 3개만
-        const maxIndex = slice.reduce(
-            (maxIdx, val, idx, arr) => val > arr[maxIdx]
-                ? idx
-                : maxIdx,
-            0
-        );
-        return labels[maxIndex];
-    };
-
-    // useEffect(() => {   const fetchPrograms = async () => {     try {       const
-    // memberId = localStorage.getItem("memberId");       const res = await
-    // GetRecommendRoadMap(memberId);       const programsWithRows =
-    // assignRows(res.data.recommend_program);       setPrograms(programsWithRows);
-    // } catch (err) {       console.error("로드맵 불러오기 실패", err);     }   }; },
-    // [currentMonth, nextMonth]);
-
-    useEffect(() => {
-        const fetchPrograms = async () => {
-            try {
-                const memberId = 7;
-                // localStorage.getItem("memberId");
-                const res = await GetRecommendRoadMap(memberId);
-
-                console.log(res.data);
-
-                const programsWithRows = assignRows(res.data);
-                setPrograms(programsWithRows);
-            } catch (err) {
-                console.error("로드맵 불러오기 실패", err);
-            }
-        };
-        fetchPrograms();
-    }, []);
-
-    const calculatePosition = (date) => {
-        const startOfMonth = new Date(
-            `2025-${String(currentMonth).padStart(2, "0")}-01`
-        );
-        const targetDate = new Date(date);
-        const daysDiff = Math.floor(
-            (targetDate - startOfMonth) / (1000 * 60 * 60 * 24)
-        );
-        return Math.max(0, (daysDiff / 60) * 100);
-    };
-
-    const calculateWidth = (startDate, endDate) => {
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-        const daysDiff = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1;
-        return Math.min(100, Math.max(10, (daysDiff / 60) * 100));
-    };
-
-    const filteredPrograms = activeFilter
-        ? programs.filter((program) => program.tag === activeFilter)
-        : programs;
-
-    return (
-        <>
-        <FilterRow>
-            <TagSelector>
-                <Tag
-                    active={activeFilter === "창의융합 역량"}
-                    onClick={() => setActiveFilter("창의융합 역량")}>
-                    창의융합 역량
-                </Tag>
-                <Tag
-                    active={activeFilter === "공동체 역량"}
-                    onClick={() => setActiveFilter("공동체 역량")}>
-                    공동체 역량
-                </Tag>
-                <Tag
-                    active={activeFilter === "글로벌 역량"}
-                    onClick={() => setActiveFilter("글로벌 역량")}>
-                    글로벌 역량
-                </Tag>
-            </TagSelector>
-        </FilterRow>
-
-        <RoadMapWrapper>
-            <MonthsContainer>
-                <MonthSection>
-                    <MonthLabel>{currentMonth}월</MonthLabel >
-                    <MonthUnderline/>
-                </MonthSection>
-                <MonthSection>
-                    <MonthLabel>{nextMonth}월</MonthLabel>
-                </MonthSection>
-            </MonthsContainer>
-            <TimelineContainer>
-                <DashedDivider
-                    style={{
-                        left: "12.5%"
-                    }}/>
-                <MidMonthDivider
-                    style={{
-                        left: "25%"
-                    }}/>
-                <DashedDivider
-                    style={{
-                        left: "37.5%"
-                    }}/>
-                <MonthDivider/>
-                <DashedDivider
-                    style={{
-                        left: "62.5%"
-                    }}/>
-                <MidMonthDivider
-                    style={{
-                        left: "75%"
-                    }}/>
-                <DashedDivider
-                    style={{
-                        left: "87.5%"
-                    }}/> {
-                    filteredprograms.map((program) => (
-                        <ProgramBlock
-                            key={program.program_id}
-                            style={{
-                                left: `${calculatePosition(program.startDate)}%`,
-                                width: `${calculateWidth(program.startDate, program.endDate)}%`,
-                                top: `${program.verticalPosition}px`
-                            }}>
-                            <ProgramText
-                                onClick={() => {
-                                    setSelectedProgram(program);
-                                    setIsModalOpen(true);
-                                }}>{program.title}</ProgramText>
-                        </ProgramBlock>
-                    ))
-                }
-            </TimelineContainer>
-            {
-                isModalOpen && selectedProgram && (<ProgramsModal
-                    programId={selectedProgram.program_id}
-                    onClose={() => setIsModalOpen(false)}/ >
-                    )
-            }
-        </>
-        </RoadMapWrapper>
+  const getTopCompetencyTag = (competencies) => {
+    const labels = ["창의융합 역량", "공동체 역량", "글로벌 역량"];
+    const slice = competencies.slice(0, 3); // 필요한 3개만
+    const maxIndex = slice.reduce(
+      (maxIdx, val, idx, arr) => (val > arr[maxIdx] ? idx : maxIdx),
+      0
     );
+    return labels[maxIndex];
+  };
+
+  // useEffect(() => {   const fetchPrograms = async () => {     try {       const
+  // memberId = localStorage.getItem("memberId");       const res = await
+  // GetRecommendRoadMap(memberId);       const programsWithRows =
+  // assignRows(res.data.recommend_program);       setPrograms(programsWithRows);
+  // } catch (err) {       console.error("로드맵 불러오기 실패", err);     }   }; },
+  // [currentMonth, nextMonth]);
+
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        const memberId = 7;
+        // localStorage.getItem("memberId");
+        const res = await GetRecommendRoadMap(memberId);
+
+        console.log(res.data);
+
+        const programsWithRows = assignRows(res.data);
+        setPrograms(programsWithRows);
+      } catch (err) {
+        console.error("로드맵 불러오기 실패", err);
+      }
+    };
+    fetchPrograms();
+  }, []);
+
+  const calculatePosition = (date) => {
+    const startOfMonth = new Date(
+      `2025-${String(currentMonth).padStart(2, "0")}-01`
+    );
+    const targetDate = new Date(date);
+    const daysDiff = Math.floor(
+      (targetDate - startOfMonth) / (1000 * 60 * 60 * 24)
+    );
+    return Math.max(0, (daysDiff / 60) * 100);
+  };
+
+  const calculateWidth = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const daysDiff = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1;
+    return Math.min(100, Math.max(10, (daysDiff / 60) * 100));
+  };
+
+  const filteredPrograms = activeFilter
+    ? programs.filter((program) => program.tag === activeFilter)
+    : programs;
+
+  return (
+    <>
+      <FilterRow>
+        <TagSelector>
+          <Tag
+            active={activeFilter === "창의융합 역량"}
+            onClick={() => setActiveFilter("창의융합 역량")}
+          >
+            창의융합 역량
+          </Tag>
+          <Tag
+            active={activeFilter === "공동체 역량"}
+            onClick={() => setActiveFilter("공동체 역량")}
+          >
+            공동체 역량
+          </Tag>
+          <Tag
+            active={activeFilter === "글로벌 역량"}
+            onClick={() => setActiveFilter("글로벌 역량")}
+          >
+            글로벌 역량
+          </Tag>
+        </TagSelector>
+      </FilterRow>
+
+      <RoadMapWrapper>
+        <MonthsContainer>
+          <MonthSection>
+            <MonthLabel>{currentMonth}월</MonthLabel>
+            <MonthUnderline />
+          </MonthSection>
+          <MonthSection>
+            <MonthLabel>{nextMonth}월</MonthLabel>
+          </MonthSection>
+        </MonthsContainer>
+
+        <TimelineContainer>
+          <DashedDivider style={{ left: "12.5%" }} />
+          <MidMonthDivider style={{ left: "25%" }} />
+          <DashedDivider style={{ left: "37.5%" }} />
+          <MonthDivider />
+          <DashedDivider style={{ left: "62.5%" }} />
+          <MidMonthDivider style={{ left: "75%" }} />
+          <DashedDivider style={{ left: "87.5%" }} />
+
+          {filteredPrograms.map((program) => (
+            <ProgramBlock
+              key={program.program_id}
+              style={{
+                left: `${calculatePosition(program.startDate)}%`,
+                width: `${calculateWidth(program.startDate, program.endDate)}%`,
+                top: `${program.verticalPosition}px`,
+                backgroundColor: activeFilter
+                  ? program.tag === activeFilter
+                    ? getTagColor(program.tag, true)
+                    : "#8F8F8F"
+                  : "#56627E",
+              }}
+            >
+              <ProgramText
+                onClick={() => {
+                  setSelectedProgram(program);
+                  setIsModalOpen(true);
+                }}
+              >
+                {program.title}
+              </ProgramText>
+            </ProgramBlock>
+          ))}
+        </TimelineContainer>
+
+        {isModalOpen && selectedProgram && (
+          <ProgramsModal
+            programId={selectedProgram.program_id}
+            onClose={() => setIsModalOpen(false)}
+          />
+        )}
+      </RoadMapWrapper>
+    </>
+  );
 };
 
 export default RoadMap;
 
-const RoadMapWrapper = styled.div `
+const RoadMapWrapper = styled.div`
   padding: 30px 0;
   width: 100%;
   box-sizing: border-box;
 `;
 
-const MonthsContainer = styled.div `
+const MonthsContainer = styled.div`
   display: flex;
   margin-bottom: 30px;
   position: relative;
   padding: 0 40px;
 `;
 
-const MonthSection = styled.div `
+const MonthSection = styled.div`
   flex: 1;
   text-align: center;
   position: relative;
 `;
 
-const MonthLabel = styled.div `
+const MonthLabel = styled.div`
   font-size: 30px;
   font-weight: 500;
   color: #363636;
   padding-bottom: 10px;
 `;
 
-const MonthUnderline = styled.div `
+const MonthUnderline = styled.div`
   position: absolute;
   bottom: -10px;
   left: 0;
@@ -325,7 +325,7 @@ const MonthUnderline = styled.div `
   background: #2e65f3;
 `;
 
-const TimelineContainer = styled.div `
+const TimelineContainer = styled.div`
   position: relative;
   width: 100%;
   min-height: 800px;
@@ -341,7 +341,7 @@ const TimelineContainer = styled.div `
   }
 `;
 
-const BaseDivider = styled.div `
+const BaseDivider = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -366,7 +366,7 @@ const DashedDivider = styled(BaseDivider)`
   background: transparent;
 `;
 
-const ProgramBlock = styled.div `
+const ProgramBlock = styled.div`
   position: absolute;
   background: linear-gradient(
     102deg,
@@ -391,7 +391,7 @@ const ProgramBlock = styled.div `
   }
 `;
 
-const ProgramText = styled.div `
+const ProgramText = styled.div`
   color: #56627e;
   font-family: "Pretendard-SemiBold", Helvetica;
   font-size: 20px;
@@ -407,13 +407,13 @@ const ProgramText = styled.div `
   width: 100%;
 `;
 
-const DropdownWrapper = styled.div `
+const DropdownWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-bottom: 20px;
 `;
 
-const Dropdown = styled.select `
+const Dropdown = styled.select`
   padding: 8px 12px;
   font-size: 14px;
   border: none;
@@ -428,14 +428,14 @@ const Dropdown = styled.select `
     background: #e8e8f0;
   }
 `;
-const TitleSection = styled.div `
+const TitleSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: 20px; // 우측 여백
 `;
 
-const FilterRow = styled.div `
+const FilterRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -443,20 +443,17 @@ const FilterRow = styled.div `
   padding-right: 40px;
 `;
 
-const TagSelector = styled.div `
+const TagSelector = styled.div`
   display: flex;
   gap: 12px;
 `;
 
-const Tag = styled.div `
+const Tag = styled.div`
   cursor: pointer;
   font-size: 14px;
-  color: ${ ({
-    active}) => (active ? "#2E65F3" : "#666")};
-  font-weight: ${ ({
-        active}) => (active ? "700" : "400")};
-  border-bottom: ${ ({
-            active}) => (active ? "2px solid #2E65F3" : "none")};
+  color: ${({ active }) => (active ? "#2E65F3" : "#666")};
+  font-weight: ${({ active }) => (active ? "700" : "400")};
+  border-bottom: ${({ active }) => (active ? "2px solid #2E65F3" : "none")};
   padding: 4px 8px;
 
   &:hover {

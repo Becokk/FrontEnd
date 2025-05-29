@@ -50,13 +50,14 @@ const PlanPage = () => {
 export default PlanPage;
 
 const Wrapper = styled.div `
-    margin-top: 3.25rem;
+    padding-top: 3.25rem;
     width: 100%;
     height: calc(100vh - 64px);
     padding: 2rem;
     box-sizing: border-box;
     overflow-y: auto;
     overflow-x: hidden;
+    background: #F7F9FF;
 
     &::-webkit-scrollbar {
         width: 8px;

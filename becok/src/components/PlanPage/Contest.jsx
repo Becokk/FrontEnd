@@ -39,7 +39,7 @@ export default Contest;
 
 const ContentWrapper = styled.div`
     width: 100%;
-    background: #F8F9FE;
+    background: #F7F9FF;
     border-radius: 12px;
     padding: 30px;
     box-sizing: border-box;
