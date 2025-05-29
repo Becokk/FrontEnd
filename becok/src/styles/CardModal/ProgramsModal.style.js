@@ -94,7 +94,7 @@ export const TopLeftBox = styled.div`
 export const PointText = styled.span`
   font-family: "Pretendard";
   font-weight: 600;
-  font-size: 2.215625rem;
+  font-size: 2.5rem;
   line-height: 130%;
   letter-spacing: -0.025em;
   color: #f8f8f8;
@@ -124,7 +124,7 @@ export const PointGroup = styled.div`
   gap: 1rem;
   align-items: center;
   justify-content: center;
-  padding-bottom: 7vh;
+  padding-bottom: 8vh;
 `;
 
 export const PointInfoContainer = styled.div`

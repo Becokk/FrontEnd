@@ -137,7 +137,7 @@ const Card = styled.div`
   background-color: #f7f9ff;
   width: 100%;
   height: auto;
-  min-height: 310px;
+  min-height: 260px;
   border-radius: 20px;
   overflow: hidden;
   position: relative;
@@ -159,7 +159,9 @@ const Image = styled.div`
   height: 100%;
   background-image: url(${(props) => props.bg});
   background-size: cover;
-  background-position: center;
+  background-position: top left;
+  object-fit: cover;
+  object-position: top left;
 `;
 
 const Dday = styled.div`
