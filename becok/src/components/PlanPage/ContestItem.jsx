@@ -24,7 +24,7 @@ const mapProgramToContest = (program) => ({
 });
 
 const calculateDday = (endDate) => {
-  if (!endDate || typeof endDate !== "string") return "종료";
+  if (!endDate || typeof endDate !== "string") return { text: "종료", bgColor: "#d52525" };
 
   const [year, month, day] = endDate.split("-").map(Number);
   const targetDate = new Date(Date.UTC(year, month - 1, day));
@@ -40,9 +40,14 @@ const calculateDday = (endDate) => {
 
   const diff = Math.ceil((targetDate - todayKST) / (1000 * 60 * 60 * 24));
 
-  if (diff > 0) return `D-${diff}`;
-  if (diff === 0) return "D-DAY";
-  return "종료";
+  if (diff > 0) {
+    return {
+      text: `D-${diff}`,
+      bgColor: diff >= 7 ? "#2e65f3" : "#d52525", // blue if 7 days or more, red otherwise
+    };
+  }
+  if (diff === 0) return { text: "D-DAY", bgColor: "#d52525" };
+  return { text: "종료", bgColor: "#d52525" };
 };
 
 const useRecommendedPrograms = () => {
@@ -102,11 +107,10 @@ const ContestItem = ({ contest, onClick }) => {
     <Card key={contest.id} onClick={onClick}>
       <ImageWrapper>
         <Image bg={contest.thumbnailUrl} />
-        <Dday>
-          <DdayGroup>
-            <DdayNum>{calculateDday(contest.endDate)}</DdayNum>
-          </DdayGroup>
-        </Dday>
+        {(() => {
+          const { text, bgColor } = calculateDday(contest.endDate);
+          return <Dday style={{ backgroundColor: bgColor }}><DdayGroup><DdayNum>{text}</DdayNum></DdayGroup></Dday>;
+        })()}
       </ImageWrapper>
       <Content>
         <TitleRow>
@@ -176,7 +180,6 @@ const Dday = styled.div`
   position: absolute;
   top: 22px;
   right: 12px;
-  background-color: #d52525;
   border-radius: 15px 0px 0px 15px;
   padding: 7px 24px;
   color: white;
