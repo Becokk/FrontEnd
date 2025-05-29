@@ -24,7 +24,8 @@ const mapProgramToContest = (program) => ({
 });
 
 const calculateDday = (endDate) => {
-  if (!endDate || typeof endDate !== "string") return { text: "종료", bgColor: "#d52525" };
+  if (!endDate || typeof endDate !== "string")
+    return { text: "종료", bgColor: "#d52525" };
 
   const [year, month, day] = endDate.split("-").map(Number);
   const targetDate = new Date(Date.UTC(year, month - 1, day));
@@ -109,7 +110,13 @@ const ContestItem = ({ contest, onClick }) => {
         <Image bg={contest.thumbnailUrl} />
         {(() => {
           const { text, bgColor } = calculateDday(contest.endDate);
-          return <Dday style={{ backgroundColor: bgColor }}><DdayGroup><DdayNum>{text}</DdayNum></DdayGroup></Dday>;
+          return (
+            <Dday style={{ backgroundColor: bgColor }}>
+              <DdayGroup>
+                <DdayNum>{text}</DdayNum>
+              </DdayGroup>
+            </Dday>
+          );
         })()}
       </ImageWrapper>
       <Content>
@@ -179,7 +186,7 @@ const Image = styled.div`
 const Dday = styled.div`
   position: absolute;
   top: 22px;
-  right: 12px;
+  right: 0px;
   border-radius: 15px 0px 0px 15px;
   padding: 7px 24px;
   color: white;
