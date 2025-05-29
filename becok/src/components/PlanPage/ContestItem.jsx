@@ -3,6 +3,7 @@ import axios from "axios";
 import React from "react";
 import styled from "styled-components";
 import StatusImg from "../../assets/status.png";
+import HandImg from "../../assets/hand.png";
 
 const API_BASE_URL =
   process.env.REACT_APP_API_BASE_URL || "http://3.36.162.164:8080";
@@ -110,9 +111,16 @@ const ContestItem = ({ contest, onClick }) => {
       <Content>
         <TitleRow>
           <Title>{contest.title}</Title>
-          <Status>
-            <img src={StatusImg} alt="status" />{" "}
-            {contest.status === "ONGOING" ? "모집 중" : contest.status}
+          <Status status={contest.status}>
+            <img
+              src={contest.status === "UPCOMING" ? HandImg : StatusImg}
+              alt="status"
+            />{" "}
+            {contest.status === "UPCOMING"
+              ? "모집대기"
+              : contest.status === "ONGOING"
+                ? "모집 중"
+                : contest.status}
           </Status>
         </TitleRow>
         <Tags>
@@ -235,25 +243,31 @@ const Title = styled.div`
 
 const Status = styled.div`
   font-size: 1.1rem;
-  color: white;
-  background-color: #2e65f3;
-  padding: 4px 10px;
-  border-radius: 12px;
+  color: ${(props) => (props.status === "UPCOMING" ? "#626474" : "#FFFFFF")};
+  background: ${(props) =>
+    props.status === "UPCOMING" ? "#E5E8EF" : "#2e65f3"};
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.75rem;
   font-weight: bold;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 8px;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
   white-space: nowrap;
 
   @media (max-width: 768px) {
-    font-size: 12px;
-    padding: 3px 8px;
+    font-size: 0.75rem;
+    padding: 0.1875rem 0.5rem;
   }
 
   img {
-    width: 1vw
-    height: 1vw
+    width: 0.9rem;
+    height: 0.9rem;
+
+    @media (max-width: 768px) {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
   }
 `;
 

@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { usePostUserBookMark } from "../../hooks/mutation/BookMarkMutation";
 import { usePostNotificationSettings } from "../../hooks/mutation/NotificationMutation";
 import shipIcon from "../../assets/ship.png";
+import handIcon from "../../assets/hand.png";
 
 
 import {
@@ -67,17 +68,17 @@ const ContestsModal = ({ onClose, contestId }) => {
             >
               {program.name}
             </ProgramName>
-            <StatusButton status="모집 중">
+            <StatusButton status={program.status}>
               <img
-                src={shipIcon}
-                alt="ship icon"
+                src={program.status === "UPCOMING" ? handIcon : shipIcon}
+                alt="status icon"
                 style={{
                   width: "1.2vw",
                   height: "2.13vh",
                   marginRight: "0.5rem",
                 }}
               />
-              모집 중
+              {program.status === "UPCOMING" ? "모집대기" : "모집 중"}
             </StatusButton>
           </ProgramHeader>
           <CategoryContainer>
