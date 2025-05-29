@@ -25,7 +25,8 @@ const Contest = () => {
           }
         }
 
-        setContests(uniqueContests.slice(0, 9));
+        const shuffled = [...uniqueContests].sort(() => 0.5 - Math.random());
+        setContests(shuffled.slice(0, 9));
         console.log("API Response:", response.data);
       } catch (error) {
         console.error("공모전 불러오기 실패:", error);
