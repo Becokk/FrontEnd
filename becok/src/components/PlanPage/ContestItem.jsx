@@ -7,7 +7,7 @@ import CheckedAlarm from '../../assets/checkedalarm.png';
 import StatusImg from '../../assets/status.png';
 import {getRecommendedContests} from "../../apis/contestlist";
 
-const ContestItem = () => {
+const ContestItem = ({ contest }) => {
     const [contests, setContests] = useState([]);
 
     useEffect(() => {

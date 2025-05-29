@@ -1,14 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import ContestItem from './ContestItem';
+import {getRecommendedContests} from '../../apis/contestlist';
 
 const Contest = () => {
-    const memberId = localStorage.getItem("memberId");
+    const [contests, setContests] = useState([]);
+    const memberId = localStorage.getItem("memberId") || 7;
+
+    useEffect(()=>{
+        const fetchContests = async () => {
+            try {
+                const response = await getRecommendedContests(memberId);
+                setContests(response.data); // "data" 배열만 추출
+            } catch (error) {
+                console.error("공모전 불러오기 실패:", error);
+            }
+        };
+
+        fetchContests();
+    }, [memberId]);
+
 
     return (
+        // <ContentWrapper>
+        //     {Array.from({ length: 9 }).map((_, index) => (
+        //         <ContestItem key={index} />
+        //     ))}
+        // </ContentWrapper>
         <ContentWrapper>
-            {Array.from({ length: 9 }).map((_, index) => (
-                <ContestItem key={index} />
+            {contests.map((contest) => (
+                <ContestItem key={contest.id} contest={contest} />
             ))}
         </ContentWrapper>
     );
