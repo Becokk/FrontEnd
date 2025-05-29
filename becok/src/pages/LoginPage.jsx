@@ -19,4 +19,5 @@ const LoginContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 9.69vw;
+  background: #f7f9ff;
 `;
