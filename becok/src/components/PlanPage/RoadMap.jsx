@@ -8,6 +8,8 @@ import ProgramsModal from "../CardModal/ProgramsModal";
 const getTagColor = (tag, isFiltered) => {
     if (!isFiltered) 
         return "#2e65f3";
+    if (!isFiltered) 
+        return "#2e65f3";
     
     switch (tag) {
         case "창의융합 역량":
@@ -16,7 +18,6 @@ const getTagColor = (tag, isFiltered) => {
             return "#F3AB4680";
         case "글로벌 역량":
             return "#75D7DC99";
-            gg
         default:
             return "#f2f0f0";
             return "#f2f0f0";
@@ -88,16 +89,12 @@ const RoadMap = () => {
     const [nextMonth, setNextMonth] = useState(6);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProgram, setSelectedProgram] = useState(null);
-    const [activeFilter, setActiveFilter] = useState(null);
 
     const assignRows = (programs) => {
         const sortedPrograms = [...programs].sort((a, b) => {
             const dateCompare = new Date(a.startDate) - new Date(b.startDate);
-            if (dateCompare === 0) { // 날짜가 같으면 이름 순으로 정렬
-                return a
-                    .name
-                    .localeCompare(b.title);
-            }
+            // if (dateCompare === 0) {  날짜가 같으면 이름 순으로 정렬   return
+            // a.name.localeCompare(b.name); }
             return dateCompare;
         });
 
@@ -128,7 +125,6 @@ const RoadMap = () => {
             }
 
             program.row = row;
-            program.tag = getTopCompetencyTag(program.competencies);
             rows[row].push(program);
         });
 
@@ -141,18 +137,6 @@ const RoadMap = () => {
             ...program,
             verticalPosition: program.row * baseSpacing + 40, // 상단 여백도 약간 증가
         }));
-    };
-
-    const getTopCompetencyTag = (competencies) => {
-        const labels = ["창의융합 역량", "공동체 역량", "글로벌 역량"];
-        const slice = competencies.slice(0, 3); // 필요한 3개만
-        const maxIndex = slice.reduce(
-            (maxIdx, val, idx, arr) => val > arr[maxIdx]
-                ? idx
-                : maxIdx,
-            0
-        );
-        return labels[maxIndex];
     };
 
     // useEffect(() => {   const fetchPrograms = async () => {     try {       const
@@ -198,36 +182,11 @@ const RoadMap = () => {
         return Math.min(100, Math.max(10, (daysDiff / 60) * 100));
     };
 
-    const filteredPrograms = activeFilter
-        ? programs.filter((program) => program.tag === activeFilter)
-        : programs;
-
     return (
-        <>
-        <FilterRow>
-            <TagSelector>
-                <Tag
-                    active={activeFilter === "창의융합 역량"}
-                    onClick={() => setActiveFilter("창의융합 역량")}>
-                    창의융합 역량
-                </Tag>
-                <Tag
-                    active={activeFilter === "공동체 역량"}
-                    onClick={() => setActiveFilter("공동체 역량")}>
-                    공동체 역량
-                </Tag>
-                <Tag
-                    active={activeFilter === "글로벌 역량"}
-                    onClick={() => setActiveFilter("글로벌 역량")}>
-                    글로벌 역량
-                </Tag>
-            </TagSelector>
-        </FilterRow>
-
         <RoadMapWrapper>
             <MonthsContainer>
                 <MonthSection>
-                    <MonthLabel>{currentMonth}월</MonthLabel >
+                    <MonthLabel>{currentMonth}월</MonthLabel>
                     <MonthUnderline/>
                 </MonthSection>
                 <MonthSection>
@@ -260,7 +219,7 @@ const RoadMap = () => {
                     style={{
                         left: "87.5%"
                     }}/> {
-                    filteredprograms.map((program) => (
+                    programs.map((program) => (
                         <ProgramBlock
                             key={program.program_id}
                             style={{
@@ -278,12 +237,13 @@ const RoadMap = () => {
                 }
             </TimelineContainer>
             {
-                isModalOpen && selectedProgram && (<ProgramsModal
-                    programId={selectedProgram.program_id}
-                    onClose={() => setIsModalOpen(false)}/ >
-                    )
+                isModalOpen && selectedProgram && (
+                    <ProgramsModal
+                        programId={selectedProgram.program_id}
+                        onClose={() => setIsModalOpen(false)}/>
+                )
             }
-        </>
+
         </RoadMapWrapper>
     );
 };
