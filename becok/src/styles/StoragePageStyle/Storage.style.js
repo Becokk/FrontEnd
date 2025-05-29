@@ -5,7 +5,7 @@ export const Frame = styled.div`
   width: 100%;
   height: 100vh;
   margin: 0 auto;
-  background-color: white;
+  background-color: #f7f9ff;
   overflow-y: auto;
 `;
 

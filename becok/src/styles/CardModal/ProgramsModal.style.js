@@ -62,7 +62,7 @@ export const CategoryContainer = styled.div`
   display: flex;
   gap: 0.5rem;
   margin-top: 1.25vh;
-  margin-left: 3.13vw;
+  margin-left: 3.7vw;
 `;
 
 export const CategoryTag = styled.span`

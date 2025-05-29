@@ -71,7 +71,7 @@ export const InputField = styled.input`
   padding-left: 1.25vw;
   font-size: 1rem;
   color: #3f4149;
-  background-color: ${({ $isvalid }) => ($isvalid ? "" : "#fbeaec")};
+  background-color: ${({ $isvalid }) => ($isvalid ? "#F7F9FF" : "#fbeaec")};
   transition: all 0.2s ease;
 
   &::placeholder {
@@ -153,7 +153,7 @@ export const PasswordField = styled.input`
   font-size: 0.83rem;
   color: #3f4149;
   transition: all 0.2s ease;
-  background-color: ${({ $isvalid }) => ($isvalid ? "f9f9f9" : "#fbeaec")};
+  background-color: ${({ $isvalid }) => ($isvalid ? "#F7F9FF" : "#fbeaec")};
 
   &::placeholder {
     font-family: "Pretendard";
