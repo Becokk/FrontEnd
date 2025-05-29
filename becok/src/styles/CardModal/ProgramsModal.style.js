@@ -68,7 +68,7 @@ export const CategoryContainer = styled.div`
 export const CategoryTag = styled.span`
   font-family: "Pretendard";
   font-weight: 500;
-  font-size: 1.675rem;
+  font-size: 1.5rem;
   line-height: 130%;
   letter-spacing: -0.025em;
   color: #747e97;
@@ -133,8 +133,7 @@ export const DdayText = styled.span`
 
 export const StatusButton = styled.button`
   flex-shrink: 0;
-  width: ${(props) =>
-    props.status === "UPCOMING" ? "10.5rem" : "9.125rem"};
+  width: ${(props) => (props.status === "UPCOMING" ? "10.5rem" : "9.125rem")};
   height: 5.74vh;
   background-color: ${(props) =>
     props.status === "UPCOMING" ? "#E5E8EF" : "#2e65f3"};

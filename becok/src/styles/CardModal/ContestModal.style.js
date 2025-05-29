@@ -68,7 +68,7 @@ export const CategoryContainer = styled.div`
 export const CategoryTag = styled.span`
   font-family: "Pretendard";
   font-weight: 500;
-  font-size: 1.675rem;
+  font-size: 1.5rem;
   line-height: 130%;
   letter-spacing: -0.025em;
   color: #747e97;
