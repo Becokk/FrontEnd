@@ -25,6 +25,7 @@ import {
   IconContainer,
   BookmarkIcon,
   BellIcon,
+  PointGroup,
 } from "../../styles/CardModal/ProgramsModal.style";
 
 const ProgramsModal = ({ onClose, programId }) => {
@@ -56,8 +57,10 @@ const ProgramsModal = ({ onClose, programId }) => {
       <ModalBox ref={modalRef}>
         <TopLeftBox>
           <PointInfoContainer>
-            <PointCircle>P</PointCircle>
-            <PointText>{program.point}</PointText>
+            <PointGroup>
+              <PointCircle>P</PointCircle>
+              <PointText>{program.point}</PointText>
+            </PointGroup>
             <DdayText>
               D-
               {Math.ceil(

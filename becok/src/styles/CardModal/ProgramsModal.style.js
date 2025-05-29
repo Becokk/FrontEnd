@@ -103,7 +103,7 @@ export const PointText = styled.span`
 
 export const PointCircle = styled.div`
   width: 3.3vw;
-  height: 5.86vh;
+  height: 3.3vw;
   background-color: #2d63ef;
   border-radius: 50%;
   color: white;
@@ -111,24 +111,39 @@ export const PointCircle = styled.div`
   font-weight: 600;
   font-size: 2.5rem;
   display: flex;
+  color: #f8f8f8;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  line-height: 5.86vh;
+`;
+
+export const PointGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 7vh;
 `;
 
 export const PointInfoContainer = styled.div`
   display: flex;
-  gap: 0.8vw;
+  gap: 2vw;
 `;
 
 export const DdayText = styled.span`
   font-family: "Pretendard";
   font-weight: 600;
-  font-size: 2rem;
+  font-size: 2.5rem;
   line-height: 130%;
   letter-spacing: -0.025em;
   color: white;
-  margin-top: 6.25rem;
-  margin-left: -6rem;
+  position: absolute;
+  padding-top: 10vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const StatusButton = styled.button`

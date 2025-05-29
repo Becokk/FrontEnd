@@ -168,10 +168,14 @@ const Dday = styled.div`
   right: 12px;
   background-color: #d52525;
   border-radius: 15px 0px 0px 15px;
-  padding: 7px 24px 7px 24px;
+  padding: 7px 24px;
   color: white;
   width: auto;
   z-index: 10;
+
+  @media (max-width: 768px) {
+    padding: 4px 14px;
+  }
 `;
 
 const DdayGroup = styled.div`
@@ -181,15 +185,23 @@ const DdayGroup = styled.div`
 `;
 
 const DdayDash = styled.div`
-  font-size: 36px;
+  font-size: 2.25rem;
   font-weight: 600;
   color: white;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const DdayNum = styled.div`
-  font-size: 36px;
+  font-size: 2.25rem;
   font-weight: 700;
   color: white;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const Content = styled.div`
